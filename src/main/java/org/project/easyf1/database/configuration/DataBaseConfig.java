@@ -32,7 +32,7 @@ public class DataBaseConfig {
                         username,
                         password)
                 .locations(flywayProperties.getLocations().toArray(String[]::new))
-                .baselineOnMigrate(false)
+                .baselineOnMigrate(true)
                 .load();
     }
 
