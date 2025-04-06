@@ -14,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +32,14 @@ public class AuthController {
 
     private final AuthenticationManager authentication;
 
+    private final PasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public AuthController(TokenService tokenService, UserRepository userRepository, AuthenticationManager authenticationManager) {
+    public AuthController(TokenService tokenService, UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder bCryptPasswordEncoder) {
         this.tokenService = tokenService;
         this.userRepository = userRepository;
         this.authentication = authenticationManager;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping("login")
@@ -56,11 +61,11 @@ public class AuthController {
 
         User user = registerDTO.createUser();
 
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 
         userRepository.save(user);
 
-        return login(registerDTO.createLoginDTO(), request);
+        return ResponseEntity.ok(new TokenDTO(tokenService.TokenGenerator(this.userRepository.findByUsername(user.getUsername()), request)));
     }
 
 }

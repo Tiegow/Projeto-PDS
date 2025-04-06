@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,8 +25,14 @@ public class SecurityConfig{
 
     private final SecurityTokenFilter securityTokenFilter;
 
-    public SecurityConfig(SecurityTokenFilter securityTokenFilter) {
+    private final UserDetailsService userDetailsService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(SecurityTokenFilter securityTokenFilter, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         this.securityTokenFilter = securityTokenFilter;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -42,17 +49,18 @@ public class SecurityConfig{
 
         httpSecurity.addFilterBefore(securityTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
+        httpSecurity.sessionManagement((session) ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         return  httpSecurity.build();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
         return configuration.getAuthenticationManager();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
     }
 
 }
