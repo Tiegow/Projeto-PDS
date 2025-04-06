@@ -2,7 +2,6 @@ package org.project.easyf1.models.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import org.project.easyf1.models.entity.Role;
 import org.project.easyf1.models.entity.User;
 

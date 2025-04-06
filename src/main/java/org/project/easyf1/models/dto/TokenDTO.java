@@ -1,10 +1,6 @@
 package org.project.easyf1.models.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-
 public class TokenDTO {
     private String token;
 

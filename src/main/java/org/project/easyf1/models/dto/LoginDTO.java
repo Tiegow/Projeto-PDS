@@ -2,7 +2,6 @@ package org.project.easyf1.models.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 
 public class LoginDTO {
 
