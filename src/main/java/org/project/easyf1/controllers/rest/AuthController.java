@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.project.easyf1.models.dto.LoginDTO;
 import org.project.easyf1.models.dto.RegisterDTO;
 import org.project.easyf1.models.dto.TokenDTO;
+import org.project.easyf1.models.entity.User;
 import org.project.easyf1.repositories.UserRepository;
 import org.project.easyf1.security.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +30,14 @@ public class AuthController {
 
     private final AuthenticationManager authentication;
 
+    private final PasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public AuthController(TokenService tokenService, UserRepository userRepository, AuthenticationManager authenticationManager) {
+    public AuthController(TokenService tokenService, UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder bCryptPasswordEncoder) {
         this.tokenService = tokenService;
         this.userRepository = userRepository;
         this.authentication = authenticationManager;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping("login")
@@ -52,9 +57,13 @@ public class AuthController {
     @PostMapping("register")
     public ResponseEntity<TokenDTO> register(@Valid @RequestBody RegisterDTO registerDTO, HttpServletRequest request){
 
-        userRepository.save(registerDTO.createUser());
+        User user = registerDTO.createUser();
 
-        return login(registerDTO.createLoginDTO(), request);
+        user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new TokenDTO(tokenService.TokenGenerator(this.userRepository.findByUsername(user.getUsername()), request)));
     }
 
 }

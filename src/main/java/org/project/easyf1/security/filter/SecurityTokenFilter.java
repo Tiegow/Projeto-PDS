@@ -44,7 +44,7 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
 
             HashMap<String, String> resp = tokenService.getSubject(token);
 
-            if(resp.get("ip").equalsIgnoreCase(util.getClientIp(request))){
+            if(!resp.get("ip").equalsIgnoreCase(util.getClientIp(request))){
                 throw new RuntimeException("Request IP does not match the IP used when the token was created.");
             }
 
