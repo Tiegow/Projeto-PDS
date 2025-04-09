@@ -2,6 +2,7 @@ package org.project.easyf1.security.configuration;
 
 
 import org.project.easyf1.security.filter.SecurityTokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,19 +23,17 @@ public class SecurityConfig{
 
     private final SecurityTokenFilter securityTokenFilter;
 
-    private final UserDetailsService userDetailsService;
-
-    private final PasswordEncoder passwordEncoder;
-
-    public SecurityConfig(SecurityTokenFilter securityTokenFilter, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    @Autowired
+    public SecurityConfig(SecurityTokenFilter securityTokenFilter) {
         this.securityTokenFilter = securityTokenFilter;
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(csrf -> csrf.ignoringRequestMatchers("/**"));
+
+        httpSecurity.authorizeHttpRequests(authorizeRequests ->
+                authorizeRequests.requestMatchers("/components/**", "/css/**", "/js/**", "/images/**").permitAll());
 
         httpSecurity.authorizeHttpRequests((authorization) ->
                 authorization.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
