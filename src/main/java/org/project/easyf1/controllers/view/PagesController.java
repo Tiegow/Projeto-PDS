@@ -17,4 +17,9 @@ public class PagesController {
     public String homePage() {
         return "pages/index";
     }
+
+    @GetMapping("/history")
+    public String historyPage() {
+        return "pages/history";
+    }
 }

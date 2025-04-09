@@ -1,0 +1,70 @@
+.gp-container {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.gp-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    max-width: 540px;
+    background-color: var(--cor-background);
+    cursor: pointer;
+}
+
+.gp-content:hover {
+    background-color: var(--cor-secundaria);
+}
+
+.flag-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#flag-container img {
+    width: 40px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.location-texts p {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.date-info p {
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Parte expandida */
+.gp-details {
+    max-width: 540px;
+    margin: 0 auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    background-color: var(--cor-background);
+}
+
+.gp-details span {
+    font-size: 20px;
+}
+
+.gp-container.expanded .gp-details {
+    max-height: 500px; 
+    padding: 12px;
+    border-top: 3px solid var(--cor-branco);
+}
+
+.gp-day {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.gp-day:last-child {
+    border-bottom: none;
+}
