@@ -38,6 +38,7 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll()
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/EasyF1/auth").permitAll()
                         .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER")
                         .anyRequest().authenticated());

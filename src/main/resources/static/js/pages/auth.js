@@ -1,5 +1,5 @@
 window.onload = function() {
-    loadComponent('authForm', '../../templates/components/loginForm.html');
+    loadComponent('authForm', '/components/loginForm.html');
 }
 
 document.getElementById("authForm").addEventListener("submit", function(event) {
@@ -9,14 +9,14 @@ document.getElementById("authForm").addEventListener("submit", function(event) {
     const dados = Object.fromEntries(formData.entries());
 
     // Converter a data de nascimento no formato aceito pelo GregorianCalendar
-    if (dados.birthday) {
-        const [ano, mes, dia] = dados.birthday.split("-");
-        dados.birthday = {
-            year: parseInt(ano),
-            month: parseInt(mes) - 1,
-            dayOfMonth: parseInt(dia)
-        };
-    }
+    // if (dados.birthday) {
+    //     const [ano, mes, dia] = dados.birthday.split("-");
+    //     dados.birthday = {
+    //         year: parseInt(ano),
+    //         month: parseInt(mes) - 1,
+    //         dayOfMonth: parseInt(dia)
+    //     };
+    // }
 
     fetch("/auth/register", {
         method: "POST",
@@ -37,9 +37,9 @@ document.getElementById("authForm").addEventListener("submit", function(event) {
 });
 
 function changeToRegister() {
-    loadComponent('authForm', '../../templates/components/registerForm.html');
+    loadComponent('authForm', '/components/registerForm.html');
 }
 
 function changeToLogin() {
-    loadComponent('authForm', '../../templates/components/loginForm.html');
+    loadComponent('authForm', '/components/loginForm.html');
 }
