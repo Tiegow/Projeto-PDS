@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyF1</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/logo.png}">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/index.css}">
+</head>
+<body>
+    <div id="header"></div> <!-- O header da página será caregado aqui via JS -->
+
+    <div class="container-fluid text-center">
+        <div class="trapezio mx-auto">
+            <span>ANO</span>
+        </div>
+        <div class="row">
+          <aside class="col">
+            <h3>HIGHLIGHTS</h3>
+            <div class="highlights-wrapper">
+                <!-- Highlights gerados dinamicamente aqui -->
+            </div>
+          </aside>
+          <section class="col-6">
+            <div class="today-card mx-auto py-2">
+                <h3 class="py-2">HOJE</h3>
+                <div id="flag-container" class="mx-auto">
+                    <!-- Imagem da bandeira -->
+                </div>
+                <p id="circuit-name">
+                    <!-- circuit_short_name -->
+                </p>
+                <p id="circuit-type">
+                    <!-- session_name -->
+                </p>
+                <p id="session-time">
+                    <!-- hora do inicio e do fim -->
+                </p>
+                <button></button>
+            </div>
+
+            <div class="calendar">
+                <div class="gp-wraper"></div>
+            </div>
+          </section>
+          <aside class="col">
+            <h3>SEUS FAVORITOS</h3>
+          </aside>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

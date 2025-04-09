@@ -1,0 +1,40 @@
+form {
+    color: var(--cor-preto);
+    width: 27%;
+    background-color: var(--cor-branco);
+    padding: 50px;
+    border-radius: 20px;
+    margin-top: 150px;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria) !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-secundaria) !important;
+    border: none;
+}
+
+.form-control {
+    background-color: inherit;
+    box-shadow: none !important;
+    border: none;
+    border-bottom: 3px solid var(--cor-secundaria) !important;
+    border-radius: 4px 4px 0 0;
+}
+
+p {
+    font-size: 20px !important;
+}
+
+p:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+    form {
+        width: 100% !important;
+    }
+}
