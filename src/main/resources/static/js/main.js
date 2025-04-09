@@ -1,19 +1,19 @@
 window.onload = () => {
-    // checkToken();
+    checkToken();
     loadMainComponents();
 }
 
 function checkToken() {
     const token = localStorage.getItem('token');
 
-    if (!token && !window.location.pathname.includes('auth.html')) {
-        window.location.href = '../../templates/pages/auth.html';
+    if (!token && !window.location.pathname.includes('auth')) {
+        navigate('auth');
     }
 }
 
 // Função para carregar os componentes principais da página (cabeçalho, rodapé, etc.)
 function loadMainComponents() {
-    loadComponent('header', '../../templates/components/header.html');
+    loadComponent('header', '/components/header.html');
 }
 
 /**
@@ -40,5 +40,5 @@ function loadComponent(targetElementId, componentUrl) {
 }
 
 function navigate(destination) {
-    window.location.href = '../../templates/pages/' + destination + '.html';
+    window.location.href = '/EasyF1/' + destination;
 }

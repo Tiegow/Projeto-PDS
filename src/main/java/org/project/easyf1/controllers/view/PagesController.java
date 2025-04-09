@@ -6,10 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/EasyF1")
-public class AuthPageController {
+public class PagesController {
 
     @GetMapping("/auth")
     public String authPage() {
         return "pages/auth";
+    }
+
+    @GetMapping("/home")
+    public String homePage() {
+        return "pages/index";
     }
 }

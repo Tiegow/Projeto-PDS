@@ -1,3 +1,5 @@
+var authType = "login"; // Pode ser "login" ou "register"
+
 window.onload = function() {
     loadComponent('authForm', '/components/loginForm.html');
 }
@@ -18,6 +20,46 @@ document.getElementById("authForm").addEventListener("submit", function(event) {
     //     };
     // }
 
+    if (authType === "login") {
+        callLogin(dados);
+    }
+    else if (authType === "register") {
+        callRegister(dados);
+    }
+});
+
+function changeToRegister() {
+    loadComponent('authForm', '/components/registerForm.html');
+    authType = "register";
+}
+
+function changeToLogin() {
+    loadComponent('authForm', '/components/loginForm.html');
+    authType = "login";
+}
+
+function callLogin(dados) {
+    fetch("/auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dados)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Erro ao logar");
+        return response.json();
+    })
+    .then(data => {
+        localStorage.setItem('token', data.token);
+        console.log("Usuário logado com sucesso:", data);
+
+        navigate('home');
+    })
+    .catch(error => console.error('Erro ao logar:', error));
+}
+
+function callRegister(dados) {
     fetch("/auth/register", {
         method: "POST",
         headers: {
@@ -32,14 +74,8 @@ document.getElementById("authForm").addEventListener("submit", function(event) {
     .then(data => {
         localStorage.setItem('token', data.token);
         console.log("Usuário registrado com sucesso:", data);
+
+        navigate('home');
     })
     .catch(error => console.error('Erro ao registrar:', error));
-});
-
-function changeToRegister() {
-    loadComponent('authForm', '/components/registerForm.html');
-}
-
-function changeToLogin() {
-    loadComponent('authForm', '/components/loginForm.html');
 }

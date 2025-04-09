@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyF1</title>
-    <link rel="icon" type="image/x-icon" href="../../static/images/logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/logo.png}">
 
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
-    <script src="../../static/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../../static/css/global.css">
-    <link rel="stylesheet" href="../../static/css/pages/index.css">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/index.css}">
 </head>
 <body>
     <div id="header"></div> <!-- O header da página será caregado aqui via JS -->
@@ -56,6 +58,6 @@
         </div>
     </div>
 
-    <script src="../../static/js/main.js"></script>
+    <script th:src="@{/js/main.js}"></script>
 </body>
 </html>
