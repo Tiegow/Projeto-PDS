@@ -6,6 +6,7 @@
     --cor-primaria: #A4161A;
     --cor-secundaria: #660708;
     --cor-terciaria: #FCA311;
+    --cor-background: #0F1519;
 }
 
 * {
@@ -22,7 +23,7 @@ html, body {
     font-size: 24px;
     font-style: normal;
     color: var(--cor-branco);
-    background-color: var(--cor-preto);
+    background-color: var(--cor-background);
 }
 
 a {

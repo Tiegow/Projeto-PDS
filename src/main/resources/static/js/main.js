@@ -1,5 +1,14 @@
 window.onload = () => {
+    // checkToken();
     loadMainComponents();
+}
+
+function checkToken() {
+    const token = localStorage.getItem('token');
+
+    if (!token && !window.location.pathname.includes('auth.html')) {
+        window.location.href = '../../templates/pages/auth.html';
+    }
 }
 
 // Função para carregar os componentes principais da página (cabeçalho, rodapé, etc.)
@@ -13,20 +22,20 @@ function loadMainComponents() {
  * A função utiliza o método fetch para obter o conteúdo do componente HTML e, em seguida, 
  * insere esse conteúdo no elemento especificado pelo ID.
  * 
- * @param {*} elementId ID do elemento onde o componente será carregado
- * @param {*} url Diretório do componente HTML a ser carregado
+ * @param {*} targetElementId ID do elemento onde o componente será carregado
+ * @param {*} componentUrl Diretório do componente HTML a ser carregado
  */
-function loadComponent(elementId, url) {
-    const element = document.getElementById(elementId);
+function loadComponent(targetElementId, componentUrl) {
+    const element = document.getElementById(targetElementId);
     if (element) {
-        fetch(url)
+        fetch(componentUrl)
             .then(response => response.text())
             .then(html => {
                 element.innerHTML = html;
             })
             .catch(error => console.error('Erro ao carregar componente:', error));
     } else {
-        console.error(`Componente com ID ${elementId} nao encontrado.`);
+        console.error(`Componente com ID ${targetElementId} nao encontrado.`);
     }
 }
 
