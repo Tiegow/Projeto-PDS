@@ -34,7 +34,8 @@ public class SecurityConfig{
                 authorizeRequests.requestMatchers("/components/**", "/css/**", "/js/**", "/images/**").permitAll());
 
         httpSecurity.authorizeHttpRequests((authorization) ->
-                authorization.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                authorization.requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll()
                         .requestMatchers(HttpMethod.GET, "/EasyF1/home").permitAll()
