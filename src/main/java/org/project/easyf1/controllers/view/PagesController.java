@@ -22,4 +22,9 @@ public class PagesController {
     public String historyPage() {
         return "pages/history";
     }
+
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "pages/profile";
+    }
 }

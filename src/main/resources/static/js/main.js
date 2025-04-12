@@ -1,8 +1,3 @@
-window.onload = () => {
-    checkToken();
-    loadMainComponents();
-}
-
 function checkToken() {
     const token = localStorage.getItem('token');
 

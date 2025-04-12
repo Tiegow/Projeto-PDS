@@ -1,5 +1,6 @@
-package org.project.easyf1.repositories;
+package org.project.easyf1.services;
 
+import org.project.easyf1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+        UserDetails userDetails = userRepository.findByUsername(username);
+        
+        if (userDetails == null) {
+            throw new UsernameNotFoundException("Usuário com username '" + username + "' não encontrado");
+        }
+        return userDetails;
     }
 }
