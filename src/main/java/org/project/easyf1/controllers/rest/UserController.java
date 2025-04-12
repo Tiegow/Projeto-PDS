@@ -2,32 +2,31 @@ package org.project.easyf1.controllers.rest;
 
 import org.project.easyf1.models.dto.UserDTO;
 import org.project.easyf1.models.entity.User;
-import org.project.easyf1.services.UserDetailServiceImpl;
+import org.project.easyf1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/user")
 public class UserController {
 
-    private final UserDetailServiceImpl userDetailService;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserDetailServiceImpl userDetailService) {
-        this.userDetailService = userDetailService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<String> getUser(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+    @GetMapping("get")
+    public ResponseEntity<UserDTO> getUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         UserDTO userDTO = new UserDTO(user);
 
-        return ResponseEntity.ok(userDTO.toString());
+        return ResponseEntity.ok(userDTO);
     }
 }

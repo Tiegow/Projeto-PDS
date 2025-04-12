@@ -1,11 +1,3 @@
-function checkToken() {
-    const token = localStorage.getItem('token');
-
-    if (!token && !window.location.pathname.includes('auth')) {
-        navigate('auth');
-    }
-}
-
 // Função para carregar os componentes principais da página (cabeçalho, rodapé, etc.)
 function loadMainComponents() {
     loadComponent('header', '/components/header.html');
@@ -35,5 +27,5 @@ function loadComponent(targetElementId, componentUrl) {
 }
 
 function navigate(destination) {
-    window.location.href = '/EasyF1/' + destination;
+    window.location.href = '/easyF1/' + destination;
 }

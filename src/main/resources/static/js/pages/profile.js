@@ -1,11 +1,10 @@
 window.onload = () => {
-    checkToken();
     loadMainComponents();
     fetchUserData();
 }
 
 function fetchUserData() {
-    fetch("/user/get", {
+    fetch("/api/user/get", {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
@@ -20,6 +19,7 @@ function fetchUserData() {
         const responseText = await response.text();
         try {
             const user = JSON.parse(responseText);
+            console.log(user);
             document.getElementById("userName").textContent = user.firstName;
         } catch (error) {
             console.error("Erro ao parsear JSON:", error);
@@ -35,5 +35,4 @@ function fetchUserData() {
 async function handleResponseException(response) {
     const message = await response.text();
     sessionStorage.setItem("errorMessage", message);
-    // navigate('error');
 }

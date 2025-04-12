@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/EasyF1")
+@RequestMapping("/easyF1")
 public class PagesController {
 
     @GetMapping("/auth")
@@ -13,7 +13,7 @@ public class PagesController {
         return "pages/auth";
     }
 
-    @GetMapping("/home")
+    @GetMapping({"/home", "/", ""})
     public String homePage() {
         return "pages/index";
     }
