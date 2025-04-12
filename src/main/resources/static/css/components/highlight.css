@@ -1,0 +1,21 @@
+.video-highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap; /* para se adaptar melhor em telas menores */
+    background-color: var(--cor-primaria);
+    border-radius: 15px 0 15px 0;
+}
+
+iframe {
+    border-radius: 15px 0 0 0;
+}
+
+.video-info {
+    padding-top: 10px;
+    max-width: 40%;
+}
+
+.video-info p{
+    font-size: 20px;
+}

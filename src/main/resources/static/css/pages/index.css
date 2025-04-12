@@ -1,0 +1,51 @@
+.trapezio {
+    width: 300px;
+    height: 100px;
+    background-color: var(--cor-secundaria);
+    clip-path: polygon(0% 0%, 100% 0%, 85% 40%, 15% 40%);
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    text-align: center;
+}
+
+.today-card {
+    max-width: 630px;
+    background-color: var(--cor-preto);
+}
+
+.today-card h3 {
+    border-bottom: 3px solid var(--cor-branco);
+}
+
+#flag-container {
+    width: 80px;
+    height: 50px;
+    background-color: var(--cor-branco);
+}
+
+.today-card button {
+    color: var(--cor-branco);
+    background-color: var(--cor-primaria);
+    max-width: 230px;
+    border-radius: 10px;
+}
+
+.today-card button:hover {
+    background-color: var(--cor-secundaria);
+}
+
+.today-card p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.calendar {
+    max-width: 630px;
+    padding: 30px;
+    background-color: var(--cor-preto);
+}
+
+.calendar p {
+    margin: 0;
+}
