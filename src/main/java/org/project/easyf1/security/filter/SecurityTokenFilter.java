@@ -40,7 +40,7 @@ public class SecurityTokenFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
         
-        if (path.equals("/auth/login") || path.equals("/auth/register") || path.equals("/auth/refresh") || path.equals("/user/get")) {
+        if (path.equals("/auth/login") || path.equals("/auth/register") || path.equals("/auth/refresh")) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -40,9 +40,9 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.GET, "/EasyF1/home").permitAll()
                         .requestMatchers(HttpMethod.GET, "/EasyF1/auth").permitAll()
                         .requestMatchers(HttpMethod.GET, "/EasyF1/profile").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/EasyF1/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
-                        // .requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/user/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER")
                         .anyRequest().authenticated());
 
         httpSecurity.addFilterBefore(securityTokenFilter, UsernamePasswordAuthenticationFilter.class);

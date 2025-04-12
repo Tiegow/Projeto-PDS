@@ -1,8 +1,5 @@
 package org.project.easyf1.models.dto;
 
-import java.util.GregorianCalendar;
-import java.util.Set;
-
 import org.project.easyf1.models.entity.User;
 
 public class UserDTO {

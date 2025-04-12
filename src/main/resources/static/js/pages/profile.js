@@ -5,22 +5,35 @@ window.onload = () => {
 }
 
 function fetchUserData() {
-    fetch("/user/get?username=Biu", {
+    fetch("/user/get", {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
         }
     })
-    .then(response => response.text())  
-    .then(responseText => {
+    .then(async response => {
+        if (!response.ok) {
+            await handleResponseException(response);
+            return;
+        }
+
+        const responseText = await response.text();
         try {
             const user = JSON.parse(responseText);
-            console.log("Achou o usuário:", user.username);
+            document.getElementById("userName").textContent = user.firstName;
         } catch (error) {
             console.error("Erro ao parsear JSON:", error);
         }
     })
     .catch(error => {
-        console.error("Erro ao buscar usuário:", error);
+        console.error("Erro inesperado:", error);
+        sessionStorage.setItem("errorMessage", "Erro inesperado: " + error.message);
+        navigate('error');
     });
+}
+
+async function handleResponseException(response) {
+    const message = await response.text();
+    sessionStorage.setItem("errorMessage", message);
+    // navigate('error');
 }

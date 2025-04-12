@@ -5,6 +5,7 @@ import org.project.easyf1.models.entity.User;
 import org.project.easyf1.services.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +23,8 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<String> getUser(@RequestParam String username) {
-        User user = (User) userDetailService.loadUserByUsername(username);
+    public ResponseEntity<String> getUser(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
 
         UserDTO userDTO = new UserDTO(user);
 

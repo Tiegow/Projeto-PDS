@@ -27,4 +27,9 @@ public class PagesController {
     public String profilePage() {
         return "pages/profile";
     }
+
+    @GetMapping("/error")
+    public String errorPage() {
+        return "pages/error";
+    }
 }
