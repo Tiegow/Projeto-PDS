@@ -23,3 +23,29 @@
     height: 50px;
     background-color: var(--cor-branco);
 }
+
+.today-card button {
+    color: var(--cor-branco);
+    background-color: var(--cor-primaria);
+    max-width: 230px;
+    border-radius: 10px;
+}
+
+.today-card button:hover {
+    background-color: var(--cor-secundaria);
+}
+
+.today-card p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.calendar {
+    max-width: 630px;
+    padding: 30px;
+    background-color: var(--cor-preto);
+}
+
+.calendar p {
+    margin: 0;
+}

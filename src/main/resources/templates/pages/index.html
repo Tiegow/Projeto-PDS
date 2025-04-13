@@ -15,6 +15,8 @@
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/global.css}">
     <link rel="stylesheet" th:href="@{/css/pages/index.css}">
+    <link rel="stylesheet" th:href="@{/css/components/gpContent.css}">
+    <link rel="stylesheet" th:href="@{/css/components/highlight.css}">
 </head>
 <body>
     <div id="header"></div> <!-- O header da página será caregado aqui via JS -->
@@ -28,9 +30,25 @@
             <h3>HIGHLIGHTS</h3>
             <div class="highlights-wrapper">
                 <!-- Highlights gerados dinamicamente aqui -->
+                <div class="highlight-content mt-4">    
+                    <div class="video-highlight">
+                        <iframe  
+                            width="45%"
+                            height="auto"
+                            src="https://www.youtube.com/embed/GFd2qsAArk0" 
+                            title="YouTube video player" 
+                            frameborder="0"  
+                            allowfullscreen>
+                        </iframe>
+                        <div class="video-info text-start">
+                            <h5>Título</h5>
+                            <p>Descrição breve do vídeo.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
           </aside>
-          <section class="col-6">
+          <section class="col-4">
             <div class="today-card mx-auto py-2">
                 <h3 class="py-2">HOJE</h3>
                 <div id="flag-container" class="mx-auto">
@@ -38,18 +56,55 @@
                 </div>
                 <p id="circuit-name">
                     <!-- circuit_short_name -->
+                     Melbourne
                 </p>
                 <p id="circuit-type">
                     <!-- session_name -->
+                     Treino Livre 1
                 </p>
                 <p id="session-time">
                     <!-- hora do inicio e do fim -->
+                     13:30 - 14:30
                 </p>
-                <button></button>
+                <button class="container">VER MAIS</button>
             </div>
 
-            <div class="calendar">
-                <div class="gp-wraper"></div>
+            <div class="calendar container mt-5">
+                <div id="gp-wraper">
+                    <!-- sessoes carregadas aqui -->
+                    <div class="gp-container">
+                        <div class="gp-content mx-auto mt-4" onclick="toggleDetails(this)">
+                            <div class="flag-info">
+                                <div id="flag-container">
+                                    <!-- Imagem da bandeira -->
+                                </div>
+                                <div class="location-texts text-start">
+                                    <p class="session-name">GP CHINA</p>
+                                    <p class="circuit-name">Shangai</p>
+                                </div>
+                            </div>
+                            <div class="date-info text-center">
+                                <p class="session-days">21 - 23</p>
+                                <p class="session-month">MAR</p>
+                            </div>
+                        </div>
+                    
+                        <div class="gp-details">
+                            <div class="gp-day">
+                                <span class="day-name">Treino Livre 1</span>
+                                <span class="day-date">Dia 21 (00:00 - 00:00)</span>
+                            </div>
+                            <div class="gp-day">
+                                <span class="day-name">Classificatório</span>
+                                <span class="day-date">Dia 22 (00:00 - 00:00)</span>
+                            </div>
+                            <div class="gp-day">
+                                <span class="day-name">Corrida</span>
+                                <span class="day-date">Dia 23 (00:00 - 00:00)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
           </section>
           <aside class="col">
@@ -59,5 +114,7 @@
     </div>
 
     <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/pages/index.js}"></script>
+    <script th:src="@{/js/components/gpContent.js}"></script>
 </body>
 </html>

@@ -1,0 +1,40 @@
+.profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+}
+
+.profile-pic img {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 16px;
+    background-color: var(--cor-branco);
+}
+
+.profile-info p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.profile-info p {
+    font-size: 20px;
+}
+
+.pilotos-slider-container {
+    overflow-x: auto;
+    padding: 16px 0;
+    white-space: nowrap;
+}
+
+.pilotos-slider {
+    margin: 0 auto;
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}

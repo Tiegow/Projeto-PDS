@@ -39,7 +39,7 @@ function changeToLogin() {
 }
 
 function callLogin(dados) {
-    fetch("/auth/login", {
+    fetch("/api/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -60,7 +60,7 @@ function callLogin(dados) {
 }
 
 function callRegister(dados) {
-    fetch("/auth/register", {
+    fetch("/api/auth/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

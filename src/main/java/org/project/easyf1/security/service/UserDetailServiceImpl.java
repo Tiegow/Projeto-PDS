@@ -1,5 +1,6 @@
-package org.project.easyf1.repositories;
+package org.project.easyf1.security.service;
 
+import org.project.easyf1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

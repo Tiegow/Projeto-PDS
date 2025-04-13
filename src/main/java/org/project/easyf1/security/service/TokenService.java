@@ -32,7 +32,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("easyf1")
-                    .withSubject(user.getUsername() + ":" + util.getClientIp(request))
+                    .withSubject(user.getUsername() + "$$^^??" + util.getClientIp(request))
                     .withExpiresAt(time())
                     .sign(algorithm);
         } catch (JWTCreationException exception){
@@ -54,7 +54,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
 
-            String[] split = subject.split(":");
+            String[] split = subject.split("\\$\\$\\^\\^\\?\\?");
             resp.put("username", split[0]);
             resp.put("ip", split[1]);
 
