@@ -53,3 +53,7 @@ input, textarea {
     font-size: inherit;
     outline: none;
 }
+
+.err {
+    color: var(--cor-primaria);
+}
