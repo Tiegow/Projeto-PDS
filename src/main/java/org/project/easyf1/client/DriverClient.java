@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@FeignClient(name = "driver", url = "https://api.openf1.org/v1")
+@FeignClient(name = "driver", url = "https://api.openf1.org/v1/drivers")
 public interface DriverClient {
 
-    @GetMapping("drivers")
+
+
+    @GetMapping()
     DriverDTO getDriver(@RequestParam("driver_number") Integer driverNumber, @RequestParam("session_key") Integer sessionKey);
 
 

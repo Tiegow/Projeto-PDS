@@ -14,9 +14,8 @@ CREATE TABLE drivers (
                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_driver_driver_number ON driver(driver_number);
+CREATE INDEX idx_driver_driver_number ON drivers(driver_number);
 
--- Função para atualizar o campo updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -26,6 +25,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER trigger_update_driver_updated_at
-    BEFORE UPDATE ON driver
+    BEFORE UPDATE ON drivers
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
