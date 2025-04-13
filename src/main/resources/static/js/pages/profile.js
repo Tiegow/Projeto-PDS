@@ -19,8 +19,10 @@ function fetchUserData() {
         const responseText = await response.text();
         try {
             const user = JSON.parse(responseText);
-            console.log(user);
-            document.getElementById("userName").textContent = user.firstName;
+
+            document.getElementById("userName").textContent = user.userName.toUpperCase();
+            document.getElementById("fullName").textContent = user.firstName + " " + user.lastName;
+            document.getElementById("email").textContent = user.email;
         } catch (error) {
             console.error("Erro ao parsear JSON:", error);
         }
