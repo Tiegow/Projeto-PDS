@@ -1,4 +1,4 @@
-package org.project.easyf1.database.configuration;
+package org.project.easyf1.configuration;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
