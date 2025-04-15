@@ -24,6 +24,7 @@ html, body {
     font-style: normal;
     color: var(--cor-branco);
     background-color: var(--cor-background);
+    scrollbar-color: var(--cor-primaria) var(--cor-preto); /* thumb cor, track cor */
 }
 
 a {
@@ -51,4 +52,8 @@ input, textarea {
     font-family: inherit;
     font-size: inherit;
     outline: none;
+}
+
+.err {
+    color: var(--cor-primaria);
 }

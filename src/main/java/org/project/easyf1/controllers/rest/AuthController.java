@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("api/auth")
 public class AuthController {
 
     private final TokenService tokenService;
@@ -49,7 +49,7 @@ public class AuthController {
         Authentication authentic =
                 authentication.authenticate(usernamePAT);
 
-        String token = tokenService.TokenGenerator(this.userRepository.findByUsername(loginDTO.getUsername()), request);
+        String token = tokenService.TokenGenerator( (User) authentic.getPrincipal(), request);
 
         return ResponseEntity.ok(new TokenDTO(token));
     }
