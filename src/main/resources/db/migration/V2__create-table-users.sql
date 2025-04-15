@@ -7,6 +7,7 @@ CREATE TABLE users (
                        username VARCHAR(255) UNIQUE,
                        birthday DATE,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        deleted_at TIMESTAMP
 );
 
