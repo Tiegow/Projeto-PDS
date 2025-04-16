@@ -6,16 +6,10 @@ import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class SessionService {
@@ -30,28 +24,23 @@ public class SessionService {
     }
 
     @PostConstruct
-    public void getNewsSessions() throws UnsupportedEncodingException {
-        Session session = sessionRepository.findFirstByOrderByEndDateDesc();
+    public void getNewSessions() {
+        Session lastSession = sessionRepository.findFirstByOrderByEndDateDesc();
 
-        GregorianCalendar startDate = new GregorianCalendar(2000, GregorianCalendar.JANUARY, 1);
-        GregorianCalendar endDate = new GregorianCalendar();
-        SimpleDateFormat dataFormater = new SimpleDateFormat("yyyy-MM-dd");
-
-        if(session != null){
-            startDate = session.getStartDate();
+        OffsetDateTime startDate = OffsetDateTime.parse("2000-01-01T00:00:00Z");
+        if (lastSession != null) {
+            startDate = lastSession.getStartDate();
         }
 
-        String url = "https://api.openf1.org/v1/sessions?date_start>=" + dataFormater.format(startDate.getTime()) + "&date_end<=" + dataFormater.format(endDate.getTime());
+        String dateStartParam = startDate.toString();
+        System.out.println("Date Start: " + dateStartParam);
 
-        RestTemplate restTemplate = new RestTemplate();
+        List<SessionDTO> newSessions = sessionClient.getSessionsAfter(dateStartParam);
+        System.out.println("Sessions returned: " + newSessions.size());
 
-        List<Session> sessions =  Objects.requireNonNull(restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<SessionDTO>>() {
-                }
-        ).getBody()).stream().map(SessionDTO::getSession).toList();
+        List<Session> sessions = newSessions.stream()
+                .map(SessionDTO::getSession)
+                .toList();
 
         sessionRepository.saveAll(sessions);
     }

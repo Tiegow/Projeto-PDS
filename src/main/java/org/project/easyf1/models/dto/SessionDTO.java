@@ -3,9 +3,10 @@ package org.project.easyf1.models.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.project.easyf1.models.entity.Session;
 
-import java.util.GregorianCalendar;
+import java.time.OffsetDateTime;
+
+import org.project.easyf1.models.entity.Session;
 
 public class SessionDTO {
 
@@ -47,13 +48,13 @@ public class SessionDTO {
 
     @JsonProperty("date_start")
     @JsonAlias("startDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private GregorianCalendar startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime startDate;
 
     @JsonProperty("date_end")
     @JsonAlias("endDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private GregorianCalendar endDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime endDate;
 
     @JsonProperty("session_key")
     @JsonAlias("sessionKey")
@@ -154,19 +155,19 @@ public class SessionDTO {
         this.sessionName = sessionName;
     }
 
-    public GregorianCalendar getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(GregorianCalendar startDate) {
+    public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public GregorianCalendar getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(GregorianCalendar endDate) {
+    public void setEndDate(OffsetDateTime endDate) {
         this.endDate = endDate;
     }
 

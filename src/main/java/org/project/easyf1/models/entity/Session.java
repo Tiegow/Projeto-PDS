@@ -1,16 +1,15 @@
 package org.project.easyf1.models.entity;
 
-import jakarta.persistence.*;
+import java.time.OffsetDateTime;
 
-import java.util.GregorianCalendar;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "sessions")
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer sessionKey;
 
     private String location;
     private Integer countryKey;
@@ -20,20 +19,11 @@ public class Session {
     private String circuitShortName;
     private String sessionType;
     private String sessionName;
-    private GregorianCalendar startDate;
-    private GregorianCalendar endDate;
-    private Integer sessionKey;
+    private OffsetDateTime startDate;
+    private OffsetDateTime endDate;
     private Integer meetingKey;
 
     public Session() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getLocation() {
         return location;
@@ -99,19 +89,19 @@ public class Session {
         this.sessionName = sessionName;
     }
 
-    public GregorianCalendar getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(GregorianCalendar startDate) {
+    public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public GregorianCalendar getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(GregorianCalendar endDate) {
+    public void setEndDate(OffsetDateTime endDate) {
         this.endDate = endDate;
     }
 
