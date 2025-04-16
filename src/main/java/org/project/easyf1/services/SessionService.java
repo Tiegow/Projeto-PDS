@@ -31,7 +31,7 @@ public class SessionService {
 
     @PostConstruct
     public void getNewsSessions() throws UnsupportedEncodingException {
-        Session session = sessionRepository.getLastSession();
+        Session session = sessionRepository.findFirstByOrderByEndDateDesc();
 
         GregorianCalendar startDate = new GregorianCalendar(2000, GregorianCalendar.JANUARY, 1);
         GregorianCalendar endDate = new GregorianCalendar();
