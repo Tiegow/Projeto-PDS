@@ -39,6 +39,10 @@
     line-height: 1.2;
 }
 
+.circuit-name {
+    font-size: 20px;
+}
+
 /* Parte expandida */
 .gp-details {
     max-width: 540px;

@@ -36,15 +36,12 @@ public class SessionService {
 
         OffsetDateTime startDate = OffsetDateTime.parse("2000-01-01T00:00:00Z");
         if (lastSession != null) {
-            System.out.println("[DEBUG] Meeting: " + lastSession.getMeeting().getMeetingKey());
             startDate = lastSession.getStartDate();
         }
 
         String dateStartParam = startDate.toString();
-        System.out.println("Date Start: " + dateStartParam);
 
         List<SessionDTO> newSessions = sessionClient.getSessionsAfter(dateStartParam);
-        System.out.println("Sessions returned: " + newSessions.size());
         
         // Cache de meetings para evitar várias queries
         Map<Integer, Meeting> meetingMap = meetingRepository.findAll().stream()

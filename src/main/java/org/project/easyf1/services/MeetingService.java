@@ -1,7 +1,9 @@
 package org.project.easyf1.services;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.project.easyf1.client.MeetingClient;
 import org.project.easyf1.models.dto.MeetingDTO;
@@ -42,5 +44,18 @@ public class MeetingService {
                 .toList();
 
         meetingRepository.saveAll(meetings);
+    }
+
+    public List<MeetingDTO> getMeetingsByYear(Integer year) {
+        List<Meeting> meetings = meetingRepository.findAllByYear(year);
+        
+        // Mapeia para DTO
+        List<MeetingDTO> dtos = meetings.stream()
+            .map(MeetingDTO::new)
+            .collect(Collectors.toList());
+
+        Collections.reverse(dtos);
+
+        return dtos;
     }
 }

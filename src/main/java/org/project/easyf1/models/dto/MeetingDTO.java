@@ -1,6 +1,5 @@
 package org.project.easyf1.models.dto;
 
-import java.time.Duration;
 import java.time.OffsetDateTime;
 
 import org.project.easyf1.models.entity.Meeting;
@@ -43,6 +42,22 @@ public class MeetingDTO {
 
     @JsonProperty("year")
     private Integer year;
+
+    public MeetingDTO() {}
+
+    public MeetingDTO(Meeting meeting) {
+        this.meetingKey = meeting.getMeetingKey();
+        this.meetingName = meeting.getMeetingName();
+        this.meetingOfficialName = meeting.getMeetingOfficialName();
+        this.location = meeting.getLocation();
+        this.countryKey = meeting.getCountryKey();
+        this.countryCode = meeting.getCountryCode();
+        this.countryName = meeting.getCountryName();
+        this.circuitKey = meeting.getCircuitKey();
+        this.circuitShortName = meeting.getCircuitShortName();
+        this.startDate = meeting.getStartDate();
+        this.year = meeting.getYear();
+    }
 
     public Meeting getMeeting() {
         Meeting meeting = new Meeting();
