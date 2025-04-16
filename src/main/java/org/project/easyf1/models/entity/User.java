@@ -28,6 +28,7 @@ public class User implements UserDetails {
     private GregorianCalendar birthday;
 
     private GregorianCalendar createdAt;
+    private GregorianCalendar updatedAt;
     private GregorianCalendar deletedAt;
 
     @Enumerated(EnumType.STRING)
@@ -139,6 +140,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public GregorianCalendar getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(GregorianCalendar updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
