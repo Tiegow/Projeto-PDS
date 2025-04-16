@@ -2,31 +2,55 @@ package org.project.easyf1.models.entity;
 
 import java.time.OffsetDateTime;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "sessions")
-public class Session {
+@Table(name = "meetings")
+public class Meeting {
 
     @Id
-    private Integer sessionKey;
-    
-    @ManyToOne
-    @JoinColumn(name = "meeting_key", referencedColumnName = "meeting_key")
-    private Meeting meeting;
+    @Column(name = "meeting_key")
+    private Integer meetingKey;
 
+    private String meetingName;
+    private String meetingOfficialName;
     private String location;
     private Integer countryKey;
     private String countryCode;
     private String countryName;
     private Integer circuitKey;
     private String circuitShortName;
-    private String sessionType;
-    private String sessionName;
     private OffsetDateTime startDate;
-    private OffsetDateTime endDate;
+    private Integer year;
 
-    public Session() {}
+    public Meeting() {}
+
+    public Integer getMeetingKey() {
+        return meetingKey;
+    }
+
+    public void setMeetingKey(Integer meetingKey) {
+        this.meetingKey = meetingKey;
+    }
+
+    public String getMeetingName() {
+        return meetingName;
+    }
+
+    public void setMeetingName(String meetingName) {
+        this.meetingName = meetingName;
+    }
+
+    public String getMeetingOfficialName() {
+        return meetingOfficialName;
+    }
+
+    public void setMeetingOfficialName(String meetingOfficialName) {
+        this.meetingOfficialName = meetingOfficialName;
+    }
 
     public String getLocation() {
         return location;
@@ -76,51 +100,19 @@ public class Session {
         this.circuitShortName = circuitShortName;
     }
 
-    public String getSessionType() {
-        return sessionType;
-    }
-
-    public void setSessionType(String sessionType) {
-        this.sessionType = sessionType;
-    }
-
-    public String getSessionName() {
-        return sessionName;
-    }
-
-    public void setSessionName(String sessionName) {
-        this.sessionName = sessionName;
-    }
-
     public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(OffsetDateTime startDate) {
-        this.startDate = startDate;
+    public void setStartDate(OffsetDateTime dateStart) {
+        this.startDate = dateStart;
     }
 
-    public OffsetDateTime getEndDate() {
-        return endDate;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setEndDate(OffsetDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public Integer getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(Integer sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
-    public Meeting getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }
