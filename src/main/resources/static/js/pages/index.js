@@ -1,3 +1,5 @@
+import { convertIso3Code } from '../util/countries.js';
+
 window.onload = () => {
     loadMainComponents();
     loadYearMeetings();
@@ -44,6 +46,16 @@ async function renderMeetings(meetings) {
 
         const formattedDate = formatToMonthDay(meeting.date_start);
         meetingElement.querySelector('.session-days').textContent = formattedDate;
+
+        // converter alpha-3 para alpha-2
+        const alpha2Code = convertIso3Code(meeting.country_code)?.toLowerCase()
+
+        // carregar bandeira
+        const flagUrl = `https://flagcdn.com/h40/${alpha2Code}.png`;
+
+        meetingElement.querySelector('.flag-container').innerHTML = `
+            <img src="${flagUrl}" alt="Bandeira de ${meeting.country_name}">
+        `;
 
         const gpDetails = meetingElement.querySelector('.gp-details');
         gpDetails.innerHTML = ''; 

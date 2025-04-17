@@ -23,8 +23,8 @@
     gap: 10px;
 }
 
-#flag-container img {
-    width: 40px;
+.flag-container img {
+    width: 70px;
     height: auto;
     border-radius: 4px;
 }
