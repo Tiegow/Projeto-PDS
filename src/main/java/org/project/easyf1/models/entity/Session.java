@@ -11,9 +11,8 @@ public class Session {
     @Id
     private Integer sessionKey;
     
-    @ManyToOne
-    @JoinColumn(name = "meeting_key", referencedColumnName = "meeting_key")
-    private Meeting meeting;
+    @Column(name = "meeting_key")
+    private Integer meetingKey;
 
     private String location;
     private Integer countryKey;
@@ -116,11 +115,11 @@ public class Session {
         this.sessionKey = sessionKey;
     }
 
-    public Meeting getMeeting() {
-        return meeting;
+    public Integer getMeetingKey() {
+        return meetingKey;
     }
 
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
+    public void setMeetingKey(Integer meetingKey) {
+        this.meetingKey = meetingKey;
     }
 }
