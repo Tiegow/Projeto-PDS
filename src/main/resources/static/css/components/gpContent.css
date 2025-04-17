@@ -23,12 +23,6 @@
     gap: 10px;
 }
 
-.flag-container img {
-    width: 70px;
-    height: auto;
-    border-radius: 4px;
-}
-
 .location-texts p {
     margin: 0;
     line-height: 1.2;

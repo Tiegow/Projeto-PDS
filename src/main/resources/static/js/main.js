@@ -29,3 +29,8 @@ function loadComponent(targetElementId, componentUrl) {
 function navigate(destination) {
     window.location.href = '/easyF1/' + destination;
 }
+
+function toggleDetails(element) {
+    const container = element.parentElement;
+    container.classList.toggle("expanded");
+}

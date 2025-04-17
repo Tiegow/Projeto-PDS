@@ -251,7 +251,7 @@ var iso3Countries = {
     ALA: { ioc: null, iso2: "AX" }
   };
   
-  export function convertIso3Code(iso3Code) {
+  function convertIso3Code(iso3Code) {
     return iso3Countries[iso3Code]?.iso2;
 }
   

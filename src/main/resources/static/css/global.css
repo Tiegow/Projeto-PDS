@@ -57,3 +57,13 @@ input, textarea {
 .err {
     color: var(--cor-primaria);
 }
+
+.flag-container {
+    max-width: 65px;
+}
+
+.flag-container img {
+    width: 80px;
+    height: 50px;
+    object-fit: fill;
+}

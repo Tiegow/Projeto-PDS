@@ -1,5 +1,3 @@
-import { convertIso3Code } from '../util/countries.js';
-
 window.onload = () => {
     loadMainComponents();
     loadYearMeetings();
@@ -51,7 +49,7 @@ async function renderMeetings(meetings) {
         const alpha2Code = convertIso3Code(meeting.country_code)?.toLowerCase()
 
         // carregar bandeira
-        const flagUrl = `https://flagcdn.com/h40/${alpha2Code}.png`;
+        const flagUrl = `https://flagcdn.com/h80/${alpha2Code}.png`;
 
         meetingElement.querySelector('.flag-container').innerHTML = `
             <img src="${flagUrl}" alt="Bandeira de ${meeting.country_name}">

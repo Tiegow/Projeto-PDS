@@ -12,16 +12,12 @@
 .today-card {
     max-width: 630px;
     background-color: var(--cor-preto);
+    /* box-shadow: 3px 2px 5px black; */
+    border-radius: 10px;
 }
 
 .today-card h3 {
     border-bottom: 3px solid var(--cor-branco);
-}
-
-#flag-container {
-    width: 80px;
-    height: 50px;
-    background-color: var(--cor-branco);
 }
 
 .today-card button {
@@ -44,6 +40,8 @@
     max-width: 630px;
     padding: 30px;
     background-color: var(--cor-preto);
+    /* box-shadow: 3px 2px 5px black; */
+    border-radius: 10px;
 }
 
 .calendar p {
