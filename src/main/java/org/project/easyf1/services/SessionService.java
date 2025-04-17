@@ -2,6 +2,7 @@ package org.project.easyf1.services;
 
 import jakarta.annotation.PostConstruct;
 import org.project.easyf1.client.SessionClient;
+import org.project.easyf1.exception.NoSessionTodayException;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -56,5 +58,27 @@ public class SessionService {
             .toList();
 
         sessionRepository.saveAll(sessions);
+    }
+
+    public List<SessionDTO> getSessionsByMeeting(Integer meetingKey) {
+        List<Session> sessions = sessionRepository.findAllByMeetingMeetingKey(meetingKey);
+        return sessions.stream()
+                .map(SessionDTO::new)
+                .toList();
+    }
+
+    public SessionDTO getTodaySession() {
+        ZoneOffset zoneOffset = ZoneOffset.of("-03:00"); // Ou use ZoneId.systemDefault()
+        OffsetDateTime now = OffsetDateTime.now(zoneOffset);
+        OffsetDateTime startOfDay = now.toLocalDate().atStartOfDay().atOffset(zoneOffset);
+        OffsetDateTime startOfNextDay = startOfDay.plusDays(1);
+
+        Session session = sessionRepository.findTodaySession(startOfDay, startOfNextDay, now);
+
+        if (session == null) {
+            throw new NoSessionTodayException();
+        }
+
+        return new SessionDTO(session);
     }
 }

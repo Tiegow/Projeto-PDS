@@ -54,6 +54,7 @@ public class MeetingService {
             .map(MeetingDTO::new)
             .collect(Collectors.toList());
 
+        // Mais recentes para o início
         Collections.reverse(dtos);
 
         return dtos;

@@ -8,7 +8,6 @@ import java.time.OffsetDateTime;
 
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.MeetingRepository;
 
 public class SessionDTO {
 
@@ -67,6 +66,21 @@ public class SessionDTO {
     private Integer meetingKey;
 
     public SessionDTO() {}
+
+    public SessionDTO(Session session) {
+        this.location = session.getLocation();
+        this.countryKey = session.getCountryKey();
+        this.countryCode = session.getCountryCode();
+        this.countryName = session.getCountryName();
+        this.circuitKey = session.getCircuitKey();
+        this.circuitShortName = session.getCircuitShortName();
+        this.sessionType = session.getSessionType();
+        this.sessionName = session.getSessionName();
+        this.startDate = session.getStartDate();
+        this.endDate = session.getEndDate();
+        this.sessionKey = session.getSessionKey();
+        this.meetingKey = session.getMeeting().getMeetingKey();
+    }
 
     public Session getSession(Meeting meeting){
         Session session = new Session();
