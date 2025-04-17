@@ -42,8 +42,18 @@ async function renderMeetings(meetings) {
         }
         meetingElement.querySelector('.circuit-name').textContent = meeting.location;
 
-        const formattedDate = formatToMonthDay(meeting.date_start);
-        meetingElement.querySelector('.session-days').textContent = formattedDate;
+        const startDate = new Date(meeting.date_start);
+        const endDate = new Date(meeting.date_end);
+
+        // Pega dia inicial e final
+        const startDay = startDate.getDate();
+        const endDay = endDate.getDate();
+
+        // Pega o mês (abreviado e maiúsculo)
+        const month = startDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+
+        meetingElement.querySelector('.session-days').textContent = `${startDay} - ${endDay}`;
+        meetingElement.querySelector('.session-month').textContent = month;
 
         // converter alpha-3 para alpha-2
         const alpha2Code = convertIso3Code(meeting.country_code)?.toLowerCase()
@@ -137,17 +147,4 @@ async function loadTodaySession() {
         console.error('Erro na requisição:', error);
         document.getElementById('no-session-message').style.display = 'block';
     }
-}
-
-function formatToMonthDay(dateString) {
-    if (!dateString) return "Data inválida";
-
-    const date = new Date(dateString);
-    if (isNaN(date)) return "Data inválida";
-
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
-    const formattedMonth = month.replace('.', '');
-
-    return `${day} de ${formattedMonth}`;
 }

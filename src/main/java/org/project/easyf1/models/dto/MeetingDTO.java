@@ -40,6 +40,10 @@ public class MeetingDTO {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     private OffsetDateTime startDate;
 
+    @JsonProperty("date_end")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime endDate;
+
     @JsonProperty("year")
     private Integer year;
 
@@ -153,6 +157,14 @@ public class MeetingDTO {
 
     public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    public OffsetDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(OffsetDateTime endDate) {
+        this.endDate = endDate;
     }
 
     public Integer getYear() {

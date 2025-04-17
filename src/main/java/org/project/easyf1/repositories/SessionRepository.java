@@ -17,6 +17,8 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     List<Session> findAllByMeetingKey(Integer meetingKey);
 
+    Session findFirstByMeetingKeyOrderByEndDateDesc(Integer meetingKey);
+
     @Query("""
       SELECT s FROM Session s
       WHERE s.startDate >= :startOfDay

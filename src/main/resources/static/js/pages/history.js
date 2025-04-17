@@ -151,14 +151,18 @@ async function renderMeetingGroups(meetings) {
 
             // COLUNA DE DATA
             const startDate = new Date(meeting.date_start);
+            const endDate = new Date(meeting.date_end);
+
+            const startDay = startDate.getDate();
+            const endDay = endDate.getDate();
+            
             const shortMonth = startDate.toLocaleDateString('pt-BR', { month: 'short' }).toUpperCase();
-            const day = startDate.getDate();
 
             const dateItem = document.createElement('div');
             dateItem.className = 'row date-item text-center mb-2';
             dateItem.innerHTML = `
-                <p class="mb-0 mt-0" id="day">Dia ${day}</p>
-                <p class="fw-bold" id="short-month">${shortMonth}</p>
+                <p class="mb-0 mt-0" id="day">${startDay} - ${endDay}</p>
+                <p id="short-month">${shortMonth}</p>
             `;
             dateCol.appendChild(dateItem);
         }
