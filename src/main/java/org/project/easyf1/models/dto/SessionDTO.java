@@ -3,9 +3,10 @@ package org.project.easyf1.models.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.project.easyf1.models.entity.Session;
 
-import java.util.GregorianCalendar;
+import java.time.OffsetDateTime;
+
+import org.project.easyf1.models.entity.Session;
 
 public class SessionDTO {
 
@@ -47,13 +48,13 @@ public class SessionDTO {
 
     @JsonProperty("date_start")
     @JsonAlias("startDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private GregorianCalendar startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime startDate;
 
     @JsonProperty("date_end")
     @JsonAlias("endDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private GregorianCalendar endDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime endDate;
 
     @JsonProperty("session_key")
     @JsonAlias("sessionKey")
@@ -64,6 +65,21 @@ public class SessionDTO {
     private Integer meetingKey;
 
     public SessionDTO() {}
+
+    public SessionDTO(Session session) {
+        this.location = session.getLocation();
+        this.countryKey = session.getCountryKey();
+        this.countryCode = session.getCountryCode();
+        this.countryName = session.getCountryName();
+        this.circuitKey = session.getCircuitKey();
+        this.circuitShortName = session.getCircuitShortName();
+        this.sessionType = session.getSessionType();
+        this.sessionName = session.getSessionName();
+        this.startDate = session.getStartDate();
+        this.endDate = session.getEndDate();
+        this.sessionKey = session.getSessionKey();
+        this.meetingKey = session.getMeetingKey();
+    }
 
     public Session getSession(){
         Session session = new Session();
@@ -78,7 +94,8 @@ public class SessionDTO {
         session.setStartDate(this.startDate);
         session.setEndDate(this.endDate);
         session.setSessionKey(this.sessionKey);
-        session.setMeetingKey(this.meetingKey);
+        session.setMeetingKey(meetingKey);
+
         return session;
     }
 
@@ -154,19 +171,19 @@ public class SessionDTO {
         this.sessionName = sessionName;
     }
 
-    public GregorianCalendar getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(GregorianCalendar startDate) {
+    public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public GregorianCalendar getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(GregorianCalendar endDate) {
+    public void setEndDate(OffsetDateTime endDate) {
         this.endDate = endDate;
     }
 

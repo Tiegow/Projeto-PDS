@@ -40,6 +40,8 @@ public class SecurityConfig{
                 authorization.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/meetings/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/sessions/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("USER")
                         // permissões de views
