@@ -45,44 +45,35 @@ public class TeamService {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
 
-
         try {
-            String response = restTemplate.getForObject(url, String.class);
-            List<Map<String, Object>> driverData = mapper.readValue(response, new TypeReference<>() {});
+            List<Map<String, Object>> drivers = mapper.readValue(
+                    restTemplate.getForObject(url, String.class),
+                    new TypeReference<>() {}
+            );
 
-            Map<String, List<Map<String, Object>>> groupedByTeam = driverData.stream()
+            List<Team> teamsToSave = drivers.stream()
                     .filter(d -> d.get("team_name") != null)
-                    .collect(Collectors.groupingBy(d -> d.get("team_name").toString()));
+                    .collect(Collectors.groupingBy(d -> d.get("team_name").toString()))
+                    .entrySet().stream()
+                    .map(entry -> {
+                        List<Map<String, Object>> teamDrivers = entry.getValue();
+                        Integer first = teamDrivers.size() > 0 ? (Integer) teamDrivers.get(0).get("driver_number") : null;
+                        Integer second = teamDrivers.size() > 1 ? (Integer) teamDrivers.get(1).get("driver_number") : null;
 
-            List<Team> teamsToSave = new ArrayList<>();
+                        TeamDTO dto = new TeamDTO();
+                        dto.setTeamName(entry.getKey());
+                        dto.setFirstDriverNumber(first);
+                        dto.setSecondDriverNumber(second);
+                        dto.setTeamPoints(0);
 
-            for (Map.Entry<String, List<Map<String, Object>>> entry : groupedByTeam.entrySet()) {
-                String teamName = entry.getKey();
-                List<Map<String, Object>> drivers = entry.getValue();
-
-                Integer firstDriver = drivers.size() > 0 ? (Integer) drivers.get(0).get("driver_number") : null;
-                Integer secondDriver = drivers.size() > 1 ? (Integer) drivers.get(1).get("driver_number") : null;
-
-                TeamDTO teamDTO = new TeamDTO();
-                teamDTO.setTeamName(teamName);
-                teamDTO.setFirstDriverNumber(firstDriver);
-                teamDTO.setSecondDriverNumber(secondDriver);
-                teamDTO.setTeamPoints(0);
-
-                Team team = teamDTO.getTeam();
-                teamsToSave.add(team);
-            }
+                        return dto.getTeam();
+                    })
+                    .toList();
 
             teamRepository.saveAll(teamsToSave);
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar ou salvar dados dos times: " + e.getMessage(), e);
         }
-
-
-
-
-
-
     }
 }
