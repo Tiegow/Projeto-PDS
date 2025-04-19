@@ -12,6 +12,10 @@ public class Team {
     private Long id;
 
     private String teamName;
+
+    private Integer firstDriverNumber;
+    private Integer secondDriverNumber;
+
     private Integer teamPoints;
 
     public Team() {}
@@ -23,11 +27,27 @@ public class Team {
         this.id = id;
     }
 
+
     public String getTeamName() {
         return teamName;
     }
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+
+    public Integer getFirstDriverNumber() {
+        return firstDriverNumber;
+    }
+    public void setFirstDriverNumber(Integer firstDriverNumber) {
+        this.firstDriverNumber = firstDriverNumber;
+    }
+
+    public Integer getSecondDriverNumber() {
+        return secondDriverNumber;
+    }
+    public void setSecondDriverNumber(Integer secondDriverNumber) {
+        this.secondDriverNumber = secondDriverNumber;
     }
 
     public Integer getTeamPoints() {
