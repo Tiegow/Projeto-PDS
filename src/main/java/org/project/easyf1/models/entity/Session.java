@@ -4,6 +4,14 @@ import java.time.OffsetDateTime;
 
 import jakarta.persistence.*;
 
+/**
+ * Entidade JPA que representa uma sessão (como treinos, classificatórias ou corrida) de um evento (meeting).
+ *
+ * Cada instância desta classe corresponde a um registro na tabela "sessions" no banco de dados,
+ * armazenando informações detalhadas como localização, circuito, tipo de sessão e datas.
+ *
+ * A chave primária é `sessionKey`, e cada sessão está associada a um `meetingKey`.
+ */
 @Entity
 @Table(name = "sessions")
 public class Session {

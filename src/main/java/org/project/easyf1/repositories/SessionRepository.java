@@ -10,6 +10,16 @@ import org.springframework.stereotype.Repository;
 
 import feign.Param;
 
+/**
+ * Repositório responsável pela interação com a tabela de sessões (Sessions) no banco de dados.
+ * 
+ * Extende a interface JpaRepository para fornecer operações básicas de persistência para a entidade 
+ * "Session". Além disso, inclui métodos personalizados para:
+ * - Buscar a sessão mais recente.
+ * - Listar todas as sessões de um evento específico (identificada pela chave do evento).
+ * - Buscar a sessão mais recente de um evento específico.
+ * - Buscar a sessão do dia, levando em consideração um intervalo de datas.
+ */
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
 

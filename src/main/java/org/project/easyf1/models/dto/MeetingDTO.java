@@ -7,6 +7,17 @@ import org.project.easyf1.models.entity.Meeting;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Data Transfer Object (DTO) que representa os dados de uma evento de corrida (Meeting).
+ * 
+ * Esta classe é usada para transferir os dados de um evento, como nome, nome oficial, 
+ * localização, país, circuito, e as datas de início e fim do evento. Além disso, ela inclui 
+ * métodos para converter entre a entidade `Meeting` e o DTO `MeetingDTO`.
+ * 
+ * A classe utiliza a biblioteca Jackson para mapeamento de JSON, com anotações como `@JsonProperty` 
+ * e `@JsonFormat` para garantir que os campos do DTO sejam corretamente mapeados para os campos 
+ * do JSON com os respectivos nomes e formatos desejados.
+ */
 public class MeetingDTO {
 
     @JsonProperty("meeting_key")

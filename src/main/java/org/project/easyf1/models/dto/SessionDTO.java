@@ -8,6 +8,17 @@ import java.time.OffsetDateTime;
 
 import org.project.easyf1.models.entity.Session;
 
+/**
+ * Data Transfer Object (DTO) que representa os dados de uma sessão de corrida (Session).
+ * 
+ * Esta classe é usada para transferir os dados de uma sessão, como localização, país, circuito,
+ * tipo de sessão, nome da sessão e as datas de início e fim. Além disso, ela inclui métodos para
+ * converter entre a entidade `Session` e o DTO `SessionDTO`.
+ * 
+ * A classe utiliza a biblioteca Jackson para mapeamento de JSON, com anotações como `@JsonProperty` 
+ * e `@JsonFormat` para garantir que os campos do DTO sejam corretamente mapeados para os campos 
+ * do JSON com os respectivos nomes e formatos desejados.
+ */
 public class SessionDTO {
 
     @JsonProperty("id")

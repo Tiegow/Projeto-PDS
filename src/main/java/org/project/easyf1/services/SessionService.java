@@ -2,6 +2,7 @@ package org.project.easyf1.services;
 
 import jakarta.annotation.PostConstruct;
 import org.project.easyf1.client.SessionClient;
+import org.project.easyf1.controllers.rest.SessionController;
 import org.project.easyf1.exception.NoSessionTodayException;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
@@ -15,6 +16,26 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Serviço responsável por gerenciar as operações relacionadas a sessões (treinos, classificações e corridas).
+ *
+ * <p><strong>Responsabilidades principais:</strong></p>
+ * <ul>
+ *     <li>Buscar e armazenar sessões atualizadas da API externa OpenF1 através do {@link SessionClient}.</li>
+ *     <li>Persistir as sessões no banco de dados usando o {@link SessionRepository}.</li>
+ *     <li>Fornecer métodos para consultar sessões por evento (meeting) ou pela data atual.</li>
+ * </ul>
+ *
+ * <p><strong>Funcionamento geral:</strong></p>
+ * <ul>
+ *     <li>O método {@code getNewSessions()} é executado automaticamente ao iniciar a aplicação, buscando todas as sessões ocorridas após a última registrada.</li>
+ *     <li>Os dados retornados da API são convertidos em entidades e persistidos localmente.</li>
+ *     <li>O método {@code getSessionsByMeeting(Integer)} retorna todas as sessões vinculadas a um determinado evento (meeting).</li>
+ *     <li>O método {@code getTodaySession()} busca a sessão que está ocorrendo no dia atual, considerando o fuso horário de Brasília (-03:00), e lança uma exceção personalizada se nenhuma sessão estiver ocorrendo hoje.</li>
+ * </ul>
+ *
+ * <p>Esta classe atua como ponte entre o {@link SessionController} e a camada de dados.</p>
+ */
 @Service
 public class SessionService {
 
@@ -55,7 +76,7 @@ public class SessionService {
                 .toList();
     }
 
-    public SessionDTO getTodaySession() {
+    public SessionDTO getTodaySession() throws NoSessionTodayException{
         ZoneOffset zoneOffset = ZoneOffset.of("-03:00"); 
         OffsetDateTime now = OffsetDateTime.now(zoneOffset);
         OffsetDateTime startOfDay = now.toLocalDate().atStartOfDay().atOffset(zoneOffset);
