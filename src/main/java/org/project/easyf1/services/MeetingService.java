@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.project.easyf1.client.MeetingClient;
+import org.project.easyf1.controllers.rest.MeetingController;
 import org.project.easyf1.models.dto.MeetingDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
@@ -16,6 +17,25 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 
+/**
+ * Serviço responsável por gerenciar as operações relacionadas a Meetings (corridas ou eventos).
+ * 
+ * <p><strong>Responsabilidades principais:</strong></p>
+ * <ul>
+ *     <li>Buscar e armazenar novos meetings obtidos da API externa OpenF1 através do {@link MeetingClient}.</li>
+ *     <li>Persistir os dados obtidos no banco de dados usando {@link MeetingRepository}.</li>
+ *     <li>Fornecer listas de meetings filtradas por ano, convertendo entidades para DTOs com informações complementares.</li>
+ * </ul>
+ *
+ * <p><strong>Funcionamento geral:</strong></p>
+ * <ul>
+ *     <li>Ao inicializar a aplicação, o método {@code getNewMeetings()} é executado automaticamente, buscando novos meetings após a data do último armazenado.</li>
+ *     <li>Os dados recebidos da API são convertidos em entidades e salvos no banco.</li>
+ *     <li>O método {@code getMeetingsByYear(Integer year)} permite recuperar os meetings de um determinado ano, incluindo a data da última sessão associada, se disponível.</li>
+ * </ul>
+ * 
+ * <p>Esta classe atua como ponte entre o {@link MeetingController} e a camada de dados.</p>
+ */
 @Service
 public class MeetingService {
 

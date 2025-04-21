@@ -7,6 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade JPA que representa um evento de corrida (Meeting).
+ *
+ * Cada instância desta classe corresponde a um registro na tabela "meetings" no banco de dados,
+ * armazenando dados relacionados ao evento, como local, país, circuito, nome oficial e data de início.
+ *
+ * A chave primária é `meetingKey`, que identifica unicamente cada evento.
+ */
 @Entity
 @Table(name = "meetings")
 public class Meeting {
