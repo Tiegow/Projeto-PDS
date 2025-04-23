@@ -9,5 +9,4 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     Session findFirstByOrderByEndDateDesc();
 
-    Session findFirstBySessionTypeOrderByEndDateDesc(String race);
 }

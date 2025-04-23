@@ -33,7 +33,7 @@ public class TeamService {
     @PostConstruct
     public void getNewestTeams() throws UnsupportedEncodingException {
 
-        Session lastRaceSession = sessionRepository.findFirstBySessionTypeOrderByEndDateDesc("Race");
+        Session lastRaceSession = sessionRepository.findFirstByOrderByEndDateDesc();
 
         if(lastRaceSession == null){
             throw new RuntimeException("Nenhuma sessão race encontrada");
