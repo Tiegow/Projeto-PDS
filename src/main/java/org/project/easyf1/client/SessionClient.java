@@ -17,4 +17,7 @@ public interface SessionClient {
 
     @GetMapping("/v1/sessions")
     List<SessionDTO> getSessionsAfter(@RequestParam("date_start%3E") String dateStart);
+
+    @GetMapping("/v1/sessions")
+    List<SessionDTO> getSessionByMeeting(@RequestParam("meeting_key")Integer meetingKey);
 }

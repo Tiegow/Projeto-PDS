@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.OffsetDateTime;
 
+import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 
 /**
@@ -89,7 +90,7 @@ public class SessionDTO {
         this.startDate = session.getStartDate();
         this.endDate = session.getEndDate();
         this.sessionKey = session.getSessionKey();
-        this.meetingKey = session.getMeetingKey();
+        this.meetingKey = session.getMeeting().getMeetingKey();
     }
 
     public Session getSession(){
@@ -105,7 +106,8 @@ public class SessionDTO {
         session.setStartDate(this.startDate);
         session.setEndDate(this.endDate);
         session.setSessionKey(this.sessionKey);
-        session.setMeetingKey(meetingKey);
+        session.setMeeting(new Meeting());
+        session.getMeeting().setMeetingKey(this.meetingKey);
 
         return session;
     }

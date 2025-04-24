@@ -6,9 +6,9 @@ import java.util.List;
 import org.project.easyf1.models.entity.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import feign.Param;
 
 /**
  * Repositório responsável pela interação com a tabela de sessões (Sessions) no banco de dados.
@@ -25,9 +25,11 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     Session findFirstByOrderByEndDateDesc();
 
-    List<Session> findAllByMeetingKey(Integer meetingKey);
+    @Query("SELECT s FROM Session s where s.meeting.meetingKey = :meetingKey")
+    List<Session> findAllByMeetingKey(@Param("meetingKey") Integer meetingKey);
 
-    Session findFirstByMeetingKeyOrderByEndDateDesc(Integer meetingKey);
+    @Query("SELECT s FROM Session s where s.meeting.meetingKey = :meetingKey ORDER BY s.endDate DESC")
+    Session findFirstByMeetingKeyOrderByEndDateDesc(@Param("meetingKey") Integer meetingKey);
 
     @Query("""
       SELECT s FROM Session s

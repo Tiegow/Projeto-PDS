@@ -1,11 +1,9 @@
 package org.project.easyf1.models.entity;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * Entidade JPA que representa um evento de corrida (Meeting).
@@ -33,6 +31,12 @@ public class Meeting {
     private String circuitShortName;
     private OffsetDateTime startDate;
     private Integer year;
+
+    @OneToMany(mappedBy = "meeting")
+    private List<Car> cars;
+
+    @OneToMany(mappedBy = "meeting")
+    private List<Session> sessions;
 
     public Meeting() {}
 
@@ -122,5 +126,21 @@ public class Meeting {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 }
