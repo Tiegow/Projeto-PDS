@@ -3,9 +3,11 @@ package org.project.easyf1.models.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "drivers")
-public class Driver {
+public class Driver implements Comparable<Driver> {
 
 
     @Id
@@ -126,5 +128,23 @@ public class Driver {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+
+    @Override
+    public int compareTo(Driver o) {
+        if (this.id != 0) {
+            if (this.id > o.id) {
+                return 1;
+            } else if (this.id < o.id) {
+                return -1;
+            }
+            return 0;
+        } else {
+            if(this.broadcastName.equals(o.broadcastName) && this.driverNumber.equals(o.driverNumber)) {
+                return 0;
+            }
+        }
+        return 0;
     }
 }
