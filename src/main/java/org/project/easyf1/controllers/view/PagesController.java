@@ -23,6 +23,11 @@ public class PagesController {
         return "pages/history";
     }
 
+    @GetMapping("/now")
+    public String nowSessionPage() {
+        return "pages/nowSession";
+    }
+
     @GetMapping("/profile")
     public String profilePage() {
         return "pages/profile";

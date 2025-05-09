@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyF1 - Agora</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/logo.png}">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/nowSession.css}">
+
+    <!-- WEB SOCKETS -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+    <div id="header"></div> <!-- O header da página será caregado aqui via JS -->
+
+    <div class="container text-center">
+        <h2>Clima na Pista</h2>
+        <div id="weather">
+            <p><strong>Temperatura do Ar:</strong> <span id="airTemperature"></span>°C</p>
+            <p><strong>Temperatura da Pista:</strong> <span id="trackTemperature"></span>°C</p>
+            <p><strong>Umidade:</strong> <span id="humidity"></span>%</p>
+            <p><strong>Pressão:</strong> <span id="pressure"></span> hPa</p>
+            <p><strong>Velocidade do Vento:</strong> <span id="windSpeed"></span> m/s</p>
+            <p><strong>Chuva:</strong> <span id="rainfall"></span></p>
+        </div>
+    </div>
+
+    <script th:src="@{/js/util/countries.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/pages/nowSession.js}"></script>
+</body>
+</html>
