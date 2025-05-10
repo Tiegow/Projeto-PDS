@@ -1,31 +1,42 @@
 package org.project.easyf1.services;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import jakarta.annotation.PostConstruct;
+
 import org.project.easyf1.client.LiveSessionClient;
 import org.project.easyf1.models.dto.WeatherDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @Service
 public class LiveSessionService {
-    private final SessionService sessionService;
+    private final TodaySessionProvider todaySessionProvider;
     private final SimpMessagingTemplate messagingTemplate;
     private final LiveSessionClient liveSessionClient;
 
+    private String sessionKey = null;
+
     @Autowired
-    public LiveSessionService(SimpMessagingTemplate messagingTemplate, SessionService sessionService, LiveSessionClient liveSessionClient) {
-        this.sessionService = sessionService;
+    public LiveSessionService(SimpMessagingTemplate messagingTemplate, LiveSessionClient liveSessionClient, TodaySessionProvider todaySessionProvider) {
+        this.todaySessionProvider = todaySessionProvider;
         this.messagingTemplate = messagingTemplate;
         this.liveSessionClient = liveSessionClient;
     }
 
+    @PostConstruct
+    public void init() {
+        try {
+            sessionKey = todaySessionProvider.getTodaySession().getSessionKey().toString();
+        } catch (Exception e) {
+            System.err.println("Sem sessoes hoje");
+        }
+    }
+
     public void sendWeather() {
-        String sessionKey = sessionService.getTodaySession().getSessionKey().toString();
-        if (sessionKey == null) {
-            System.err.println("Sem sessoes hoje"); 
+
+        if (sessionKey == null) { 
             return;
         } 
 
