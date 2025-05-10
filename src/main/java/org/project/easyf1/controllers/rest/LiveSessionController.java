@@ -18,6 +18,8 @@ public class LiveSessionController {
     @PostMapping("/sendLatest")
     public ResponseEntity<Void> sendLatest() {
         liveSessionService.sendWeather();
+        liveSessionService.sendPositions();
+        
         return ResponseEntity.ok().build();
     }
 }
