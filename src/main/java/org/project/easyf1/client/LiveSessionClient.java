@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface LiveSessionClient {
 
     @GetMapping("/v1/weather")
-    WeatherDTO[] getWeather(@RequestParam("session_key") String sessionKey);
+    WeatherDTO[] getWeather(@RequestParam("session_key") Integer sessionKey);
 
     @GetMapping("/v1/position")
-    PositionDTO[] getPositions(@RequestParam("session_key") String sessionKey);
+    PositionDTO[] getPositions(@RequestParam("session_key") Integer sessionKey);
 }

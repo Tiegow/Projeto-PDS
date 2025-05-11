@@ -1,0 +1,39 @@
+#weather {
+    max-width: fit-content;
+    margin: 20px auto;
+    font-size: 22px;
+    background-color: var(--cor-preto);
+    padding: 20px 40px;
+    border-radius: 20px;
+}
+
+.imgTempContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px; 
+}
+
+.tempInfo {
+    display: block;
+    text-align: left; 
+}
+
+p {
+    margin: 10px 0;
+}
+
+.weatherImg {
+    width: 36px;
+    margin-right: 8px;
+}
+
+#positionsContainer {
+    background-color: var(--cor-preto);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#positionsContainer h4 {
+    border-bottom: 2px solid var(--cor-branco);
+}

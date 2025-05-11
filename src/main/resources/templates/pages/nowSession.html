@@ -24,19 +24,30 @@
     <div id="header"></div> <!-- O header da página será caregado aqui via JS -->
 
     <div class="container text-center">
-        <h2>Clima na Pista</h2>
+        <p><h2>HOJE</h2></p>
+    </div>
+
+    <div class="container">
         <div id="weather">
-            <p><strong>Temperatura do Ar:</strong> <span id="airTemperature"></span>°C</p>
-            <p><strong>Temperatura da Pista:</strong> <span id="trackTemperature"></span>°C</p>
-            <p><strong>Umidade:</strong> <span id="humidity"></span>%</p>
-            <p><strong>Pressão:</strong> <span id="pressure"></span> hPa</p>
-            <p><strong>Velocidade do Vento:</strong> <span id="windSpeed"></span> m/s</p>
-            <p><strong>Chuva:</strong> <span id="rainfall"></span></p>
+            <div class="imgTempContainer">
+                <img id="rainfallImg" src="https://img.icons8.com/?size=200&id=62039&format=png" />
+                <div class="tempInfo mt-1">
+                    <p><strong>Temperatura do Ar:</strong> <span id="airTemperature"></span>°C</p>
+                    <p><strong>Temperatura da Pista:</strong> <span id="trackTemperature"></span>°C</p>
+                </div>
+            </div>
+
+            <p><img class="weatherImg" src="https://img.icons8.com/?size=100&id=13001&format=png"/><strong>Umidade:</strong> <span id="humidity"></span>%</p>
+            <p><img class="weatherImg" src="https://img.icons8.com/?size=100&id=15344&format=png"/><strong>Pressão:</strong> <span id="pressure"></span> hPa</p>
+            <p><img class="weatherImg" src="https://img.icons8.com/?size=100&id=XOhPTXnruRFE&format=png"/><strong>Velocidade do Vento:</strong> <span id="windSpeed"></span> m/s</p>
         </div>
     </div>
 
-    <div class="container" id="positions">
-
+    <div class="container" id="positionsContainer">
+        <h4>Posições</h4>
+        <div id="positions">
+            
+        </div>
     </div>
 
     <script th:src="@{/js/util/countries.js}"></script>

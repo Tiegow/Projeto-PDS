@@ -1,8 +1,7 @@
 let stompClient = null;
 let reconnectDelay = 1000; // Tempo de espera (segundos) antes da próxima tentativa de reconexão
 
-let positions; // Mapa com as posições de cada piloto
-let driversData; // Lista com os dados de cada piloto na sessão
+let driversPositions = null;
 
 function connect() {
   const socket = new SockJS('/api/live');
@@ -23,7 +22,8 @@ function onConnected() {
 
   // Posições
   stompClient.subscribe('/topic/positions', function (message) {
-    positions = new Map(Object.entries(JSON.parse(message.body)));
+    driversPositions = JSON.parse(message.body);
+    console.log(driversPositions);
 
     updatePositionsInfo();
   });
@@ -56,36 +56,24 @@ function updateWeatherInfo(weather) {
   document.getElementById('pressure').textContent = weather.pressure;
   document.getElementById('windSpeed').textContent = weather.wind_speed;
 
-  const rainField = document.getElementById('rainfall');
-  if (weather.rainfall == 0) {
-      rainField.textContent = "Sem Chuva";
-  } else {
-      rainField.textContent = "Chovendo";
+  const rainField = document.getElementById('rainfallImg');
+  if (weather.rainfall != 0) {
+    rainField.src = "https://img.icons8.com/?size=200&id=91858&format=png"
   }
 }
 
 // Atualiza as informações sobre as posições dos pilotos
 function updatePositionsInfo() {
-  if (!positions || !driversData) return;
 
-  // Ordena os dados dos pilotos com base na posição atual
-  const sortedDrivers = driversData.slice().sort((a, b) => {
-    const posA = positions.get(String(a.driverNumber));
-    const posB = positions.get(String(b.driverNumber));
-    return posA - posB;
-  });
-
-  // Atualiza o DOM com os dados ordenados
   const container = document.getElementById('positions');
-  container.innerHTML = ''; 
-
-  sortedDrivers.forEach(driver => {
-    const pos = positions.get(String(driver.driverNumber));
-
+  container.innerHTML = '';
+  let pos = 1;
+  driversPositions.forEach(driver => {
     const div = document.createElement('div');
-    div.textContent = `P${pos}: ${driver.name} (#${driver.driverNumber})`;
+    div.textContent = `P${pos}: ${driver.first_name} ${driver.last_name} (#${driver.driver_number})`;
 
     container.appendChild(div);
+    pos += 1;
   });
 }
 
