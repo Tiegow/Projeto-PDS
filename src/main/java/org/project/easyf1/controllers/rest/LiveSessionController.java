@@ -19,6 +19,7 @@ public class LiveSessionController {
     public ResponseEntity<Void> sendLatest() {
         liveSessionService.sendWeather();
         liveSessionService.sendPositions();
+        liveSessionService.sendRaceEvents();
         
         return ResponseEntity.ok().build();
     }

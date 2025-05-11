@@ -2,6 +2,7 @@ let stompClient = null;
 let reconnectDelay = 1000; // Tempo de espera (segundos) antes da próxima tentativa de reconexão
 
 let driversPositions = null;
+let raceEvents = null;
 
 function connect() {
   const socket = new SockJS('/api/live');
@@ -23,9 +24,16 @@ function onConnected() {
   // Posições
   stompClient.subscribe('/topic/positions', function (message) {
     driversPositions = JSON.parse(message.body);
-    console.log(driversPositions);
 
     updatePositionsInfo();
+  });
+
+  // Eventos na pista
+  stompClient.subscribe('/topic/race_events', function (message) {
+    raceEvents = JSON.parse(message.body);
+    console.log(raceEvents);
+
+    updateRaceEventsInfo();
   });
 
   // Requisição inicial dos dados
@@ -76,6 +84,50 @@ function updatePositionsInfo() {
     pos += 1;
   });
 }
+
+// Atualiza as informações sobre os eventos na pista
+function updateRaceEventsInfo() {
+
+  const container = document.getElementById('events');
+  container.innerHTML = '';
+  raceEvents.forEach(event => {
+    const div = document.createElement('div');
+    div.className = "event";
+
+    const eventTitle = document.createElement('h5');
+
+    const eventSubtitle = document.createElement('span');
+    eventSubtitle.className = "subtitle";
+    
+    const eventTime = document.createElement('p');
+    eventTime.className = "time";
+    
+    const eventMessage = document.createElement('p');
+    eventMessage.className = "message";
+  
+    if (event.category == 'Flag') {
+      eventSubtitle.textContent = ` (${event.subTitle})`;
+      eventTitle.textContent = `Bandeira: ${event.flag}`;
+    }
+    else if (event.category == 'Other') {
+      eventTitle.textContent = `Evento`;
+    }
+    else {
+      eventTitle.textContent = event.category;
+    }
+
+    const date = new Date(event.date);
+    eventTime.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    eventMessage.textContent = event.message;
+    div.appendChild(eventTitle);
+    div.appendChild(eventSubtitle);
+    div.appendChild(eventTime);
+    div.appendChild(eventMessage);
+
+    container.appendChild(div);
+  })
+} 
 
 // Detecta queda de rede
 window.addEventListener('offline', () => {

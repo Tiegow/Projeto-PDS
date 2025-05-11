@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.project.easyf1.client.DriverClient;
 import org.project.easyf1.client.LiveSessionClient;
 import org.project.easyf1.models.dto.DriverDTO;
 import org.project.easyf1.models.dto.PositionDTO;
+import org.project.easyf1.models.dto.RaceControlDTO;
 import org.project.easyf1.models.dto.WeatherDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -40,39 +42,46 @@ public class LiveSessionService {
 
     @PostConstruct
     public void init() {
-        initSessionData();
+        checkSessionLive();
     }
 
-    // Tenta buscar os dados iniciais da sessão.
-    // É chamado caso algum dado essencial da sessão ainda não estiver definido.
-    private void initSessionData() {
-        try {
-            sessionKey = todaySessionProvider.getTodaySession().getSessionKey();
-        } catch (Exception e) {
-            sessionKey = null;
-            System.err.println("Sem sessoes hoje");
+    /**
+     * Verifica se os dados essencias da sessão estão definidos. 
+     * Tenta buscar os dados iniciais da sessão.
+     * 
+     * Se os dados estiverem definidos, a sessão está pronta para ser transmitida (live)
+     */
+    private boolean checkSessionLive() {
+        if (sessionKey == null || sessionDrivers == null) {
+            try {
+                sessionKey = todaySessionProvider.getTodaySession().getSessionKey();
+            } catch (Exception e) {
+                System.err.println("Sem sessoes hoje");
+                return false;
+            }
+
+            try {
+                sessionDrivers = driverClient.getDrivers(sessionKey);
+            } catch (Exception e) {
+                System.err.println("Erro ao buscar pilotos para esta corrida: " + e);
+                return false;
+            }
         }
 
-        try {
-            sessionDrivers = driverClient.getDrivers(sessionKey);
-        } catch (Exception e) {
-            sessionDrivers = null;
-            System.err.println("Erro ao buscar pilotos para esta corrida: " + e);
-        }
+        return true;
     }
 
     public void sendWeather() {
-        if (sessionKey == null) { 
-            initSessionData();
+        if (!checkSessionLive()) {
             return;
-        } 
+        }
 
         try {
             // Chamada à API
-            WeatherDTO[] weatherArray = liveSessionClient.getWeather(sessionKey);
+            List<WeatherDTO> weatherArray = liveSessionClient.getWeather(sessionKey);
 
-            if (weatherArray.length > 0) {
-                WeatherDTO latestWeather = weatherArray[weatherArray.length -1];
+            if (!weatherArray.isEmpty()) {
+                WeatherDTO latestWeather = weatherArray.get(weatherArray.size() - 1);
                 // Envia os dados para o cliente conectado
                 messagingTemplate.convertAndSend("/topic/weather", latestWeather);
             }
@@ -87,15 +96,14 @@ public class LiveSessionService {
     }
 
     public void sendPositions() {
-        if (sessionKey == null) { 
-            initSessionData();
+        if (!checkSessionLive()) {
             return;
-        } 
+        }
 
         try {
-            PositionDTO[] positionsArray = liveSessionClient.getPositions(sessionKey);
+            List<PositionDTO> positionsArray = liveSessionClient.getPositions(sessionKey);
 
-            if (positionsArray.length > 0) {
+            if (!positionsArray.isEmpty()) {
                 // Atualiza o Map auxiliar com (driverNumber -> position)
                 livePositionsProvider.updatePositions(positionsArray);
                 Map<Integer, Integer> updatedPositions = livePositionsProvider.getDriversPositions();
@@ -115,8 +123,30 @@ public class LiveSessionService {
         }
     }
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 25000)
     public void scheduledSendPositions() {
         sendPositions(); 
+    }
+
+    public void sendRaceEvents() {
+        if (!checkSessionLive()) {
+            return;
+        }
+
+        try {
+            List<RaceControlDTO> raceEvents = liveSessionClient.getRaceEvents(sessionKey);
+
+            if (!raceEvents.isEmpty()) {
+                Collections.reverse(raceEvents);
+                messagingTemplate.convertAndSend("/topic/race_events", raceEvents);
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar eventos de pista: " + e.getMessage());
+        }
+    }
+
+    @Scheduled(fixedRate = 30000)
+    public void scheduledSendRaceEvents() {
+        sendRaceEvents(); 
     }
 }
