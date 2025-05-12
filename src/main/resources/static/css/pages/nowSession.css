@@ -1,6 +1,6 @@
 #weather {
-    max-width: fit-content;
-    margin: 20px auto;
+    width: 90%;
+    margin: 20px;
     font-size: 22px;
     background-color: var(--cor-preto);
     padding: 20px 40px;
@@ -29,23 +29,43 @@ p {
 }
 
 #positionsContainer {
+    margin: 0 20px;
     background-color: var(--cor-preto);
     padding: 20px;
     border-radius: 20px;
+    border: 10px solid var(--cor-preto);
+    border-radius: 20px;
+    width: 90%;
+    max-height: 500px;
+    overflow: auto;
 }
 
 #positionsContainer h4 {
     border-bottom: 2px solid var(--cor-branco);
 }
 
+.position {
+    margin: 10px 0;
+    padding: 20px;
+    background-color: var(--cor-background);
+    font-size: 20px;
+}
+
+.position:first-of-type {
+    background-color: var(--cor-secundaria);
+}
+
+.driverNumber {
+    text-align: end;
+}
+
 #eventsContainer {
     background-color: var(--cor-preto);
     padding: 20px;
-    margin: 20px auto;
     border: 10px solid var(--cor-preto);
     border-radius: 20px;
-    max-width: 40%;
     max-height: 500px;
+    max-width: 90%;
     overflow: auto;
 }
 
@@ -66,7 +86,7 @@ p {
 }
 
 .event .message {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .event .time {
@@ -76,5 +96,5 @@ p {
 
 .event .subtitle {
     margin: 0;
-    font-size: 16px;
+    font-size: 15px;
 }

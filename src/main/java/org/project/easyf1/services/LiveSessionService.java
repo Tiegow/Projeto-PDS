@@ -56,7 +56,6 @@ public class LiveSessionService {
             try {
                 sessionKey = todaySessionProvider.getTodaySession().getSessionKey();
             } catch (Exception e) {
-                System.err.println("Sem sessoes hoje");
                 return false;
             }
 

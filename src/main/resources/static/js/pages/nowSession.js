@@ -78,8 +78,24 @@ function updatePositionsInfo() {
   let pos = 1;
   driversPositions.forEach(driver => {
     const div = document.createElement('div');
-    div.textContent = `P${pos}: ${driver.first_name} ${driver.last_name} (#${driver.driver_number})`;
+    div.className = "position row";
 
+    const divPos = document.createElement('div');
+    divPos.className = "col-2";
+
+    const divName = document.createElement('div');
+    divName.className = "col";
+
+    const divNumber = document.createElement('div');
+    divNumber.className = "col driverNumber";
+
+    divPos.textContent = `${pos}°:`;
+    divName.textContent = `${driver.first_name} ${driver.last_name}`;
+    divNumber.textContent = `(#${driver.driver_number})`;
+
+    div.appendChild(divPos);
+    div.appendChild(divName);
+    div.appendChild(divNumber);
     container.appendChild(div);
     pos += 1;
   });
