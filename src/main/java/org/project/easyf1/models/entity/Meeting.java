@@ -6,39 +6,63 @@ import java.util.List;
 import jakarta.persistence.*;
 
 /**
- * Entidade JPA que representa uma sessão (como treinos, classificatórias ou corrida) de um evento (meeting).
+ * Entidade JPA que representa um evento de corrida (Meeting).
  *
- * Cada instância desta classe corresponde a um registro na tabela "sessions" no banco de dados,
- * armazenando informações detalhadas como localização, circuito, tipo de sessão e datas.
+ * Cada instância desta classe corresponde a um registro na tabela "meetings" no banco de dados,
+ * armazenando dados relacionados ao evento, como local, país, circuito, nome oficial e data de início.
  *
- * A chave primária é `sessionKey`, e cada sessão está associada a um `meetingKey`.
+ * A chave primária é `meetingKey`, que identifica unicamente cada evento.
  */
 @Entity
-@Table(name = "sessions")
-public class Session {
+@Table(name = "meetings")
+public class Meeting {
 
     @Id
-    private Integer sessionKey;
+    @Column(name = "meeting_key")
+    private Integer meetingKey;
 
+    private String meetingName;
+    private String meetingOfficialName;
     private String location;
     private Integer countryKey;
     private String countryCode;
     private String countryName;
     private Integer circuitKey;
     private String circuitShortName;
-    private String sessionType;
-    private String sessionName;
     private OffsetDateTime startDate;
-    private OffsetDateTime endDate;
+    private Integer year;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "meeting")
     private List<Car> cars;
 
-    @ManyToOne
-    @JoinColumn(name = "meeting_key")
-    private Meeting meeting;
+    @OneToMany(mappedBy = "meeting")
+    private List<Session> sessions;
 
-    public Session() {}
+    public Meeting() {}
+
+    public Integer getMeetingKey() {
+        return meetingKey;
+    }
+
+    public void setMeetingKey(Integer meetingKey) {
+        this.meetingKey = meetingKey;
+    }
+
+    public String getMeetingName() {
+        return meetingName;
+    }
+
+    public void setMeetingName(String meetingName) {
+        this.meetingName = meetingName;
+    }
+
+    public String getMeetingOfficialName() {
+        return meetingOfficialName;
+    }
+
+    public void setMeetingOfficialName(String meetingOfficialName) {
+        this.meetingOfficialName = meetingOfficialName;
+    }
 
     public String getLocation() {
         return location;
@@ -88,44 +112,20 @@ public class Session {
         this.circuitShortName = circuitShortName;
     }
 
-    public String getSessionType() {
-        return sessionType;
-    }
-
-    public void setSessionType(String sessionType) {
-        this.sessionType = sessionType;
-    }
-
-    public String getSessionName() {
-        return sessionName;
-    }
-
-    public void setSessionName(String sessionName) {
-        this.sessionName = sessionName;
-    }
-
     public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(OffsetDateTime startDate) {
-        this.startDate = startDate;
+    public void setStartDate(OffsetDateTime dateStart) {
+        this.startDate = dateStart;
     }
 
-    public OffsetDateTime getEndDate() {
-        return endDate;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setEndDate(OffsetDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public Integer getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(Integer sessionKey) {
-        this.sessionKey = sessionKey;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public List<Car> getCars() {
@@ -136,11 +136,11 @@ public class Session {
         this.cars = cars;
     }
 
-    public Meeting getMeeting() {
-        return meeting;
+    public List<Session> getSessions() {
+        return sessions;
     }
 
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 }

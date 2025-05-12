@@ -3,10 +3,23 @@ package org.project.easyf1.models.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.OffsetDateTime;
+
+import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 
-import java.util.GregorianCalendar;
-
+/**
+ * Data Transfer Object (DTO) que representa os dados de uma sessão de corrida (Session).
+ * 
+ * Esta classe é usada para transferir os dados de uma sessão, como localização, país, circuito,
+ * tipo de sessão, nome da sessão e as datas de início e fim. Além disso, ela inclui métodos para
+ * converter entre a entidade `Session` e o DTO `SessionDTO`.
+ * 
+ * A classe utiliza a biblioteca Jackson para mapeamento de JSON, com anotações como `@JsonProperty` 
+ * e `@JsonFormat` para garantir que os campos do DTO sejam corretamente mapeados para os campos 
+ * do JSON com os respectivos nomes e formatos desejados.
+ */
 public class SessionDTO {
 
     @JsonProperty("id")
@@ -47,13 +60,13 @@ public class SessionDTO {
 
     @JsonProperty("date_start")
     @JsonAlias("startDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private GregorianCalendar startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime startDate;
 
     @JsonProperty("date_end")
     @JsonAlias("endDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private GregorianCalendar endDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime endDate;
 
     @JsonProperty("session_key")
     @JsonAlias("sessionKey")
@@ -64,6 +77,21 @@ public class SessionDTO {
     private Integer meetingKey;
 
     public SessionDTO() {}
+
+    public SessionDTO(Session session) {
+        this.location = session.getLocation();
+        this.countryKey = session.getCountryKey();
+        this.countryCode = session.getCountryCode();
+        this.countryName = session.getCountryName();
+        this.circuitKey = session.getCircuitKey();
+        this.circuitShortName = session.getCircuitShortName();
+        this.sessionType = session.getSessionType();
+        this.sessionName = session.getSessionName();
+        this.startDate = session.getStartDate();
+        this.endDate = session.getEndDate();
+        this.sessionKey = session.getSessionKey();
+        this.meetingKey = session.getMeeting().getMeetingKey();
+    }
 
     public Session getSession(){
         Session session = new Session();
@@ -78,7 +106,9 @@ public class SessionDTO {
         session.setStartDate(this.startDate);
         session.setEndDate(this.endDate);
         session.setSessionKey(this.sessionKey);
-        session.setMeetingKey(this.meetingKey);
+        session.setMeeting(new Meeting());
+        session.getMeeting().setMeetingKey(this.meetingKey);
+
         return session;
     }
 
@@ -154,19 +184,19 @@ public class SessionDTO {
         this.sessionName = sessionName;
     }
 
-    public GregorianCalendar getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(GregorianCalendar startDate) {
+    public void setStartDate(OffsetDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public GregorianCalendar getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(GregorianCalendar endDate) {
+    public void setEndDate(OffsetDateTime endDate) {
         this.endDate = endDate;
     }
 

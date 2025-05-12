@@ -46,17 +46,17 @@ function callLogin(dados) {
         },
         body: JSON.stringify(dados)
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Erro ao logar");
-        return response.json();
-    })
-    .then(data => {
-        localStorage.setItem('token', data.token);
-        console.log("Usuário logado com sucesso:", data);
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao logar");
+            return response.json();
+        })
+        .then(data => {
+            localStorage.setItem('token', data.token);
+            console.log("Usuário logado com sucesso:", data);
 
-        navigate('home');
-    })
-    .catch(error => console.error('Erro ao logar:', error));
+            navigate('home');
+        })
+        .catch(error => console.error('Erro ao logar:', error));
 }
 
 function callRegister(dados) {
@@ -67,15 +67,15 @@ function callRegister(dados) {
         },
         body: JSON.stringify(dados)
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Erro ao registrar");
-        return response.json();
-    })
-    .then(data => {
-        localStorage.setItem('token', data.token);
-        console.log("Usuário registrado com sucesso:", data);
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao registrar");
+            return response.json();
+        })
+        .then(data => {
+            localStorage.setItem('token', data.token);
+            console.log("Usuário registrado com sucesso:", data);
 
-        navigate('home');
-    })
-    .catch(error => console.error('Erro ao registrar:', error));
+            navigate('home');
+        })
+        .catch(error => console.error('Erro ao registrar:', error));
 }

@@ -2,57 +2,73 @@ package org.project.easyf1.services;
 
 import jakarta.annotation.PostConstruct;
 import org.project.easyf1.client.SessionClient;
+import org.project.easyf1.controllers.rest.SessionController;
+import org.project.easyf1.exception.NoSessionTodayException;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
+import org.project.easyf1.repositories.MeetingRepository;
 import org.project.easyf1.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Serviço responsável por gerenciar as operações relacionadas a sessões (treinos, classificações e corridas).
+ *
+ * <p><strong>Responsabilidades principais:</strong></p>
+ * <ul>
+ *     <li>Buscar e armazenar sessões atualizadas da API externa OpenF1 através do {@link SessionClient}.</li>
+ *     <li>Persistir as sessões no banco de dados usando o {@link SessionRepository}.</li>
+ *     <li>Fornecer métodos para consultar sessões por evento (meeting) ou pela data atual.</li>
+ * </ul>
+ *
+ * <p><strong>Funcionamento geral:</strong></p>
+ * <ul>
+ *     <li>O método {@code getNewSessions()} é executado automaticamente ao iniciar a aplicação, buscando todas as sessões ocorridas após a última registrada.</li>
+ *     <li>Os dados retornados da API são convertidos em entidades e persistidos localmente.</li>
+ *     <li>O método {@code getSessionsByMeeting(Integer)} retorna todas as sessões vinculadas a um determinado evento (meeting).</li>
+ *     <li>O método {@code getTodaySession()} busca a sessão que está ocorrendo no dia atual, considerando o fuso horário de Brasília (-03:00), e lança uma exceção personalizada se nenhuma sessão estiver ocorrendo hoje.</li>
+ * </ul>
+ *
+ * <p>Esta classe atua como ponte entre o {@link SessionController} e a camada de dados.</p>
+ */
 @Service
 public class SessionService {
 
     private final SessionClient sessionClient;
     private final SessionRepository sessionRepository;
+    private final MeetingRepository meetingRepository;
 
     @Autowired
-    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository) {
+    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository, MeetingRepository meetingRepository) {
         this.sessionClient = sessionClient;
         this.sessionRepository = sessionRepository;
+        this.meetingRepository = meetingRepository;
     }
 
-    @PostConstruct
-    public void getNewsSessions() throws UnsupportedEncodingException {
-        Session session = sessionRepository.findFirstByOrderByEndDateDesc();
+    public List<SessionDTO> getSessionsByMeeting(Integer meetingKey) {
+        List<Session> sessions = sessionRepository.findAllByMeetingKey(meetingKey);
+        return sessions.stream()
+                .map(SessionDTO::new)
+                .toList();
+    }
 
-        GregorianCalendar startDate = new GregorianCalendar(2000, GregorianCalendar.JANUARY, 1);
-        GregorianCalendar endDate = new GregorianCalendar();
-        SimpleDateFormat dataFormater = new SimpleDateFormat("yyyy-MM-dd");
+    public SessionDTO getTodaySession() throws NoSessionTodayException{
+        ZoneOffset zoneOffset = ZoneOffset.of("-03:00"); 
+        OffsetDateTime now = OffsetDateTime.now(zoneOffset);
+        OffsetDateTime startOfDay = now.toLocalDate().atStartOfDay().atOffset(zoneOffset);
+        OffsetDateTime startOfNextDay = startOfDay.plusDays(1);
 
-        if(session != null){
-            startDate = session.getStartDate();
+        Session session = sessionRepository.findTodaySession(startOfDay, startOfNextDay, now);
+
+        if (session == null) {
+            throw new NoSessionTodayException();
         }
 
-        String url = "https://api.openf1.org/v1/sessions?date_start>=" + dataFormater.format(startDate.getTime()) + "&date_end<=" + dataFormater.format(endDate.getTime());
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        List<Session> sessions =  Objects.requireNonNull(restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<SessionDTO>>() {
-                }
-        ).getBody()).stream().map(SessionDTO::getSession).toList();
-
-        sessionRepository.saveAll(sessions);
+        return new SessionDTO(session);
     }
 }

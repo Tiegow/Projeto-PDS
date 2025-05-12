@@ -5,6 +5,7 @@
     flex-wrap: wrap; /* para se adaptar melhor em telas menores */
     background-color: var(--cor-primaria);
     border-radius: 15px 0 15px 0;
+    box-shadow: 3px 3px 5px black;
 }
 
 iframe {

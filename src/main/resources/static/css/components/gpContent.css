@@ -23,12 +23,6 @@
     gap: 10px;
 }
 
-#flag-container img {
-    width: 40px;
-    height: auto;
-    border-radius: 4px;
-}
-
 .location-texts p {
     margin: 0;
     line-height: 1.2;
@@ -37,6 +31,10 @@
 .date-info p {
     margin: 0;
     line-height: 1.2;
+}
+
+.circuit-name {
+    font-size: 20px;
 }
 
 /* Parte expandida */
@@ -54,7 +52,7 @@
 }
 
 .gp-container.expanded .gp-details {
-    max-height: 500px; 
+    max-height: 500px;
     padding: 12px;
     border-top: 3px solid var(--cor-branco);
 }

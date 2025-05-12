@@ -6,3 +6,5 @@ CREATE TABLE teams (
                         team_points INTEGER
 
     );
+
+

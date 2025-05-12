@@ -5,10 +5,10 @@ function loadMainComponents() {
 
 /**
  * Função para carregar um componente HTML em um elemento específico da página.
- * 
- * A função utiliza o método fetch para obter o conteúdo do componente HTML e, em seguida, 
+ *
+ * A função utiliza o método fetch para obter o conteúdo do componente HTML e, em seguida,
  * insere esse conteúdo no elemento especificado pelo ID.
- * 
+ *
  * @param {*} targetElementId ID do elemento onde o componente será carregado
  * @param {*} componentUrl Diretório do componente HTML a ser carregado
  */
@@ -28,4 +28,9 @@ function loadComponent(targetElementId, componentUrl) {
 
 function navigate(destination) {
     window.location.href = '/easyF1/' + destination;
+}
+
+function toggleDetails(element) {
+    const container = element.parentElement;
+    container.classList.toggle("expanded");
 }

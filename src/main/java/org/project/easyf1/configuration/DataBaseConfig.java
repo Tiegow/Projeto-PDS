@@ -23,7 +23,6 @@ public class DataBaseConfig {
     private String password;
 
 
-
     //CONFIGURAÇÃO DO FLYWAY PARA MIGRATION
     @Bean(initMethod = "migrate")
     public Flyway flyway(FlywayProperties flywayProperties) {
