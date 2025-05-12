@@ -124,6 +124,54 @@ function updateRaceEventsInfo() {
     if (event.category == 'Flag') {
       eventSubtitle.textContent = ` (${event.subTitle})`;
       eventTitle.textContent = `Bandeira: ${event.flag}`;
+      const flagIcon = document.createElement('img');
+
+      switch (event.flag) {
+        case "BLUE":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/blue.png";
+          div.appendChild(flagIcon);
+          break;
+
+        case "YELLOW":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/yellow.png";
+          div.appendChild(flagIcon);
+          break;
+
+        case "DOUBLE YELLOW":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/doubleYellow.png";
+          div.appendChild(flagIcon);
+          break;
+
+        case "GREEN":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/green.png";
+          div.appendChild(flagIcon);
+          break;
+
+        case "CHEQUERED":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/end.png";
+          div.appendChild(flagIcon);
+          break;
+          
+        case "RED":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/red.png";
+          div.appendChild(flagIcon);
+          break;
+
+        case "BLACK":
+          eventTitle.textContent = '';
+          flagIcon.src = "/images/flags/black.png";
+          div.appendChild(flagIcon);
+          break;
+
+        default:
+          break;
+      }
     }
     else if (event.category == 'Other') {
       eventTitle.textContent = `Evento`;

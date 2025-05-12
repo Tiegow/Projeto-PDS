@@ -98,3 +98,7 @@ p {
     margin: 0;
     font-size: 15px;
 }
+
+.event img {
+    width: 64px;
+}
