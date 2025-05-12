@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class MeetingInitializer {
@@ -48,16 +49,36 @@ public class MeetingInitializer {
         List<MeetingDTO> newMeetings = meetingClient.getMeetingsAfter(dateStartParam);
         List<Meeting> meetings = newMeetings.stream().map(MeetingDTO::getMeeting).toList();
 
-        List<Session> sessions = new ArrayList<>();
-        meetings.forEach(meeting -> {
-            List<Session> sessionsTemp = sessionClient.getSessionByMeeting(meeting.getMeetingKey())
-                    .stream().map(SessionDTO::getSession).toList();
-            sessionsTemp.forEach(session -> session.setMeeting(meeting));
-            sessions.addAll(sessionsTemp);
-        });
+        List<Session> sessions = getAllSessions();
 
         meetingRepository.saveAll(meetings);
         sessionRepository.saveAll(sessions);
     }
 
+
+    private List<Session> getAllSessions(){
+        Session lastSession = sessionRepository.findFirstByOrderByEndDateDesc();
+
+        OffsetDateTime startDate = OffsetDateTime.parse("2000-01-01T00:00:00Z");
+        if (lastSession != null) {
+            startDate = lastSession.getStartDate();
+        }
+
+        String dateStartParam = startDate.toString();
+
+        try {
+            List<SessionDTO> newSessions = sessionClient.getSessionsAfter(dateStartParam);
+
+            List<Session> sessions = newSessions.stream()
+                    .map(SessionDTO::getSession)
+                    .filter(Objects::nonNull)
+                    .toList();
+
+            return sessions;
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar novas sessoes na inicialização");
+        }
+
+        return null;
+    }
 }
