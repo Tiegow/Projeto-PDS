@@ -58,7 +58,7 @@ public class MeetingService {
         List<MeetingDTO> dtos = meetings.stream()
             .map(meeting -> {
                 MeetingDTO dto = new MeetingDTO(meeting);
-                Session lastSession = sessionRepository.findFirstByMeetingKeyOrderByEndDateDesc(meeting.getMeetingKey());
+                Session lastSession = meeting.getSessions().getLast();
 
                 if (lastSession != null) {
                     dto.setEndDate(lastSession.getEndDate());

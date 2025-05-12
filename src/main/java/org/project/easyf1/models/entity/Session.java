@@ -34,6 +34,9 @@ public class Session {
     @OneToMany(mappedBy = "session")
     private List<Car> cars;
 
+    @OneToMany(mappedBy = "session")
+    private List<Driver> drivers;
+
     @ManyToOne
     @JoinColumn(name = "meeting_key")
     private Meeting meeting;
@@ -142,5 +145,13 @@ public class Session {
 
     public void setMeeting(Meeting meeting) {
         this.meeting = meeting;
+    }
+
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
     }
 }

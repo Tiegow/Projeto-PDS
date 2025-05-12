@@ -3,6 +3,8 @@ package org.project.easyf1.models.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.project.easyf1.models.entity.Driver;
+import org.project.easyf1.models.entity.Meeting;
+import org.project.easyf1.models.entity.Session;
 
 public class DriverDTO {
 
@@ -50,7 +52,36 @@ public class DriverDTO {
     @JsonAlias("teamName")
     private String teamName;
 
+    // parametros para ranking
+    @JsonProperty("id")
+    private Integer id;
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("abbr")
+    @JsonAlias("nameAcronym")
+    private String abbr;
+
+    @JsonProperty("image")
+    @JsonAlias("headshotUrl")
+    private String image;
+
     public DriverDTO() {
+    }
+
+    public DriverDTO(Driver driver) {
+        this.broadcastName = driver.getBroadcastName();
+        this.countryCode = driver.getCountryCode();
+        this.driverNumber = driver.getDriverNumber();
+        this.firstName = driver.getFirstName();
+        this.lastName = driver.getLastName();
+        this.headshotUrl = driver.getHeadshotUrl();
+        this.meetingKey = driver.getMeeting().getMeetingKey();
+        this.nameAcronym = driver.getNameAcronym();
+        this.sessionKey = driver.getSession().getSessionKey();
+        this.teamColour = driver.getTeamColour();
+        this.teamName = driver.getTeamName();
     }
 
     public Driver getDriver() {
@@ -61,11 +92,13 @@ public class DriverDTO {
         driver.setFirstName(firstName);
         driver.setLastName(lastName);
         driver.setHeadshotUrl(headshotUrl);
-        driver.setMeetingKey(meetingKey);
+        driver.setMeeting(new Meeting());
         driver.setNameAcronym(nameAcronym);
-        driver.setSessionKey(sessionKey);
+        driver.setSession(new Session());
         driver.setTeamColour(teamColour);
         driver.setTeamName(teamName);
+        driver.getMeeting().setMeetingKey(meetingKey);
+        driver.getSession().setSessionKey(sessionKey);
         return driver;
     }
 

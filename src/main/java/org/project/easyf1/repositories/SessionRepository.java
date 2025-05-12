@@ -3,6 +3,7 @@ package org.project.easyf1.repositories;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import org.project.easyf1.models.dto.DriverDTO;
 import org.project.easyf1.models.entity.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -43,4 +44,6 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
           @Param("startOfNextDay") OffsetDateTime startOfNextDay,
           @Param("now") OffsetDateTime now
       );
+
+    boolean existsSessionBySessionKey(Long sessionKey);
 }

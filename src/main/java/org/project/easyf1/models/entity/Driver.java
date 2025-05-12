@@ -23,9 +23,15 @@ public class Driver implements Comparable<Driver> {
 
     private String headshotUrl;
 
-    private Integer meetingKey;
     private String nameAcronym;
-    private Integer sessionKey;
+
+    @ManyToOne
+    @JoinColumn(name = "meeting_key")
+    private Meeting meeting;
+
+    @ManyToOne
+    @JoinColumn(name = "session_key")
+    private Session session;
 
     private String teamColour;
 
@@ -90,28 +96,12 @@ public class Driver implements Comparable<Driver> {
         this.headshotUrl = headshotUrl;
     }
 
-    public Integer getMeetingKey() {
-        return meetingKey;
-    }
-
-    public void setMeetingKey(Integer meetingKey) {
-        this.meetingKey = meetingKey;
-    }
-
     public String getNameAcronym() {
         return nameAcronym;
     }
 
     public void setNameAcronym(String nameAcronym) {
         this.nameAcronym = nameAcronym;
-    }
-
-    public Integer getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(Integer sessionKey) {
-        this.sessionKey = sessionKey;
     }
 
     public String getTeamColour() {
@@ -130,6 +120,21 @@ public class Driver implements Comparable<Driver> {
         this.teamName = teamName;
     }
 
+    public Meeting getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
 
     @Override
     public int compareTo(Driver o) {
