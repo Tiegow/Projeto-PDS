@@ -11,6 +11,11 @@ import java.util.Map;
 
 import org.project.easyf1.client.DriverClient;
 import org.project.easyf1.client.LiveSessionClient;
+import org.project.easyf1.exception.DriversNotFoundException;
+import org.project.easyf1.exception.EventsNotFountException;
+import org.project.easyf1.exception.NoSessionTodayException;
+import org.project.easyf1.exception.PositionsUpdateException;
+import org.project.easyf1.exception.WeatherNotFoundException;
 import org.project.easyf1.models.dto.DriverDTO;
 import org.project.easyf1.models.dto.PositionDTO;
 import org.project.easyf1.models.dto.RaceControlDTO;
@@ -42,37 +47,52 @@ public class LiveSessionService {
 
     @PostConstruct
     public void init() {
-        checkSessionLive();
+        // checkSessionLive();
+        try {
+            ensureLive(); 
+        } catch (Exception e) {
+            sessionKey = null;
+            sessionDrivers = null;
+        }
     }
 
-    /**
-     * Verifica se os dados essencias da sessão estão definidos. 
-     * Tenta buscar os dados iniciais da sessão.
-     * 
-     * Se os dados estiverem definidos, a sessão está pronta para ser transmitida (live)
-     */
-    private boolean checkSessionLive() {
-        if (sessionKey == null || sessionDrivers == null) {
+    private void ensureLive() {
+        if (!isSessionReady()) {
             try {
                 sessionKey = todaySessionProvider.getTodaySession().getSessionKey();
             } catch (Exception e) {
-                return false;
+                throw new NoSessionTodayException();
             }
 
             try {
                 sessionDrivers = driverClient.getDrivers(sessionKey);
             } catch (Exception e) {
-                System.err.println("Erro ao buscar pilotos para esta corrida: " + e);
-                return false;
+                throw new DriversNotFoundException();
             }
         }
+    }
 
+    private boolean isSessionReady() {
+        if (sessionKey == null || sessionDrivers == null) {
+            return false;
+        }
+        
         return true;
     }
 
+    public void sendLatest() {
+        sendWeather();
+        sendPositions();
+        sendRaceEvents();
+    }
+
     public void sendWeather() {
-        if (!checkSessionLive()) {
-            return;
+        try {
+            ensureLive(); 
+        } catch (DriversNotFoundException exception) { // Lança novamente a exceção do método privado
+            throw exception;
+        } catch (NoSessionTodayException exception) {
+            throw exception;
         }
 
         try {
@@ -85,7 +105,7 @@ public class LiveSessionService {
                 messagingTemplate.convertAndSend("/topic/weather", latestWeather);
             }
         } catch (Exception e) {
-            System.err.println("Erro ao buscar clima: " + e.getMessage());
+            throw new WeatherNotFoundException();
         }
     }
 
@@ -95,8 +115,12 @@ public class LiveSessionService {
     }
 
     public void sendPositions() {
-        if (!checkSessionLive()) {
-            return;
+        try {
+            ensureLive(); 
+        } catch (DriversNotFoundException exception) { 
+            throw exception;
+        } catch (NoSessionTodayException exception) {
+            throw exception;
         }
 
         try {
@@ -118,7 +142,7 @@ public class LiveSessionService {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Erro ao atualizar posições: " + e.getMessage());
+            throw new PositionsUpdateException();
         }
     }
 
@@ -128,8 +152,12 @@ public class LiveSessionService {
     }
 
     public void sendRaceEvents() {
-        if (!checkSessionLive()) {
-            return;
+        try {
+            ensureLive(); 
+        } catch (DriversNotFoundException exception) { 
+            throw exception;
+        } catch (NoSessionTodayException exception) {
+            throw exception;
         }
 
         try {
@@ -140,7 +168,7 @@ public class LiveSessionService {
                 messagingTemplate.convertAndSend("/topic/race_events", raceEvents);
             }
         } catch (Exception e) {
-            System.err.println("Erro ao buscar eventos de pista: " + e.getMessage());
+            throw new EventsNotFountException();
         }
     }
 

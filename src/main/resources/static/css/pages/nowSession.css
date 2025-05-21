@@ -102,3 +102,56 @@ p {
 .event img {
     width: 64px;
 }
+
+.errorPopupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.errorPopupCard {
+  background-color: var(--cor-preto);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.errorPopupTitle {
+  color: var(--cor-primaria);
+  margin-bottom: 12px;
+}
+
+.errorPopupMessage {
+  margin-bottom: 20px;
+}
+
+.errorPopupButton {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  cursor: pointer;
+}
+
+.errorPopupButtonReload {
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
+    text-decoration: underline;
+    padding: 0;
+    background-color: none;
+    color: var(--cor-secundaria);
+    cursor: pointer;
+}

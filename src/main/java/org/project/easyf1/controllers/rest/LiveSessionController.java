@@ -17,9 +17,7 @@ public class LiveSessionController {
 
     @PostMapping("/sendLatest")
     public ResponseEntity<Void> sendLatest() {
-        liveSessionService.sendWeather();
-        liveSessionService.sendPositions();
-        liveSessionService.sendRaceEvents();
+        liveSessionService.sendLatest();
         
         return ResponseEntity.ok().build();
     }

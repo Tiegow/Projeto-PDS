@@ -37,7 +37,57 @@ function onConnected() {
   });
 
   // Requisição inicial dos dados
-  fetch('/api/liveSession/sendLatest', {method: 'POST'});
+  fetch('/api/liveSession/sendLatest', {method: 'POST'}).then(async res => {
+    if (!res.ok) {
+      const error = await res.json();
+      
+      throw new Error(error.error);
+    }
+  }).catch(error => {
+    showErrorPopup(error.message);
+  });
+}
+
+function showErrorPopup (message) {
+  const overlay = document.createElement('div');
+  overlay.className = 'errorPopupOverlay';
+
+  // Fecha o popup ao clicar fora do card
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      document.body.removeChild(overlay);
+    }
+  });
+
+  const card = document.createElement('div');
+  card.className = 'errorPopupCard';
+
+  const title = document.createElement('h2');
+  title.className = 'errorPopupTitle';
+  title.textContent = 'Erro';
+
+  const msg = document.createElement('p');
+  msg.className = 'errorPopupMessage';
+  msg.textContent = message;
+
+  const button = document.createElement('button');
+  button.className = 'errorPopupButtonReload';
+  button.textContent = 'Recarregar Página';
+  button.onclick = () => {
+    location.reload();
+  };
+
+  const backButton = document.createElement('button');
+  backButton.className = 'errorPopupButton';
+  backButton.textContent = 'Voltar';
+  backButton.onclick = () => history.back();
+
+  card.appendChild(title);
+  card.appendChild(msg);
+  card.appendChild(backButton);
+  card.appendChild(button);
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
 }
 
 function onError(error) {
