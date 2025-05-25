@@ -79,10 +79,10 @@ public class DriverController {
     }
 
     @GetMapping("ranking")
-    public ResponseEntity<RankingDTO> getRankingDrivers(){
+    public String getRankingDrivers(){
 
-        RankingDTO rankingDTO = rankingClient.getDriversRankings();
 
-        return ResponseEntity.ok(rankingDTO);
+
+        return rankingClient.getDriversRankings();
     }
 }

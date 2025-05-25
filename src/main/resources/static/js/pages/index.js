@@ -140,6 +140,9 @@ async function loadTodaySession() {
 
         document.getElementById('session-time').textContent = `${formatTime(start)} - ${formatTime(end)}`;
 
+        document.getElementById("meeting-id").value = data.meeting_key;
+
+
         // Esconde a mensagem de erro, caso haja sessão
         document.getElementById('no-session-message').style.display = 'none';
         
@@ -148,3 +151,51 @@ async function loadTodaySession() {
         document.getElementById('no-session-message').style.display = 'block';
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("session-prev-button");
+    const previsaoDiv = document.getElementById("previsao");
+
+    button.addEventListener("click", async () => {
+
+        button.disabled = true;
+        button.textContent = "Carregando...";
+
+        const idMeeting = document.getElementById("meeting-id").value;
+
+        try {
+
+            const response = await fetch("http://localhost:8080/api/llm/who?meetingKey=" + idMeeting);
+
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status}`);
+            }
+
+            const jsonResponse = await response.json();
+
+            let textContent = "Sem resposta da IA.";
+
+            if (jsonResponse.candidates && jsonResponse.candidates.length > 0) {
+                const candidate = jsonResponse.candidates[0];
+                if (candidate.content?.parts?.length > 0) {
+                    textContent = candidate.content.parts[0].text;
+                } else {
+                    console.error("A propriedade parts está faltando.");
+                }
+            } else {
+                console.error("Não há candidatos disponíveis.");
+            }
+
+            previsaoDiv.innerText = textContent;
+            previsaoDiv.hidden = false;
+
+        } catch (error) {
+            console.error("Erro ao buscar previsão:", error);
+            previsaoDiv.innerText = "Erro ao buscar previsão. Tente novamente mais tarde.";
+            previsaoDiv.hidden = false;
+        } finally {
+            button.disabled = false;
+            button.textContent = "Ver previsão da corrida";
+        }
+    });
+});

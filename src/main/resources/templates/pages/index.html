@@ -54,6 +54,7 @@
                 <div id="flag-container" class="mx-auto">
                     <!-- Imagem da bandeira -->
                 </div>
+
                 <p id="circuit-name">
                     <!-- circuit_short_name -->
                 </p>
@@ -63,11 +64,30 @@
                 <p id="session-time">
                     <!-- hora do inicio e do fim -->
                 </p>
+
+                <input type="hidden" id="meeting-id" value="0">
+
                 <button id="session-button" class="container">VER MAIS</button>
+
+                <div class="text-center pt-2">
+                    <button id="session-prev-button" class="btn btn-primary">Ver previsão da corrida</button>
+                </div>
 
                 <!-- Espaço para exibir a mensagem caso não haja sessão -->
                 <p id="no-session-message" style="display: none; color: red;">Não há sessão programada para hoje.</p>
             </div>
+
+              <div id="previsao" hidden style="
+                    background-color: #161A1D;;
+                    margin-top: 20px;
+                    padding: 15px;
+                    border-left: 4px solid #0d6efd;
+                    border-radius: 6px;
+                    font-family: Arial, sans-serif;
+                    white-space: pre-line;
+                ">
+                  <!-- conteúdo da API será inserido aqui -->
+              </div>
 
             <div class="calendar container mt-5">
                 <div id="gp-wraper">

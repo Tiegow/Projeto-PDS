@@ -43,6 +43,7 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.GET, "/api/meetings/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/sessions/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/driver/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/llm/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("USER")
                         // permissões de views
