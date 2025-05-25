@@ -1,4 +1,4 @@
-CREATE TABLE teams (
+CREATE TABLE team (
                         id SERIAL PRIMARY KEY,
                         team_name VARCHAR(255),
                         first_driver_number INTEGER,

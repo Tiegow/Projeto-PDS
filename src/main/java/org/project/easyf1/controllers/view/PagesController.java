@@ -37,4 +37,9 @@ public class PagesController {
     public String driverPage() {
         return "pages/driver";
     }
+
+    @GetMapping("/teams")
+    public String teamsPage() {
+        return "pages/teams";
+    }
 }

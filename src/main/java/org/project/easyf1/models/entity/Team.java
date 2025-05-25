@@ -4,7 +4,7 @@ package org.project.easyf1.models.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Teams")
+@Table(name = "Team")
 public class Team {
 
     @Id

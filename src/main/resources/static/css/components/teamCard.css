@@ -1,0 +1,25 @@
+.team-card {
+    min-width: 500px;
+    padding: 0;
+    border-radius: 20px;
+    background-color: var(--cor-preto);
+    border-bottom: 20px solid blue;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    min-height: 100px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    margin-bottom: 18px;
+}
+
+.team-info {
+    flex: 1;
+    position: relative;
+    line-height: 0.2;
+}
+
+.team-info p {
+    font-size: 20px;
+}

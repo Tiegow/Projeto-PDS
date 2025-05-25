@@ -31,12 +31,15 @@ public class TeamService {
     }
 
     @PostConstruct
-    public void getNewestTeams() throws UnsupportedEncodingException {
+    public void populateNewestTeamsFromApi() throws UnsupportedEncodingException { // Renomeado para clareza na resposta anterior
 
         Session lastRaceSession = sessionRepository.findFirstByOrderByEndDateDesc();
 
         if(lastRaceSession == null){
-            throw new RuntimeException("Nenhuma sessão race encontrada");
+            // Considerar logar um aviso ou erro aqui também
+            System.err.println("Nenhuma sessão race encontrada para popular as equipes."); // Exemplo simples de log
+            return; // Retornar para evitar NullPointerException abaixo
+            // Ou throw new RuntimeException("Nenhuma sessão race encontrada"); se for crítico para a inicialização
         }
 
         String url =  "https://api.openf1.org/v1/drivers?session_key=" + lastRaceSession.getSessionKey();
@@ -64,16 +67,38 @@ public class TeamService {
                         dto.setTeamName(entry.getKey());
                         dto.setFirstDriverNumber(first);
                         dto.setSecondDriverNumber(second);
-                        dto.setTeamPoints(0);
+                        dto.setTeamPoints(0); // Considerar se este valor é sempre 0 ou se vem da API
 
                         return dto.getTeam();
                     })
                     .toList();
 
             teamRepository.saveAll(teamsToSave);
+            // Considerar logar sucesso ou número de equipes salvas
+            System.out.println(teamsToSave.size() + " equipes salvas/atualizadas.");
+
 
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao buscar ou salvar dados dos times: " + e.getMessage(), e);
+            // Logar o erro detalhadamente
+            System.err.println("Erro ao buscar ou salvar dados dos times da API: " + e.getMessage());
+            // Re-lançar como RuntimeException pode ser apropriado se a falha na inicialização for crítica
+            // throw new RuntimeException("Erro ao buscar ou salvar dados dos times: " + e.getMessage(), e);
         }
     }
+
+    public List<Team> getAllTeams() {
+        return teamRepository.findAll();
+    }
+
+    public Team getTeamById(Long id) {
+        return teamRepository.findById(id).orElse(null);
+    }
+
+    public Team getTeamByName(String name) {
+        return teamRepository.findAll().stream()
+                           .filter(t -> t.getTeamName().equalsIgnoreCase(name))
+                           .findFirst()
+                           .orElse(null);
+    }
+
 }
