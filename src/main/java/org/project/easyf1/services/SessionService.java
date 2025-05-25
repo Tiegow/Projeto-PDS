@@ -55,19 +55,20 @@ public class SessionService {
         }
     
         String dateStartParam = startDate.toString();
-        
+
         try {
             List<SessionDTO> newSessions = sessionClient.getSessionsAfter(dateStartParam);
-    
+
             List<Session> sessions = newSessions.stream()
-                .map(SessionDTO::getSession) 
+                .map(SessionDTO::getSession)
                 .filter(Objects::nonNull)
                 .toList();
-        
+
             sessionRepository.saveAll(sessions);
         } catch (Exception e) {
             System.err.println("Erro ao buscar novas sessoes na inicialização");
         }
+
     }
 
     public List<SessionDTO> getSessionsByMeeting(Integer meetingKey) {

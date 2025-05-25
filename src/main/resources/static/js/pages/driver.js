@@ -26,8 +26,6 @@ function renderDrivers(data) {
     fetch('/components/pilotoCard.html')
         .then(res => res.text())
         .then(html => {
-            console.log(html);
-            console.log(data);
             data.forEach(driver => {
                 const temp = document.createElement('div');
                 temp.innerHTML = html;
@@ -88,19 +86,19 @@ function mostrarDetalhes(driver_number) {
             return response.json();
         })
         .then(data => {
-
-            const teamColor = piloto.team_colour;
+            console.log(data);
+            const teamColor = data.team_colour;
             const lighterColor = createDarkerColor(teamColor);
             detalhes.innerHTML = `
                 <div class="card shadow rounded-4 border-0 overflow-hidden">
                     <div class="card-header p-4" style="background: linear-gradient(to right, #${teamColor}, ${lighterColor});">
                         <div class="d-flex align-items-center gap-4">
-                            <img src="${piloto.headshot_url}" class="rounded-circle" style="width:120px; height:120px; object-fit:cover; border:3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+                            <img src="${data.headshot_url}" class="rounded-circle" style="width:120px; height:120px; object-fit:cover; border:3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
                             <div>
-                                <h2 class="mb-0 fw-bold">${piloto.first_name} ${piloto.last_name}</h2>
-                                <p class="fs-5 mb-1">${piloto.team_name}</p>
-                                <span class="badge bg-dark fs-6">Nº ${piloto.driver_number}</span>
-                                <span class="badge bg-secondary fs-6">${piloto.country_code}</span>
+                                <h2 class="mb-0 fw-bold">${data.first_name} ${data.last_name}</h2>
+                                <p class="fs-5 mb-1">${data.team_name}</p>
+                                <span class="badge bg-dark fs-6">Nº ${data.driver_number}</span>
+                                <span class="badge bg-secondary fs-6">${data.country_code}</span>
                             </div>
                         </div>
                     </div>

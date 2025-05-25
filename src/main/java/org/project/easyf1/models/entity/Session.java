@@ -1,6 +1,7 @@
 package org.project.easyf1.models.entity;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -18,9 +19,6 @@ public class Session {
 
     @Id
     private Integer sessionKey;
-    
-    @Column(name = "meeting_key")
-    private Integer meetingKey;
 
     private String location;
     private Integer countryKey;
@@ -32,6 +30,16 @@ public class Session {
     private String sessionName;
     private OffsetDateTime startDate;
     private OffsetDateTime endDate;
+
+    @OneToMany(mappedBy = "session")
+    private List<Car> cars;
+
+    @OneToMany(mappedBy = "session")
+    private List<Driver> drivers;
+
+    @ManyToOne
+    @JoinColumn(name = "meeting_key")
+    private Meeting meeting;
 
     public Session() {}
 
@@ -123,11 +131,27 @@ public class Session {
         this.sessionKey = sessionKey;
     }
 
-    public Integer getMeetingKey() {
-        return meetingKey;
+    public List<Car> getCars() {
+        return cars;
     }
 
-    public void setMeetingKey(Integer meetingKey) {
-        this.meetingKey = meetingKey;
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public Meeting getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
+    }
+
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
     }
 }

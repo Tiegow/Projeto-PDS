@@ -1,8 +1,12 @@
 package org.project.easyf1.controllers.rest;
 
 
+import jakarta.persistence.Id;
 import org.project.easyf1.client.DriverClient;
+import org.project.easyf1.client.RankingClient;
 import org.project.easyf1.models.dto.DriverDTO;
+import org.project.easyf1.models.dto.RankingDTO;
+import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.DriverRepository;
 import org.project.easyf1.repositories.SessionRepository;
@@ -11,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/driver")
@@ -24,22 +30,37 @@ public class DriverController {
 
     private final SessionRepository sessionRepository;
 
-    public DriverController(DriverService driverService, DriverRepository driverRepository, DriverClient driverClient, SessionRepository sessionRepository) {
+    private final RankingClient rankingClient;
+
+    public DriverController(DriverService driverService, DriverRepository driverRepository, DriverClient driverClient, SessionRepository sessionRepository , RankingClient rankingClient) {
         this.driverService = driverService;
         this.driverRepository = driverRepository;
         this.driverClient = driverClient;
         this.sessionRepository = sessionRepository;
+        this.rankingClient = rankingClient;
     }
 
     @GetMapping("lastSession")
     public ResponseEntity<List<DriverDTO>> getLastSessionDrivers() {
         Session lastSession = sessionRepository.findFirstByOrderByEndDateDesc();
+
+        if(lastSession == null) {
+            return ResponseEntity.noContent().build();
+        }
+
         return getDriversBySessionKey(lastSession.getSessionKey());
     }
 
     @GetMapping("session")
     public ResponseEntity<List<DriverDTO>> getDriversBySessionKey(@RequestParam("sessionKey") Integer sessionKey) {
-        return ResponseEntity.ok(driverClient.getDrivers(sessionKey));
+
+        List<Driver> drivers = driverRepository.findAllBySession_SessionKey(sessionKey);
+
+        if(drivers.isEmpty()) {
+            return ResponseEntity.ok(driverClient.getDrivers(sessionKey));
+        } else {
+            return ResponseEntity.ok(drivers.stream().map(DriverDTO::new).collect(Collectors.toList()));
+        }
     }
 
     @GetMapping("")
@@ -49,9 +70,19 @@ public class DriverController {
 
     @GetMapping("details")
     public ResponseEntity<DriverDTO> detailDriver(@RequestParam("driver_number") Integer driverNumber) {
-        DriverDTO driver = new DriverDTO();
+
+        Driver driver = driverRepository.findFirstByDriverNumber(driverNumber);
+
+        DriverDTO driverDTO = new DriverDTO(driver);
+
+        return ResponseEntity.ok(driverDTO);
+    }
+
+    @GetMapping("ranking")
+    public String getRankingDrivers(){
 
 
-        return ResponseEntity.ok(driver);
+
+        return rankingClient.getDriversRankings();
     }
 }
