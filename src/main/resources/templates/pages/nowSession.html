@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyF1 - Agora</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/logo.png}">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/nowSession.css}">
+
+    <!-- WEB SOCKETS -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+    <div id="header"></div> 
+
+    <div class="container text-center my-3">
+        <h2>HOJE</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Coluna da esquerda: clima e posições -->
+            <div class="col-4 p-0">
+                <div id="weather" class="mb-4">
+                    <div class="imgTempContainer d-flex align-items-center mb-2">
+                        <img id="rainfallImg" src="https://img.icons8.com/?size=200&id=62039&format=png" />
+                        <div class="tempInfo ms-3 mt-1">
+                            <p><strong>Temp. do Ar:</strong> <span id="airTemperature"></span>°C</p>
+                            <p><strong>Temp. da Pista:</strong> <span id="trackTemperature"></span>°C</p>
+                        </div>
+                    </div>
+                    <p><img class="weatherImg" src="https://img.icons8.com/?size=100&id=13001&format=png"/><strong> Umidade:</strong> <span id="humidity"></span>%</p>
+                    <p><img class="weatherImg" src="https://img.icons8.com/?size=100&id=15344&format=png"/><strong> Pressão:</strong> <span id="pressure"></span> hPa</p>
+                    <p><img class="weatherImg" src="https://img.icons8.com/?size=100&id=XOhPTXnruRFE&format=png"/><strong> Vento:</strong> <span id="windSpeed"></span> m/s</p>
+                </div>
+
+                <div id="positionsContainer">
+                    <h4>Posições</h4>
+                    <div id="positions">
+                        <!-- conteúdo de posições aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <!-- Coluna da direita: eventos da pista -->
+            <div class="col-4 d-flex flex-column align-items-end">
+                <div id="eventsContainer">
+                    <h4>Eventos da Pista</h4>
+                    <div id="events">
+                        <!-- conteúdo de eventos aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/util/countries.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/pages/nowSession.js}"></script>
+</body>
+</html>

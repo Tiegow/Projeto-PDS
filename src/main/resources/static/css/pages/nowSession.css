@@ -1,0 +1,157 @@
+#weather {
+    width: 90%;
+    margin: 20px;
+    font-size: 22px;
+    background-color: var(--cor-preto);
+    padding: 20px 40px;
+    border-radius: 20px;
+}
+
+.imgTempContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px; 
+}
+
+.tempInfo {
+    display: block;
+    text-align: left; 
+}
+
+p {
+    margin: 10px 0;
+}
+
+.weatherImg {
+    width: 36px;
+    margin-right: 8px;
+}
+
+#positionsContainer {
+    margin: 0 20px;
+    background-color: var(--cor-preto);
+    padding: 20px;
+    border-radius: 20px;
+    border: 10px solid var(--cor-preto);
+    border-radius: 20px;
+    width: 90%;
+    max-height: 500px;
+    overflow: auto;
+}
+
+#positionsContainer h4 {
+    border-bottom: 2px solid var(--cor-branco);
+}
+
+.position {
+    margin: 10px 0;
+    padding: 20px;
+    background-color: var(--cor-background);
+    font-size: 20px;
+}
+
+.position:first-of-type {
+    background-color: var(--cor-secundaria);
+}
+
+.driverNumber {
+    text-align: end;
+}
+
+#eventsContainer {
+    background-color: var(--cor-preto);
+    padding: 20px;
+    border: 10px solid var(--cor-preto);
+    border-radius: 20px;
+    max-height: 500px;
+    max-width: 90%;
+    overflow: auto;
+}
+
+#eventsContainer h4 {
+    border-bottom: 2px solid var(--cor-branco);
+}
+
+.event {
+    margin: 10px 0;
+    padding: 20px;
+    background-color: var(--cor-background);
+    border-radius: 15px;
+}
+
+.event h5 {
+    display: inline;
+    margin-bottom: 0;
+}
+
+.event .message {
+    font-size: 15px;
+}
+
+.event .time {
+    margin-top: 0;
+    font-size: 15px;
+}
+
+.event .subtitle {
+    margin: 0;
+    font-size: 15px;
+}
+
+.event img {
+    width: 64px;
+}
+
+.errorPopupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.errorPopupCard {
+  background-color: var(--cor-preto);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.errorPopupTitle {
+  color: var(--cor-primaria);
+  margin-bottom: 12px;
+}
+
+.errorPopupMessage {
+  margin-bottom: 20px;
+}
+
+.errorPopupButton {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  cursor: pointer;
+}
+
+.errorPopupButtonReload {
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
+    text-decoration: underline;
+    padding: 0;
+    background-color: none;
+    color: var(--cor-secundaria);
+    cursor: pointer;
+}

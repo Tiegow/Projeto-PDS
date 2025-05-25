@@ -61,13 +61,17 @@ public class MeetingService {
 
         String dateStartParam = startDate.toString();
 
-        List<MeetingDTO> newMeetings = meetingClient.getMeetingsAfter(dateStartParam);
+        try {
+            List<MeetingDTO> newMeetings = meetingClient.getMeetingsAfter(dateStartParam);
 
-        List<Meeting> meetings = newMeetings.stream()
+            List<Meeting> meetings = newMeetings.stream()
                 .map(MeetingDTO::getMeeting)
                 .toList();
 
-        meetingRepository.saveAll(meetings);
+            meetingRepository.saveAll(meetings);
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar novas reuniões na inicialização");
+        }
     }
 
     public List<MeetingDTO> getMeetingsByYear(Integer year) {
