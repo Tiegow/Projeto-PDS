@@ -1,4 +1,4 @@
-.piloto-card {
+.team-card {
     min-width: 500px;
     padding: 0;
     border-radius: 20px;
@@ -8,27 +8,18 @@
     position: relative;
     overflow: hidden;
     flex-wrap: nowrap;
-    min-height: 190px;
+    min-height: 100px;
     scroll-snap-align: start;
     flex-shrink: 0;
     margin-bottom: 18px;
 }
 
-.piloto-card img {
-    object-fit: cover;
-    background-color: var(--cor-branco);
-    width: 130px;
-    height: 100%;
-    border-radius: 20px 0 0 0;
-    margin-right: 12px;
-}
-
-.piloto-info {
+.team-info {
     flex: 1;
     position: relative;
     line-height: 0.2;
 }
 
-.piloto-info p {
+.team-info p {
     font-size: 20px;
 }

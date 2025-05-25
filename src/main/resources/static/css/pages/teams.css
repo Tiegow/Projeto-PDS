@@ -1,0 +1,80 @@
+.times-lista { /* Alterado de .pilotos-lista */
+    background-color: #161A1D;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.time-card { /* Alterado de .piloto-card */
+    display: flex;
+    gap: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: calc(50% - 1rem); /* Considere se as equipes devem ocupar o mesmo espaço que os pilotos */
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+}
+
+.time-card:hover { /* Alterado de .piloto-card:hover */
+    background-color: #e2e6ea;
+}
+
+.time-info h5 { /* Alterado de .piloto-info h5 */
+    margin-bottom: 0.25rem;
+}
+
+.time-info p { /* Alterado de .piloto-info p */
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #555;
+}
+
+#time-detalhes { /* Alterado de #piloto-detalhes */
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#time-detalhes h3 { /* Alterado de #piloto-detalhes h3 */
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+#time-detalhes p { /* Alterado de #piloto-detalhes p */
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #34495e;
+}
+
+/* Media Queries com nomes de classes atualizados */
+@media (max-width: 768px) {
+    .time-card { /* Alterado de .piloto-card */
+        width: 100%;
+    }
+    .times-lista { /* Alterado de .pilotos-lista */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-card { /* Alterado de .piloto-card */
+        padding: 1rem;
+    }
+    .time-info h5 { /* Alterado de .piloto-info h5 */
+        font-size: 1.2rem;
+    }
+    .time-info p { /* Alterado de .piloto-info p */
+        font-size: 0.9rem;
+    }
+}

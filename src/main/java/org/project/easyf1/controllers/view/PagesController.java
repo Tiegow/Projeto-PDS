@@ -32,4 +32,14 @@ public class PagesController {
     public String errorPage() {
         return "pages/error";
     }
+
+    @GetMapping("/driver")
+    public String driverPage() {
+        return "pages/driver";
+    }
+
+    @GetMapping("/teams")
+    public String teamsPage() {
+        return "pages/teams";
+    }
 }
