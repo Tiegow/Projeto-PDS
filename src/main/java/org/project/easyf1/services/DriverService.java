@@ -23,21 +23,6 @@ public class DriverService {
         this.driverClient = driverClient;
     }
 
-//    @PostConstruct
-//    public void addALlDrivers  () {
-//
-//        if (driverRepository.existsAnyDriver()) {
-//            return;
-//        }
-//
-//        List<DriverDTO> driversDTO = driverClient.getAllDrivers();
-//
-//        List<Driver> drivers = driversDTO.stream()
-//                .map(DriverDTO::getDriver)
-//                .filter(Objects::nonNull)
-//                .toList();
-//
-//        driverRepository.saveAll(drivers);
-//    }
+
 
 }

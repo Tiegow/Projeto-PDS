@@ -45,32 +45,6 @@ public class SessionService {
         this.sessionRepository = sessionRepository;
     }
 
-    @PostConstruct
-    public void getNewSessions() {
-        Session lastSession = sessionRepository.findFirstByOrderByEndDateDesc();
-    
-        OffsetDateTime startDate = OffsetDateTime.parse("2000-01-01T00:00:00Z");
-        if (lastSession != null) {
-            startDate = lastSession.getStartDate();
-        }
-    
-        String dateStartParam = startDate.toString();
-
-        try {
-            List<SessionDTO> newSessions = sessionClient.getSessionsAfter(dateStartParam);
-
-            List<Session> sessions = newSessions.stream()
-                .map(SessionDTO::getSession)
-                .filter(Objects::nonNull)
-                .toList();
-
-            sessionRepository.saveAll(sessions);
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar novas sessoes na inicialização");
-        }
-
-    }
-
     public List<SessionDTO> getSessionsByMeeting(Integer meetingKey) {
         List<Session> sessions = sessionRepository.findAllByMeetingKey(meetingKey);
         return sessions.stream()

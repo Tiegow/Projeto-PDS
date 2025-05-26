@@ -1,11 +1,8 @@
 package org.project.easyf1.controllers.rest;
 
 
-import jakarta.persistence.Id;
 import org.project.easyf1.client.DriverClient;
-import org.project.easyf1.client.RankingClient;
 import org.project.easyf1.models.dto.DriverDTO;
-import org.project.easyf1.models.dto.RankingDTO;
 import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.DriverRepository;
@@ -15,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,14 +26,11 @@ public class DriverController {
 
     private final SessionRepository sessionRepository;
 
-    private final RankingClient rankingClient;
-
-    public DriverController(DriverService driverService, DriverRepository driverRepository, DriverClient driverClient, SessionRepository sessionRepository , RankingClient rankingClient) {
+    public DriverController(DriverService driverService, DriverRepository driverRepository, DriverClient driverClient, SessionRepository sessionRepository) {
         this.driverService = driverService;
         this.driverRepository = driverRepository;
         this.driverClient = driverClient;
         this.sessionRepository = sessionRepository;
-        this.rankingClient = rankingClient;
     }
 
     @GetMapping("lastSession")
@@ -76,13 +69,5 @@ public class DriverController {
         DriverDTO driverDTO = new DriverDTO(driver);
 
         return ResponseEntity.ok(driverDTO);
-    }
-
-    @GetMapping("ranking")
-    public String getRankingDrivers(){
-
-
-
-        return rankingClient.getDriversRankings();
     }
 }

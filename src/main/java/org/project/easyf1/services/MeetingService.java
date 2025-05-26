@@ -50,30 +50,6 @@ public class MeetingService {
         this.sessionRepository = sessionRepository;
     }
 
-    @PostConstruct
-    public void getNewMeetings() {
-        Meeting lastMeeting = meetingRepository.findFirstByOrderByStartDateDesc();
-
-        OffsetDateTime startDate = OffsetDateTime.parse("2000-01-01T00:00:00Z");
-        if (lastMeeting != null) {
-            startDate = lastMeeting.getStartDate();
-        }
-
-        String dateStartParam = startDate.toString();
-
-        try {
-            List<MeetingDTO> newMeetings = meetingClient.getMeetingsAfter(dateStartParam);
-
-            List<Meeting> meetings = newMeetings.stream()
-                .map(MeetingDTO::getMeeting)
-                .toList();
-
-            meetingRepository.saveAll(meetings);
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar novas reuniões na inicialização");
-        }
-    }
-
     public List<MeetingDTO> getMeetingsByYear(Integer year) {
         List<Meeting> meetings = meetingRepository.findAllByYear(year);
         
@@ -81,7 +57,7 @@ public class MeetingService {
         List<MeetingDTO> dtos = meetings.stream()
             .map(meeting -> {
                 MeetingDTO dto = new MeetingDTO(meeting);
-                Session lastSession = sessionRepository.findFirstByMeetingKeyOrderByEndDateDesc(meeting.getMeetingKey());
+                Session lastSession = meeting.getSessions().getLast();
 
                 if (lastSession != null) {
                     dto.setEndDate(lastSession.getEndDate());
