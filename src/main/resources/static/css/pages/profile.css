@@ -38,3 +38,13 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
+
+.piloto-card .favorite-star {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: auto;
+    z-index: 2;
+    cursor: pointer;
+}

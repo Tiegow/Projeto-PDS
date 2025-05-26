@@ -1,6 +1,29 @@
 window.onload = () => {
     loadMainComponents();
+    loadUserFavorites();
     loadAllDrivers();
+}
+
+let userFavorites = [];
+
+async function loadUserFavorites() {
+    try {
+        const response = await fetch(`/api/user/get`, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar pilotos favoritos: ${response.status}`);
+        }
+
+        const data = await response.json();
+        userFavorites = data.favoriteDrivers;
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+    }
 }
 
 async function loadAllDrivers(){
@@ -38,11 +61,7 @@ function renderDrivers(data) {
 
                 card.style.background = `linear-gradient(to right, #${teamColor}, ${darkerColor})`;
 
-                const favoriteStar = card.querySelector('.favorite-star');
-                favoriteStar.src = '/images/star.png';
-                favoriteStar.onclick = () => {
-                    toggleFavoriteDriver(driver.driver_number);
-                };
+                buildStarIcon(driver, card);
 
                 const img = card.querySelector('.piloto-img');
                 img.src = driver.headshot_url;
@@ -214,4 +233,23 @@ function createDarkerColor(hexColor) {
 
     // Retornar a cor em formato RGB
     return `rgb(${darkerR}, ${darkerG}, ${darkerB})`;
+}
+
+function buildStarIcon(driver, card) {
+    const favoriteStar = card.querySelector('.favorite-star');
+    let isFavoriteDriver;
+
+    if (userFavorites.some(fav => fav.driver_number === driver.driver_number)) {
+        favoriteStar.src = '/images/star.png';
+        isFavoriteDriver = true;
+    } else {
+        favoriteStar.src = '/images/star_g.png';
+        isFavoriteDriver = false;
+    }
+    favoriteStar.onclick = async () => {
+        await toggleFavoriteDriver(driver.driver_number, isFavoriteDriver);
+        await loadUserFavorites();
+        
+        buildStarIcon(driver, card);
+    };
 }
