@@ -1,5 +1,7 @@
 package org.project.easyf1.models.dto;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.project.easyf1.models.entity.User;
 
 public class UserDTO {
@@ -8,12 +10,14 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String userName;
+    private Set<DriverDTO> favoriteDrivers;
 
-    public UserDTO(String email, String firstName, String lastName, String username) {
+    public UserDTO(String email, String firstName, String lastName, String username, Set<DriverDTO> favoriteDrivers) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
+        this.favoriteDrivers = favoriteDrivers;
     }
 
     public UserDTO(User user) {
@@ -21,6 +25,9 @@ public class UserDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.userName = user.getUsername();
+        this.favoriteDrivers = user.getFavoriteDrivers().stream() // Converte cada entidade Driver para DriverDTO e coloca em um Set
+            .map(DriverDTO::new)
+            .collect(Collectors.toSet());
     }
 
     public String getEmail() {
@@ -53,5 +60,13 @@ public class UserDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Set<DriverDTO> getFavoriteDrivers() {
+        return favoriteDrivers;
+    }
+
+    public void setFavoriteDrivers(Set<DriverDTO> favoriteDrivers) {
+        this.favoriteDrivers = favoriteDrivers;
     }
 }

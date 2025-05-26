@@ -14,7 +14,7 @@
     margin-bottom: 18px;
 }
 
-.piloto-card img {
+.piloto-card .piloto-img {
     object-fit: cover;
     background-color: var(--cor-branco);
     width: 130px;

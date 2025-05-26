@@ -38,7 +38,13 @@ function renderDrivers(data) {
 
                 card.style.background = `linear-gradient(to right, #${teamColor}, ${darkerColor})`;
 
-                const img = card.querySelector('img');
+                const favoriteStar = card.querySelector('.favorite-star');
+                favoriteStar.src = '/images/star.png';
+                favoriteStar.onclick = () => {
+                    toggleFavoriteDriver(driver.driver_number);
+                };
+
+                const img = card.querySelector('.piloto-img');
                 img.src = driver.headshot_url;
                 img.alt = driver.broadcast_name;
 

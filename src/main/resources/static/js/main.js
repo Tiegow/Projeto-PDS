@@ -34,3 +34,20 @@ function toggleDetails(element) {
     const container = element.parentElement;
     container.classList.toggle("expanded");
 }
+
+function toggleFavoriteDriver(driverNumber) {
+    fetch(`/api/user/favorite-driver/${driverNumber}`, {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    })
+        .then(async response => {
+            if (!response.ok) {
+                await handleResponseException(response);
+                return;
+            }
+
+            console.log("Motorista favoritado com sucesso!" + driverNumber);
+        })
+}

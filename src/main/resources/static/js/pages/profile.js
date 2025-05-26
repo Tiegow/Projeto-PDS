@@ -1,7 +1,9 @@
 window.onload = () => {
     loadMainComponents();
     fetchUserData();
-}
+};
+
+let userName = "";
 
 function fetchUserData() {
     fetch("/api/user/get", {
@@ -20,7 +22,8 @@ function fetchUserData() {
             try {
                 const user = JSON.parse(responseText);
 
-                document.getElementById("userName").textContent = user.userName.toUpperCase();
+                userName = user.userName;
+                document.getElementById("userName").textContent = userName.toUpperCase();
                 document.getElementById("fullName").textContent = user.firstName + " " + user.lastName;
                 document.getElementById("email").textContent = user.email;
             } catch (error) {
@@ -28,8 +31,9 @@ function fetchUserData() {
             }
         })
         .catch(error => {
+            const msg = "Erro ao buscar dados do usuário: " + error.message;
             console.error("Erro inesperado:", error);
-            sessionStorage.setItem("errorMessage", "Erro inesperado: " + error.message);
+            sessionStorage.setItem("errorMessage", msg);
             navigate('error');
         });
 }

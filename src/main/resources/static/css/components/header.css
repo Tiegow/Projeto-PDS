@@ -3,7 +3,7 @@ header {
     border-bottom: solid 10px var(--cor-secundaria);
 }
 
-img {
+header img {
     width: 100%;
     max-width: 130px;
     height: auto;
