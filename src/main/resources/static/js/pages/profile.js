@@ -60,6 +60,8 @@ async function loadFavoriteDrivers() {
                 temp.innerHTML = html;
                 const card = temp.firstElementChild;
                 card.className = 'piloto-card';
+                const collor = "#" + driver.team_colour;
+                card.style.borderBottom = `20px solid ${collor || 'red'}`;
 
                 buildStarIcon(driver, card);
 
