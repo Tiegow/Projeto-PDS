@@ -35,7 +35,7 @@ async function fetchUserData() {
             await loadFavoriteDrivers();
         })
         .catch(error => {
-            const msg = "Erro ao buscar dados do usuário: " + error.message;
+            const msg = "Erro ao buscar dados do usuário. Tente logar novamente";
             console.error("Erro inesperado:", error);
             sessionStorage.setItem("errorMessage", msg);
             navigate('error');

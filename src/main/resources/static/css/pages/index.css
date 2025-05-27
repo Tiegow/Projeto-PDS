@@ -47,3 +47,18 @@
 .calendar p {
     margin: 0;
 }
+
+.favorito-div {
+    text-align: left;
+}
+
+.favorito-div p {
+    margin: 0;
+}
+
+.fav-driver-img {
+    background-color: var(--cor-branco);
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}

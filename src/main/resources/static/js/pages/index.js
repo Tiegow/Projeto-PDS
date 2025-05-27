@@ -1,8 +1,11 @@
-window.onload = () => {
+window.onload = async () => {
     loadMainComponents();
     loadYearMeetings();
     loadTodaySession();
+    await loadUserFavorites();
 }
+
+let userFavorites = [];
 
 async function loadYearMeetings() {
     const year = new Date().getFullYear(); //Ano atual
@@ -199,3 +202,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+function renderFavoriteDriversAside() {
+    const container = document.getElementById("pilotos-favoritos-list");
+    container.innerHTML = ''; // Limpa o conteúdo anterior
+
+    userFavorites.forEach(driver => {
+        const div = document.createElement('div');
+        div.className = 'favorito-div d-flex align-items-center gap-2 px-3 py-2';
+
+        div.innerHTML = `
+            <img class="fav-driver-img" src="${driver.headshot_url}" alt="${driver.broadcast_name}">
+            <div class="text-white">
+                <p class="fw-bold">${driver.first_name} ${driver.last_name}</p>
+                <p class="small">${driver.team_name}</p>
+                <p class="small">${driver.country_code}</p>
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+}

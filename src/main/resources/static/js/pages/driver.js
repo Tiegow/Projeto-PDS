@@ -1,30 +1,10 @@
-window.onload = () => {
+window.onload = async () => {
     loadMainComponents();
-    loadUserFavorites();
+    await loadUserFavorites();
     loadAllDrivers();
 }
 
 let userFavorites = [];
-
-async function loadUserFavorites() {
-    try {
-        const response = await fetch(`/api/user/get`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar pilotos favoritos: ${response.status}`);
-        }
-
-        const data = await response.json();
-        userFavorites = data.favoriteDrivers;
-    } catch (error) {
-        console.error('Erro na requisição:', error);
-    }
-}
 
 async function loadAllDrivers(){
 
