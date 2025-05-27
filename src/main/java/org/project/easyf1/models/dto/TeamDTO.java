@@ -31,6 +31,10 @@ public class TeamDTO {
     @JsonAlias("teamPoints")
     private Integer teamPoints;
 
+    @JsonProperty("team_color")
+    @JsonAlias("teamColor")
+    private String teamColor;
+
     public TeamDTO() {
 
     }
@@ -43,6 +47,7 @@ public class TeamDTO {
         team.setFirstDriverNumber(firstDriverNumber);
         team.setSecondDriverNumber(secondDriverNumber);
         team.setTeamPoints(teamPoints);
+        team.setTeamColor(teamColor);
         return team;
     }
 
@@ -59,4 +64,6 @@ public class TeamDTO {
     public Integer getTeamPoints() {return teamPoints;}
     public void setTeamPoints(Integer teamPoints) {this.teamPoints = teamPoints;}
 
+    public String getTeamColor() {return teamColor;}
+    public void setTeamColor(String teamColor) {this.teamColor = teamColor;}
 }

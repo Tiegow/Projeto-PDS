@@ -3,6 +3,7 @@ CREATE TABLE team (
                         team_name VARCHAR(255),
                         first_driver_number INTEGER,
                         second_driver_number INTEGER,
+                        team_color VARCHAR(255),
                         team_points INTEGER
 
     );

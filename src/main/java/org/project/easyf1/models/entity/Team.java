@@ -17,6 +17,7 @@ public class Team {
     private Integer secondDriverNumber;
 
     private Integer teamPoints;
+    private String teamColor;
 
     public Team() {}
 
@@ -57,6 +58,12 @@ public class Team {
         this.teamPoints = teamPoints;
     }
 
+    public String getTeamColor() {
+        return teamColor;
+    }
+    public void setTeamColor(String teamColor) {
+        this.teamColor = teamColor;
+    }
 
 
 }

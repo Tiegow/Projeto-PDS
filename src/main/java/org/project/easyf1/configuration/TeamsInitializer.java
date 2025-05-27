@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -34,6 +35,22 @@ public class TeamsInitializer {
 
     private final DriverClient driverClient;
 
+    private static final Map<String, String> TEAM_COLORS = new HashMap<>();
+
+    static {
+        TEAM_COLORS.put("Mercedes", "#00A99D");
+        TEAM_COLORS.put("Red Bull Racing", "#0600EF");
+        TEAM_COLORS.put("Ferrari", "#DC0000");
+        TEAM_COLORS.put("McLaren", "#FF8700");
+        TEAM_COLORS.put("Aston Martin", "#006F62");
+        TEAM_COLORS.put("Alpine", "#0090FF");
+        TEAM_COLORS.put("Williams", "#005AFF");
+        TEAM_COLORS.put("RB", "#2B4562");
+        TEAM_COLORS.put("Sauber", "#52E252");
+        TEAM_COLORS.put("Haas F1 Team", "#B6B6B6");
+    }
+
+
     public TeamsInitializer(SessionRepository sessionRepository, TeamRepository teamRepository, DriverRepository driverRepository, DriverClient driverClient) {
         this.sessionRepository = sessionRepository;
         this.teamRepository = teamRepository;
@@ -41,7 +58,7 @@ public class TeamsInitializer {
         this.driverClient = driverClient;
     }
 
-    @EventListener(MeetingInitializer.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void populateNewestTeamsFromApi() throws UnsupportedEncodingException { // Renomeado para clareza na resposta anterior
 
         Session lastRaceSession = sessionRepository.findFirstByOrderByEndDateDesc();
@@ -72,15 +89,19 @@ public class TeamsInitializer {
                         .collect(Collectors.groupingBy(d -> d.get("team_name").toString()))
                         .entrySet().stream()
                         .map(entry -> {
+                            String teamName = entry.getKey();
                             List<Map<String, Object>> teamDrivers = entry.getValue();
                             Integer first = teamDrivers.size() > 0 ? (Integer) teamDrivers.get(0).get("driver_number") : null;
                             Integer second = teamDrivers.size() > 1 ? (Integer) teamDrivers.get(1).get("driver_number") : null;
 
+                            String teamColor = TEAM_COLORS.getOrDefault(teamName, "#CCCCCC");
+
                             TeamDTO dto = new TeamDTO();
-                            dto.setTeamName(entry.getKey());
+                            dto.setTeamName(teamName);
                             dto.setFirstDriverNumber(first);
                             dto.setSecondDriverNumber(second);
-                            dto.setTeamPoints(0); // Considerar se este valor é sempre 0 ou se vem da API
+                            dto.setTeamPoints(0);
+                            dto.setTeamColor(teamColor);
 
                             return dto.getTeam();
                         })
