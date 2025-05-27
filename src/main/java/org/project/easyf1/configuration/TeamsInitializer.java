@@ -99,7 +99,7 @@ public class TeamsInitializer {
             }
         }
     }
-    @EventListener(MeetingInitializer.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void addALlDrivers  () {
 
         if (driverRepository.existsAnyDriver()) {

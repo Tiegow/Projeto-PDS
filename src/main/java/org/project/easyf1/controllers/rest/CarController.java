@@ -20,39 +20,29 @@ import java.util.Objects;
 @RequestMapping("api/car")
 public class CarController {
 
-    private final CarRepository carRepository;
-
-    private final CarClient carClient;
-
     private final CarService carService;
 
-    private final SessionRepository sessionRepository;
-
-    public CarController(CarRepository carRepository, CarClient carClient, CarService carService, SessionRepository sessionRepository) {
-        this.carRepository = carRepository;
-        this.carClient = carClient;
+    public CarController(CarService carService) {
         this.carService = carService;
-        this.sessionRepository = sessionRepository;
     }
 
     @GetMapping()
     public ResponseEntity<CarDTO> getCar(@RequestParam("sessionKey") Integer sessionKey, @RequestParam("driverNumber") Integer driverNumber) {
-        Car car = carRepository.findCarBySessionKeyAndDriveNumber(sessionKey, driverNumber);
-        return ResponseEntity.ok(new CarDTO(car));
+        CarDTO car = carService.getCar(sessionKey, driverNumber);
+        return ResponseEntity.ok(car);
     }
 
     @GetMapping("all")
     public ResponseEntity<List<CarDTO>> getAllCars(@RequestParam("sessionKey") Integer sessionKey) {
-        List<CarDTO> cars = carRepository.findCarsBySessionKey(sessionKey).
-                stream().filter(Objects::nonNull).map(CarDTO::new).toList();
+        List<CarDTO> cars = carService.getAllCars(sessionKey);
 
         return ResponseEntity.ok(cars);
     }
 
     @GetMapping("driver")
     public ResponseEntity<CarDTO> getLastCarByDriver(@RequestParam("driverNumber") Integer driverNumber){
-        Session session = sessionRepository.findFirstByOrderByEndDateDesc();
+        CarDTO car = carService.getLastCarByDriver(driverNumber);
 
-        return getCar(session.getSessionKey(), driverNumber);
+        return ResponseEntity.ok(car);
     }
 }

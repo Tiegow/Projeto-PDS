@@ -20,16 +20,11 @@ public class DriverController {
 
     private final DriverService driverService;
 
-    private final DriverRepository driverRepository;
-
-    private final DriverClient driverClient;
 
     private final SessionRepository sessionRepository;
 
-    public DriverController(DriverService driverService, DriverRepository driverRepository, DriverClient driverClient, SessionRepository sessionRepository) {
+    public DriverController(DriverService driverService, SessionRepository sessionRepository) {
         this.driverService = driverService;
-        this.driverRepository = driverRepository;
-        this.driverClient = driverClient;
         this.sessionRepository = sessionRepository;
     }
 
@@ -47,26 +42,20 @@ public class DriverController {
     @GetMapping("session")
     public ResponseEntity<List<DriverDTO>> getDriversBySessionKey(@RequestParam("sessionKey") Integer sessionKey) {
 
-        List<Driver> drivers = driverRepository.findAllBySession_SessionKey(sessionKey);
+        List<DriverDTO> drivers = driverService.getDriversBySessionKey(sessionKey);
 
-        if(drivers.isEmpty()) {
-            return ResponseEntity.ok(driverClient.getDrivers(sessionKey));
-        } else {
-            return ResponseEntity.ok(drivers.stream().map(DriverDTO::new).collect(Collectors.toList()));
-        }
+        return ResponseEntity.ok(drivers);
     }
 
     @GetMapping("")
     public ResponseEntity<DriverDTO> getDriver(@RequestParam("sessionKey") Integer sessionKey, @RequestParam("driverNumber") Integer driverNumber) {
-        return ResponseEntity.ok(driverClient.getDriver(sessionKey, driverNumber));
+        return ResponseEntity.ok(driverService.getDriver(sessionKey, driverNumber));
     }
 
     @GetMapping("details")
     public ResponseEntity<DriverDTO> detailDriver(@RequestParam("driver_number") Integer driverNumber) {
 
-        Driver driver = driverRepository.findFirstByDriverNumber(driverNumber);
-
-        DriverDTO driverDTO = new DriverDTO(driver);
+        DriverDTO driverDTO = driverService.detailDriver(driverNumber);
 
         return ResponseEntity.ok(driverDTO);
     }
