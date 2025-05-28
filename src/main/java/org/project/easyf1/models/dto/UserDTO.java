@@ -11,13 +11,15 @@ public class UserDTO {
     private String lastName;
     private String userName;
     private Set<DriverDTO> favoriteDrivers;
+    private Set<TeamDTO> favoriteTeams;
 
-    public UserDTO(String email, String firstName, String lastName, String username, Set<DriverDTO> favoriteDrivers) {
+    public UserDTO(String email, String firstName, String lastName, String username, Set<DriverDTO> favoriteDrivers, Set<TeamDTO> favoriteTeams) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
         this.favoriteDrivers = favoriteDrivers;
+        this.favoriteTeams = favoriteTeams;
     }
 
     public UserDTO(User user) {
@@ -27,6 +29,9 @@ public class UserDTO {
         this.userName = user.getUsername();
         this.favoriteDrivers = user.getFavoriteDrivers().stream() // Converte cada entidade Driver para DriverDTO e coloca em um Set
             .map(DriverDTO::new)
+            .collect(Collectors.toSet());
+        this.favoriteTeams = user.getFavoriteTeams().stream() 
+            .map(TeamDTO::new)
             .collect(Collectors.toSet());
     }
 
@@ -68,5 +73,13 @@ public class UserDTO {
 
     public void setFavoriteDrivers(Set<DriverDTO> favoriteDrivers) {
         this.favoriteDrivers = favoriteDrivers;
+    }
+
+    public Set<TeamDTO> getFavoriteTeams() {
+        return favoriteTeams;
+    }
+
+    public void setFavoriteTeams(Set<TeamDTO> favoriteTeams) {
+        this.favoriteTeams = favoriteTeams;
     }
 }

@@ -4,9 +4,12 @@ window.onload = async () => {
     loadTodaySession();
     await loadUserFavorites();
     renderFavoriteDriversAside();
+    renderFavoriteTeamsAside();
 }
 
-let userFavorites = [];
+// let userFavorites = [];
+let userFavoriteDrivers = [];
+let userFavoriteTeams = [];
 
 async function loadYearMeetings() {
     const year = new Date().getFullYear(); //Ano atual
@@ -208,9 +211,9 @@ function renderFavoriteDriversAside() {
     const container = document.getElementById("pilotos-favoritos-list");
     container.innerHTML = ''; // Limpa o conteúdo anterior
 
-    userFavorites.forEach(driver => {
+    userFavoriteDrivers.forEach(driver => {
         const div = document.createElement('div');
-        div.className = 'favorito-div d-flex align-items-center gap-2 px-3 py-2';
+        div.className = 'favorito-div d-flex align-items-center gap-2 px-3 py-2 mt-1';
 
         div.innerHTML = `
             <img class="fav-driver-img" src="${driver.headshot_url}" alt="${driver.broadcast_name}">
@@ -218,6 +221,27 @@ function renderFavoriteDriversAside() {
                 <p class="fw-bold">${driver.first_name} ${driver.last_name}</p>
                 <p class="small">${driver.team_name}</p>
                 <p class="small">${driver.country_code}</p>
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+function renderFavoriteTeamsAside() {
+    const container = document.getElementById("equipes-favoritos-list");
+    container.innerHTML = ''; // Limpa o conteúdo anterior
+
+    userFavoriteTeams.forEach(team => {
+        const div = document.createElement('div');
+        div.className = 'favorito-div team-div d-flex align-items-center gap-2 px-3 py-2 mt-4';
+        div.style.borderLeft = `solid 40px ${team.team_color}`
+
+        div.innerHTML = `
+            <div class="text-white">
+                <p class="fw-bold">${team.team_name}</p>
+                <p class="small">Primeiro piloto: #${team.first_driver_number}</p>
+                <p class="small">Segundo piloto: #${team.second_driver_number}</p>
             </div>
         `;
 

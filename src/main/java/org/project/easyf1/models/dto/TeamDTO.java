@@ -3,13 +3,11 @@ package org.project.easyf1.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Team;
 
-import java.util.List;
-
 public class TeamDTO {
+
+    private Long id;
 
     @JsonProperty("team_name")
     @JsonAlias("teamName")
@@ -36,13 +34,23 @@ public class TeamDTO {
     private String teamColor;
 
     public TeamDTO() {
+        
+    }
 
+    public TeamDTO(Team team) {
+        this.id = team.getId();
+        this.firstDriverNumber = team.getFirstDriverNumber();
+        this.secondDriverNumber = team.getSecondDriverNumber();
+        this.teamName = team.getTeamName();
+        this.teamPoints = team.getTeamPoints();
+        this.teamColor = team.getTeamColor();
     }
 
     public Team getTeam() {
 
         Team team = new Team();
 
+        team.setId(id);
         team.setTeamName(teamName);
         team.setFirstDriverNumber(firstDriverNumber);
         team.setSecondDriverNumber(secondDriverNumber);
@@ -51,6 +59,13 @@ public class TeamDTO {
         return team;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTeamName() {return teamName;}
     public void setTeamName(String teamName) {this.teamName = teamName;}

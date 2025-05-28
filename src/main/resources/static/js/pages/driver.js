@@ -4,7 +4,7 @@ window.onload = async () => {
     loadAllDrivers();
 }
 
-let userFavorites = [];
+let userFavoriteDrivers = [];
 
 async function loadAllDrivers(){
 
@@ -219,7 +219,7 @@ function buildStarIcon(driver, card) {
     const favoriteStar = card.querySelector('.favorite-star');
     let isFavoriteDriver;
 
-    if (userFavorites.some(fav => fav.driver_number === driver.driver_number)) {
+    if (userFavoriteDrivers.some(fav => fav.driver_number === driver.driver_number)) {
         favoriteStar.src = '/images/star.png';
         isFavoriteDriver = true;
     } else {

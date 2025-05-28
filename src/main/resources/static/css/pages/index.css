@@ -52,6 +52,11 @@
     text-align: left;
 }
 
+.team-div {
+    background-color: var(--cor-preto);
+    border-radius: 20px 0px 0px 20px;
+}
+
 .favorito-div p {
     margin: 0;
 }

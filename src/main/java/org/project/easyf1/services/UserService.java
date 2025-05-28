@@ -6,13 +6,16 @@ import java.util.Set;
 
 import org.project.easyf1.models.dto.UserDTO;
 import org.project.easyf1.models.entity.Driver;
+import org.project.easyf1.models.entity.Team;
 import org.project.easyf1.models.entity.User;
 import org.project.easyf1.repositories.DriverRepository;
+import org.project.easyf1.repositories.TeamRepository;
 import org.project.easyf1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -20,11 +23,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final DriverRepository driverRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, DriverRepository driverRepository) {
+    public UserService(UserRepository userRepository, DriverRepository driverRepository, TeamRepository teamRepository) {
         this.userRepository = userRepository;
         this.driverRepository = driverRepository;
+        this.teamRepository = teamRepository;
     }
 
     @Transactional
@@ -87,6 +92,45 @@ public class UserService {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Erro ao remover o motorista favorito: " + e.getMessage(), e);
+        }
+    }
+
+    public void addFavoriteTeam(String username, Long teamId) {
+        try {
+            User user = loadUserByUsername(username);
+            Team team = teamRepository.findById(teamId)
+                    .orElseThrow(() -> new EntityNotFoundException("Equipe não encontrada com ID: " + teamId));
+
+            user.getFavoriteTeams().add(team);
+            userRepository.save(user);
+
+        } catch (UsernameNotFoundException e) {
+            throw e; 
+        } catch (EntityNotFoundException e) {
+            throw e; 
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao adicionar a equipe favorita: " + e.getMessage(), e);
+        }
+    }
+
+    public void removeFavoriteTeam(String username, Long teamId) {
+        try {
+            User user = loadUserByUsername(username);
+            Team team = teamRepository.findById(teamId)
+                    .orElseThrow(() -> new EntityNotFoundException("Equipe não encontrada com ID: " + teamId));
+
+            boolean removed = user.getFavoriteTeams().remove(team);
+
+            if (removed) {
+                userRepository.save(user);
+            } else {
+                throw new IllegalStateException("A equipe não estava entre os favoritos do usuário.");
+            }
+
+        } catch (UsernameNotFoundException | EntityNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao remover a equipe favorita: " + e.getMessage(), e);
         }
     }
 }

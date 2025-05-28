@@ -1,7 +1,12 @@
-window.onload = () => {
+window.onload = async () => {
     loadMainComponents();
+    await loadUserFavorites();
     loadAllTeams();
 };
+
+// let userFavorites = [];
+
+let userFavoriteTeams = [];
 
 async function loadAllTeams() {
     const container = document.getElementById('pilotos-container');
@@ -62,6 +67,8 @@ function renderTeams(teamsData, container) {
 
                 // card.style.background = `linear-gradient(to right, ${baseColor}, ${darkerGradientColor})`;
                 card.style.backgroundColor = baseColor;
+
+                buildStarIcon(team, card);
 
                 const nomeTimeEl = card.querySelector('.time-info h5');
                 if (nomeTimeEl) nomeTimeEl.textContent = team.teamName || 'Nome Indisponível';
@@ -160,4 +167,23 @@ function createDarkerColor(hexColor) {
     const darkerB = Math.floor(b * 0.85);
 
     return `rgb(${darkerR}, ${darkerG}, ${darkerB})`;
+}
+
+function buildStarIcon(team, card) {
+    const favoriteStar = card.querySelector('.favorite-star');
+    let isFavoriteTeam;
+
+    if (userFavoriteTeams.some(fav => fav.id === team.id)) {
+        favoriteStar.src = '/images/star.png';
+        isFavoriteTeam = true;
+    } else {
+        favoriteStar.src = '/images/star_g.png';
+        isFavoriteTeam = false;
+    }
+    favoriteStar.onclick = async () => {
+        await toggleFavoriteTeam(team.id, isFavoriteTeam);
+        await loadUserFavorites();
+        
+        buildStarIcon(team, card);
+    };
 }

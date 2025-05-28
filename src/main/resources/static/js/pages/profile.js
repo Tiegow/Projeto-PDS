@@ -4,7 +4,8 @@ window.onload = async () => {
 };
 
 let userName = "";
-let userFavorites = [];
+let userFavoriteDrivers = [];
+let userFavoriteTeams = [];
 
 async function fetchUserData() {
     fetch("/api/user/get", {
@@ -22,7 +23,8 @@ async function fetchUserData() {
             const responseText = await response.text();
             try {
                 const user = JSON.parse(responseText);
-                userFavorites = user.favoriteDrivers;
+                userFavoriteDrivers = user.favoriteDrivers;
+                userFavoriteTeams = user.favoriteTeams;
 
                 userName = user.userName;
                 document.getElementById("userName").textContent = userName.toUpperCase();
@@ -33,6 +35,7 @@ async function fetchUserData() {
             }
 
             await loadFavoriteDrivers();
+            await loadFavoriteTeams();
         })
         .catch(error => {
             const msg = "Erro ao buscar dados do usuário. Tente logar novamente";
@@ -48,14 +51,13 @@ async function handleResponseException(response) {
 }
 
 async function loadFavoriteDrivers() {
-    console.log("Carregando favoritos:", userFavorites);
     const slider = document.getElementById("pilotos-slider");
     slider.innerHTML = ''; 
 
     fetch('/components/pilotoCard.html')
         .then(res => res.text())
         .then(html => {
-            userFavorites.forEach(driver => {
+            userFavoriteDrivers.forEach(driver => {
                 const temp = document.createElement('div');
                 temp.innerHTML = html;
                 const card = temp.firstElementChild;
@@ -63,7 +65,7 @@ async function loadFavoriteDrivers() {
                 const collor = "#" + driver.team_colour;
                 card.style.borderBottom = `20px solid ${collor || 'red'}`;
 
-                buildStarIcon(driver, card);
+                buildStarIconDriver(driver, card);
 
                 const img = card.querySelector('.piloto-img');
                 img.src = driver.headshot_url;
@@ -87,11 +89,50 @@ async function loadFavoriteDrivers() {
         .catch(err => console.error('Erro ao carregar pilotoCard:', err));
 }
 
-function buildStarIcon(driver, card) {
+async function loadFavoriteTeams() {
+    const slider = document.getElementById("times-slider");
+    slider.innerHTML = ''; 
+
+    fetch('/components/timeCard.html')
+        .then(res => res.text())
+        .then(html => {
+            userFavoriteTeams.forEach(team => {
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const card = temp.firstElementChild;
+                card.className = 'piloto-card';
+                const collor = team.team_color;
+                card.style.borderBottom = `20px solid ${collor || 'red'}`;
+
+                buildStarIconTeam(team, card);
+
+                // const img = card.querySelector('.piloto-img');
+                // img.src = team.headshot_url;
+                // img.alt = team.broadcast_name;
+
+                const nomePiloto = card.querySelector('.piloto-info h5');
+                nomePiloto.textContent = team.team_name;
+
+                const pilotoEquipe = card.querySelectorAll('.piloto-info p')[0];
+                pilotoEquipe.textContent = `Primeiro piloto: #${team.first_driver_number}`;
+
+                const pilotoNumero = card.querySelectorAll('.piloto-info p')[1];
+                pilotoNumero.textContent = `Segundo piloto: #${team.second_driver_number}`;
+
+                const pilotoPais = card.querySelectorAll('.piloto-info p')[2];
+                pilotoPais.textContent = `Pontos na temporada: ${team.team_points}`;
+
+                slider.appendChild(card);
+            });
+        })
+        .catch(err => console.error('Erro ao carregar pilotoCard:', err));
+}
+
+function buildStarIconDriver(driver, card) {
     const favoriteStar = card.querySelector('.favorite-star');
     let isFavoriteDriver;
 
-    if (userFavorites.some(fav => fav.driver_number === driver.driver_number)) {
+    if (userFavoriteDrivers.some(fav => fav.driver_number === driver.driver_number)) {
         favoriteStar.src = '/images/star.png';
         isFavoriteDriver = true;
     } else {
@@ -102,6 +143,25 @@ function buildStarIcon(driver, card) {
         await toggleFavoriteDriver(driver.driver_number, isFavoriteDriver);
         await fetchUserData();
         
-        buildStarIcon(driver, card);
+        buildStarIconDriver(driver, card);
+    };
+}
+
+function buildStarIconTeam(team, card) {
+    const favoriteStar = card.querySelector('.favorite-star');
+    let isFavoriteTeam;
+
+    if (userFavoriteTeams.some(fav => fav.id === team.id)) {
+        favoriteStar.src = '/images/star.png';
+        isFavoriteTeam = true;
+    } else {
+        favoriteStar.src = '/images/star_g.png';
+        isFavoriteTeam = false;
+    }
+    favoriteStar.onclick = async () => {
+        await toggleFavoriteTeam(team.id, isFavoriteTeam);
+        await fetchUserData();
+        
+        buildStarIconTeam(team, card);
     };
 }

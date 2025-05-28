@@ -46,4 +46,20 @@ public class UserController {
         userService.removeFavoriteDriver(authUser.getUsername(), driverNumber);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("favorite-team/{teamId}")
+    public ResponseEntity<Void> addFavoriteTeam(@PathVariable Long teamId) {
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        userService.addFavoriteTeam(authUser.getUsername(), teamId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("favorite-team/{teamId}")
+    public ResponseEntity<Void> removeFavoriteTeam(@PathVariable Long teamId) {
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        userService.removeFavoriteTeam(authUser.getUsername(), teamId);
+        return ResponseEntity.ok().build();
+    }
 }

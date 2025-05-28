@@ -44,6 +44,15 @@ async function toggleFavoriteDriver(driverNumber, isFavoriteDriver) {
     });
 }
 
+async function toggleFavoriteTeam(teamId, isFavoriteTeam) {
+    const response = await fetch(`/api/user/favorite-team/${teamId}`, {
+        method: isFavoriteTeam ? "DELETE" : "POST",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    });
+}
+
 async function loadUserFavorites() {
     try {
         const response = await fetch(`/api/user/get`, {
@@ -58,7 +67,10 @@ async function loadUserFavorites() {
         }
 
         const data = await response.json();
-        userFavorites = data.favoriteDrivers;
+        // userFavorites = data.favoriteDrivers;
+
+        userFavoriteDrivers = data.favoriteDrivers;
+        userFavoriteTeams = data.favoriteTeams;
     } catch (error) {
         console.error('Erro na requisição:', error);
     }

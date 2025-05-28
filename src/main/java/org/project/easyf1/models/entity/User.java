@@ -24,8 +24,16 @@ public class User implements UserDetails {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "driver_id")
     )
-
     private Set<Driver> favoriteDrivers;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_favorite_teams",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<Team> favoriteTeams;
+    
     private String email;
     private String password;
     private String firstName;
@@ -166,6 +174,17 @@ public class User implements UserDetails {
 
     public void setFavoriteDrivers(Set<Driver> favoriteDrivers) {
         this.favoriteDrivers = favoriteDrivers;
+    }
+
+    public Set<Team> getFavoriteTeams() {
+        if (this.favoriteTeams == null) {
+            this.favoriteTeams = new HashSet<Team>();
+        }
+        return this.favoriteTeams;
+    }
+
+    public void setFavoriteTeams(Set<Team> favoriteTeams) {
+        this.favoriteTeams = favoriteTeams;
     }
 
     @Override
