@@ -7,12 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/team")
+@RequestMapping("/api/teams")
 public class TeamController {
 
     private final TeamService teamService;
@@ -26,14 +27,18 @@ public class TeamController {
     public ResponseEntity<List<Team>> getAllTeams() {
         try {
             List<Team> teams = teamService.getAllTeams();
-            if (teams.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            if (teams == null || teams.isEmpty()) {
+                return ResponseEntity.noContent().build();
             }
-            return new ResponseEntity<>(teams, HttpStatus.OK);
+            return ResponseEntity.ok(teams);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-
+    @GetMapping("/details")
+    public ResponseEntity<Team> getTeamDetails(@RequestParam("team_name") String teamName) {
+        System.err.println("Endpoint /api/teams/details chamado para: " + teamName + " - Implementação pendente no TeamService/Repository");
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    }
 }

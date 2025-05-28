@@ -10,7 +10,7 @@
 }
 
 .piloto-card {
-    position: relative; /* <-- adicione isto */
+    position: relative;
     display: flex;
     gap: 1rem;
     background-color: #ffffff;
