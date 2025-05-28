@@ -46,6 +46,7 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.GET, "/api/driver/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/llm/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/live/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/teams/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/api/user/**").hasRole("USER")

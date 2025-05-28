@@ -42,13 +42,6 @@ async function toggleFavoriteDriver(driverNumber, isFavoriteDriver) {
             "Authorization": "Bearer " + localStorage.getItem("token")
         }
     });
-
-    if (!response.ok) {
-        await handleResponseException(response);
-        return;
-            }
-
-    console.log("Motorista favoritado com sucesso!" + driverNumber);
 }
 
 async function loadUserFavorites() {
@@ -66,8 +59,6 @@ async function loadUserFavorites() {
 
         const data = await response.json();
         userFavorites = data.favoriteDrivers;
-
-        renderFavoriteDriversAside();
     } catch (error) {
         console.error('Erro na requisição:', error);
     }

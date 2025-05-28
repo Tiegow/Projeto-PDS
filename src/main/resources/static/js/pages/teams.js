@@ -16,6 +16,7 @@ async function loadAllTeams() {
         if (!response.ok) {
             throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`);
         }
+        console.log(response)
         const teamsData = await response.json();
 
         if (!teamsData || teamsData.length === 0) {
@@ -50,30 +51,30 @@ function renderTeams(teamsData, container) {
                 const card = tempDiv.firstElementChild;
 
                 if (!card) {
-                    console.error('Template teamCard.html não gerou um elemento válido para o time:', team.team_name);
+                    console.error('Template teamCard.html não gerou um elemento válido para o time:', team.teamName);
                     return;
                 }
 
                 card.className = 'time-card mx-1';
 
-                const teamApiColor = team.team_colour || team.team_color || '#CCCCCC'; // Fallback
-                const baseColor = teamApiColor.startsWith('#') ? teamApiColor : `#${teamApiColor}`;
+                const baseColor = team.teamColor || "#222";
                 const darkerGradientColor = createDarkerColor(baseColor, -25);
 
-                card.style.background = `linear-gradient(to right, ${baseColor}, ${darkerGradientColor})`;
+                // card.style.background = `linear-gradient(to right, ${baseColor}, ${darkerGradientColor})`;
+                card.style.backgroundColor = baseColor;
 
                 const nomeTimeEl = card.querySelector('.time-info h5');
-                if (nomeTimeEl) nomeTimeEl.textContent = team.team_name || 'Nome Indisponível';
+                if (nomeTimeEl) nomeTimeEl.textContent = team.teamName || 'Nome Indisponível';
 
                 const infoParagraphs = card.querySelectorAll('.time-info p');
-                if (infoParagraphs[0]) infoParagraphs[0].textContent = `Piloto 1: ${team.firstDriverNumber ?? 'N/A'}`;
-                if (infoParagraphs[1]) infoParagraphs[1].textContent = `Piloto 2: ${team.secondDriverNumber ?? 'N/A'}`;
+                if (infoParagraphs[0]) infoParagraphs[0].textContent = `Piloto 1: #${team.firstDriverNumber ?? 'N/A'}`;
+                if (infoParagraphs[1]) infoParagraphs[1].textContent = `Piloto 2: #${team.secondDriverNumber ?? 'N/A'}`;
 
-                if (detalhesContainer && team.team_name) {
+                if (detalhesContainer && team.teamName) {
                     card.addEventListener('click', () => {
-                        mostrarDetalhes(team.team_name, detalhesContainer, baseColor);
+                        mostrarDetalhes(team.teamName, detalhesContainer, baseColor);
                     });
-                } else if (!team.team_name) {
+                } else if (!team.teamName) {
                     console.warn('Time sem nome, não é possível adicionar listener para detalhes:', team);
                 }
 
@@ -106,7 +107,7 @@ function mostrarDetalhes(teamName, detalhesContainer, teamColorForGradient) {
             return response.json();
         })
         .then(data => {
-            const detailTeamColor = data.team_colour || data.team_color || teamColorForGradient || '#333333';
+            const detailTeamColor = data.teamColor;
             const baseColor = detailTeamColor.startsWith('#') ? detailTeamColor : `#${detailTeamColor}`;
             const lighterGradientColor = createDarkerColor(baseColor, 20);
 
@@ -114,12 +115,12 @@ function mostrarDetalhes(teamName, detalhesContainer, teamColorForGradient) {
                 <div class="card shadow rounded-4 border-0 overflow-hidden">
                     <div class="card-header p-4" style="background: linear-gradient(to right, ${baseColor}, ${lighterGradientColor});">
                         <div class="d-flex align-items-center gap-4">
-                            <h1 class="text-white mb-0">${data.team_name || 'Detalhes Indisponíveis'}</h1>
+                            <h1 class="text-white mb-0">${data.teamName || 'Detalhes Indisponíveis'}</h1>
                         </div>
                     </div>
                     <div class="card-body p-4">
                         <h4 class="mb-3">Informações da Equipe</h4>
-                        <p><strong>Pontos:</strong> ${data.team_points ?? 'N/A'}</p>
+                        <p><strong>Pontos:</strong> ${data.teamPoints ?? 'N/A'}</p>
                         <hr class="my-4">
                         <div class="row">
                             <div class="col-md-6">

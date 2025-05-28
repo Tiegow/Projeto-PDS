@@ -71,7 +71,7 @@ function renderDrivers(data) {
 
 function mostrarDetalhes(driver_number) {
     // Referência ao elemento de detalhes
-    const detalhes = document.getElementById('piloto-detalhes');
+    const detalhes = document.getElementById('pilotos-detalhes');
 
     // Mostrar um estado de carregamento
     detalhes.innerHTML = `

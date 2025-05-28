@@ -3,6 +3,7 @@ window.onload = async () => {
     loadYearMeetings();
     loadTodaySession();
     await loadUserFavorites();
+    renderFavoriteDriversAside();
 }
 
 let userFavorites = [];

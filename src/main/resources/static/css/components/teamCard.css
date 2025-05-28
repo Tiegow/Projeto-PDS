@@ -2,7 +2,6 @@
     min-width: 500px;
     padding: 0;
     border-radius: 20px;
-    background-color: var(--cor-preto);
     border-bottom: 20px solid blue;
     display: flex;
     position: relative;
