@@ -3,11 +3,7 @@ package org.project.easyf1.controllers.rest;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.project.easyf1.exception.DriversNotFoundException;
-import org.project.easyf1.exception.EventsNotFountException;
-import org.project.easyf1.exception.NoSessionTodayException;
-import org.project.easyf1.exception.PositionsUpdateException;
-import org.project.easyf1.exception.WeatherNotFoundException;
+import org.project.easyf1.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -61,5 +57,26 @@ public class GlobalExceptionHandler {
         Map<String, String> errorBody = new HashMap<>();
         errorBody.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorBody);
+    }
+
+    @ExceptionHandler(CarNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleCarNotFound(EventsNotFountException ex) {
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorBody);
+    }
+
+    @ExceptionHandler(SessionNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleSessionNotFound(EventsNotFountException ex) {
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorBody);
+    }
+
+    @ExceptionHandler(DriverDetailError.class)
+    public ResponseEntity<Map<String, String>> handleDriverDetail(EventsNotFountException ex) {
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorBody);
     }
 }

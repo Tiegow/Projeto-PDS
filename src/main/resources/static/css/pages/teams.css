@@ -9,6 +9,13 @@
     gap: 1rem;
 }
 
+.piloto-card {
+    width: 250px;
+    min-width: 200px;
+    max-width: 100%;
+    flex: 1 1 auto;
+}
+
 .time-card {
     position: relative;
     display: flex;

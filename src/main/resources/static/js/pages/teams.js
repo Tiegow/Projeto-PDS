@@ -21,7 +21,6 @@ async function loadAllTeams() {
         if (!response.ok) {
             throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`);
         }
-        console.log(response)
         const teamsData = await response.json();
 
         if (!teamsData || teamsData.length === 0) {
@@ -79,7 +78,8 @@ function renderTeams(teamsData, container) {
 
                 if (detalhesContainer && team.teamName) {
                     card.addEventListener('click', () => {
-                        mostrarDetalhes(team.teamName, detalhesContainer, baseColor);
+                        fetchTeamDetails(team.teamName, baseColor);
+                        loadDrivers()
                     });
                 } else if (!team.teamName) {
                     console.warn('Time sem nome, não é possível adicionar listener para detalhes:', team);
@@ -88,73 +88,103 @@ function renderTeams(teamsData, container) {
                 container.appendChild(card);
             });
         })
-        .catch(err => {
-            console.error('Erro ao carregar ou processar teamCard.html:', err);
-            container.innerHTML = `<p class="text-danger text-center">Erro ao carregar o template dos cards.<br>${err.message}</p>`;
+        .catch(error => {
+            console.error('Erro:', error);
+            if (typeof detalhes !== "undefined") {
+                detalhes.innerHTML = `
+                <div class="alert alert-danger p-4">
+                    <h4>Erro ao carregar detalhes do time</h4>
+                    <p>Não foi possível carregar os detalhes do time. Tente novamente mais tarde.</p>
+                    <button class="btn btn-outline-danger" onclick="location.reload()">Tentar novamente</button>
+                </div>
+            `;
+            }
         });
 }
 
-function mostrarDetalhes(teamName, detalhesContainer, teamColorForGradient) {
-    if (!detalhesContainer) {
-        console.error('Contêiner de detalhes não disponível.');
-        return;
-    }
-    detalhesContainer.innerHTML = `
-        <div class="text-center p-5">
-            <div class="spinner-border text-danger" role="status">
-                <span class="visually-hidden">Carregando detalhes...</span>
-            </div>
-        </div>`;
-
-    fetch(`/api/teams/details?team_name=${encodeURIComponent(teamName)}`)
+function fetchTeamDetails(teamName, teamColor) {
+    fetch(`/api/teams/details?team_name=${teamName}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Erro HTTP ${response.status} ao buscar detalhes: ${response.statusText}`);
+                throw new Error('Falha ao buscar detalhes do time');
             }
             return response.json();
         })
         .then(data => {
-            const detailTeamColor = data.teamColor;
-            const baseColor = detailTeamColor.startsWith('#') ? detailTeamColor : `#${detailTeamColor}`;
-            const lighterGradientColor = createDarkerColor(baseColor, 20);
-
-            detalhesContainer.innerHTML = `
-                <div class="card shadow rounded-4 border-0 overflow-hidden">
-                    <div class="card-header p-4" style="background: linear-gradient(to right, ${baseColor}, ${lighterGradientColor});">
-                        <div class="d-flex align-items-center gap-4">
-                            <h1 class="text-white mb-0">${data.teamName || 'Detalhes Indisponíveis'}</h1>
+            const drivers = [data.driver1, data.driver2];
+            return loadDrivers(drivers).then(driverCardsHtml => {
+                document.getElementById('times-detalhes').innerHTML = `
+                    <div class="card shadow rounded-4 border-0 overflow-hidden">
+                        <div class="card-header p-4" style="background: ${teamColor};">
+                            <h2 class="mb-0 fw-bold text-white">${data.team_name || 'Nome não disponível'}</h2>
                         </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <h4 class="mb-3">Informações da Equipe</h4>
-                        <p><strong>Pontos:</strong> ${data.teamPoints ?? 'N/A'}</p>
-                        <hr class="my-4">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Primeiro Piloto</h5>
-                                        <p class="card-text">Número: ${data.firstDriverNumber ?? 'N/A'}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Segundo Piloto</h5>
-                                        <p class="card-text">Número: ${data.secondDriverNumber ?? 'N/A'}</p>
-                                    </div>
-                                </div>
+                        <div class="card-body p-4 bg-light">
+                            <div class="mb-3"><strong>Base:</strong> ${data.team_base || 'N/D'}</div>
+                            <div class="mb-3"><strong>Chefe de Equipe:</strong> ${data.team_principal || 'N/D'}</div>
+                            <div class="mb-3"><strong>Posição no Campeonato:</strong> ${data.team_championship_position !== undefined ? data.team_championship_position + 'º' : 'N/D'}</div>
+                            <div class="mb-3"><strong>Vitórias na Temporada:</strong> ${data.victories !== null ? data.victories : 'N/D'}</div>
+                            <div id="pilotos-container" class="d-flex flex-wrap gap-3 mt-4 justify-content-center">
+                                ${driverCardsHtml}
                             </div>
                         </div>
                     </div>
-                </div>`;
+                `;
+            });
         })
         .catch(error => {
-            console.error('Erro ao buscar ou renderizar detalhes do time:', error);
-            detalhesContainer.innerHTML = `<p class="text-danger p-4">Falha ao carregar detalhes do time.<br>${error.message}</p>`;
+            console.error('Erro:', error);
         });
 }
+
+function loadDrivers(drivers) {
+    return fetch('/components/pilotoCard.html')
+        .then(res => res.text())
+        .then(html => {
+            let cardsHtml = '';
+            drivers.forEach(driver => {
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                const card = temp.firstElementChild;
+                card.className = 'piloto-card mx-1';
+
+                const teamColor = driver.team_colour;
+                const darkerColor = createDarkerColor(teamColor);
+
+                const favIcon = card.querySelector('.favorite-star');
+                if (favIcon) {
+                    favIcon.remove();
+                }
+
+                card.style.background = `linear-gradient(to right, #${teamColor}, ${darkerColor})`;
+
+                const img = card.querySelector('.piloto-img');
+                img.src = driver.headshot_url;
+                img.alt = driver.broadcast_name;
+
+                const nomePiloto = card.querySelector('.piloto-info h5');
+                nomePiloto.textContent = driver.first_name + ' ' + driver.last_name;
+
+                const pilotoEquipe = card.querySelectorAll('.piloto-info p')[0];
+                pilotoEquipe.textContent = `${driver.broadcast_name} - ${driver.team_name}`;
+
+                const pilotoNumero = card.querySelectorAll('.piloto-info p')[1];
+                pilotoNumero.textContent = `n°: ${driver.driver_number}`;
+
+                const pilotoPais = card.querySelectorAll('.piloto-info p')[2];
+                pilotoPais.textContent = `País: ${driver.country_code}`;
+
+                card.addEventListener('click', () => {
+                    window.location.href = `/pilotos/${pilotoEquipe}`;
+                });
+
+                cardsHtml += card.outerHTML;
+            });
+
+            return cardsHtml;
+        });
+}
+
+
 
 function createDarkerColor(hexColor) {
 
