@@ -8,9 +8,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
-
 @FeignClient(name = "driver", url = "https://api.openf1.org/v1/drivers")
 public interface DriverClient {
 

@@ -1,19 +1,19 @@
-package org.project.easyf1.services;
+package org.project.framework.services;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
-import org.project.easyf1.exception.NoSessionTodayException;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.exception.NoSessionTodayException;
+import org.project.framework.repositories.SessionRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TodaySessionProvider {
+public class TodaySessionHelper {
     private final SessionRepository sessionRepository;
 
-    public TodaySessionProvider(SessionRepository sessionRepository) {
+    public TodaySessionHelper(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 

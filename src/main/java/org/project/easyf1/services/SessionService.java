@@ -1,16 +1,15 @@
 package org.project.easyf1.services;
 
-import jakarta.annotation.PostConstruct;
 import org.project.easyf1.client.SessionClient;
 import org.project.easyf1.controllers.rest.SessionController;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.services.TodaySessionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.OffsetDateTime;
+
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Serviço responsável por gerenciar as operações relacionadas a sessões (treinos, classificações e corridas).
@@ -34,12 +33,12 @@ import java.util.Objects;
  */
 @Service
 public class SessionService {
-    private final TodaySessionProvider todaySessionProvider;
+    private final TodaySessionHelper todaySessionProvider;
     private final SessionClient sessionClient;
     private final SessionRepository sessionRepository;
 
     @Autowired
-    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository, TodaySessionProvider todaySessionProvider) {
+    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository, TodaySessionHelper todaySessionProvider) {
         this.todaySessionProvider = todaySessionProvider;
         this.sessionClient = sessionClient;
         this.sessionRepository = sessionRepository;

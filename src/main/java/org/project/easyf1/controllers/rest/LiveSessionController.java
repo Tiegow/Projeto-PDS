@@ -1,6 +1,6 @@
 package org.project.easyf1.controllers.rest;
 
-import org.project.easyf1.services.LiveSessionService;
+import org.project.framework.services.liveSession.LiveSessionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ public class LiveSessionController {
 
     @PostMapping("/sendLatest")
     public ResponseEntity<Void> sendLatest() {
-        liveSessionService.sendLatest();
+        liveSessionService.broadcastAll();
         
         return ResponseEntity.ok().build();
     }

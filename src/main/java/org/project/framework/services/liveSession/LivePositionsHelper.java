@@ -1,4 +1,4 @@
-package org.project.easyf1.services;
+package org.project.framework.services.liveSession;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.project.easyf1.models.dto.PositionDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LivePositionsProvider {
+public class LivePositionsHelper {
     private Map<Integer, Integer> driversPositions = new HashMap<>(); // (numero piloto, posicao)
 
     public void updatePositions(List<PositionDTO> positions) {
