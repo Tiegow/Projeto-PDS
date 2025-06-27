@@ -3,28 +3,37 @@ package org.project.easyf1.services.liveSession;
 import java.util.Collections;
 import java.util.List;
 
-import org.project.easyf1.client.LiveSessionClient;
+import org.project.easyf1.client.EasyF1LiveSessionClient;
 import org.project.easyf1.exception.EventsNotFountException;
-import org.project.easyf1.models.dto.RaceControlDTO;
-import org.project.framework.services.liveSession.ISessionDataBroadcaster;
+import org.project.framework.models.dto.RaceControlDTO;
+import org.project.framework.services.TodaySessionHelper;
+import org.project.framework.services.liveSession.SessionDataBroadcaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
-public class RaceEventsBroadcaster implements ISessionDataBroadcaster {
+@Component
+public class RaceEventsBroadcaster extends SessionDataBroadcaster {
     
-    private final LiveSessionClient liveSessionClient;
+    private final EasyF1LiveSessionClient liveSessionClient;
     private final SimpMessagingTemplate messagingTemplate;    
+    private final TodaySessionHelper todaySessionHelper;
 
     @Autowired
-    RaceEventsBroadcaster(LiveSessionClient liveSessionClient, SimpMessagingTemplate messagingTemplate) {
+    RaceEventsBroadcaster(EasyF1LiveSessionClient liveSessionClient, SimpMessagingTemplate messagingTemplate, TodaySessionHelper todaySessionHelper) {
         this.liveSessionClient = liveSessionClient;
         this.messagingTemplate = messagingTemplate;        
+        this.todaySessionHelper = todaySessionHelper;
     }
 
     @Override
     @Scheduled(fixedRate = 30000)
-    public void broadcast(Integer sessionKey) {
+    public void broadcast() {
+        if (this.sessionKey == null) {
+            sessionKey = todaySessionHelper.getTodaySession().getSessionKey();
+        }
+                
         try {
             List<RaceControlDTO> raceEvents = liveSessionClient.getRaceEvents(sessionKey);
 

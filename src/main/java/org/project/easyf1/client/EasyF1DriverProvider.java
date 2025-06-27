@@ -2,7 +2,7 @@ package org.project.easyf1.client;
 
 import java.util.List;
 
-import org.project.easyf1.models.dto.DriverDTO;
+import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.providers.DriverProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;

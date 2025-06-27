@@ -7,7 +7,7 @@ import jakarta.annotation.PostConstruct;
 import org.project.easyf1.models.dto.TeamDTO;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.models.entity.Team;
-import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.repositories.SessionRepository;
 import org.project.easyf1.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

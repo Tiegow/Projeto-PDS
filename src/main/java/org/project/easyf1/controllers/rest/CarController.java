@@ -5,7 +5,6 @@ import org.project.easyf1.models.dto.CarDTO;
 import org.project.easyf1.models.entity.Car;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.CarRepository;
-import org.project.easyf1.repositories.SessionRepository;
 import org.project.easyf1.services.CarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,8 @@ public class CarController {
     }
 
     @GetMapping()
-    public ResponseEntity<CarDTO> getCar(@RequestParam("sessionKey") Integer sessionKey, @RequestParam("driverNumber") Integer driverNumber) {
+    public ResponseEntity<CarDTO> getCar(@RequestParam("sessionKey") Integer sessionKey,
+            @RequestParam("driverNumber") Integer driverNumber) {
         CarDTO car = carService.getCar(sessionKey, driverNumber);
         return ResponseEntity.ok(car);
     }
@@ -40,7 +40,7 @@ public class CarController {
     }
 
     @GetMapping("driver")
-    public ResponseEntity<CarDTO> getLastCarByDriver(@RequestParam("driverNumber") Integer driverNumber){
+    public ResponseEntity<CarDTO> getLastCarByDriver(@RequestParam("driverNumber") Integer driverNumber) {
         CarDTO car = carService.getLastCarByDriver(driverNumber);
 
         return ResponseEntity.ok(car);

@@ -11,7 +11,7 @@ import org.project.easyf1.models.dto.MeetingDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.MeetingRepository;
-import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

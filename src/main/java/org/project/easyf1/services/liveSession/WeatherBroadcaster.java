@@ -2,30 +2,37 @@ package org.project.easyf1.services.liveSession;
 
 import java.util.List;
 
-import org.project.easyf1.client.LiveSessionClient;
+import org.project.easyf1.client.EasyF1LiveSessionClient;
 import org.project.easyf1.exception.WeatherNotFoundException;
-import org.project.easyf1.models.dto.WeatherDTO;
-import org.project.framework.services.liveSession.ISessionDataBroadcaster;
+import org.project.framework.models.dto.WeatherDTO;
+import org.project.framework.services.TodaySessionHelper;
+import org.project.framework.services.liveSession.SessionDataBroadcaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WeatherBroadcaster implements ISessionDataBroadcaster {
+public class WeatherBroadcaster extends SessionDataBroadcaster {
 
-    private final LiveSessionClient liveSessionClient;
+    private final EasyF1LiveSessionClient liveSessionClient;
     private final SimpMessagingTemplate messagingTemplate;
+    private final TodaySessionHelper todaySessionHelper;
 
     @Autowired
-    public WeatherBroadcaster(LiveSessionClient liveSessionClient, SimpMessagingTemplate messagingTemplate) {
+    public WeatherBroadcaster(EasyF1LiveSessionClient liveSessionClient, SimpMessagingTemplate messagingTemplate, TodaySessionHelper todaySessionHelper) {
         this.liveSessionClient = liveSessionClient;
         this.messagingTemplate = messagingTemplate;
+        this.todaySessionHelper = todaySessionHelper;
     }    
 
     @Override
     @Scheduled(fixedRate = 60000)
-    public void broadcast(Integer sessionKey) {
+    public void broadcast() {
+        if (this.sessionKey == null) {
+            sessionKey = todaySessionHelper.getTodaySession().getSessionKey();
+        }
+                
         try {
             List<WeatherDTO> weatherArray = liveSessionClient.getWeather(sessionKey);
 

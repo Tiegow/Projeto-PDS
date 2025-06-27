@@ -10,7 +10,7 @@ import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.models.entity.Team;
 import org.project.easyf1.repositories.DriverRepository;
-import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.repositories.SessionRepository;
 import org.project.easyf1.repositories.TeamRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

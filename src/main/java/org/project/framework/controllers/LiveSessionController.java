@@ -1,4 +1,4 @@
-package org.project.easyf1.controllers.rest;
+package org.project.framework.controllers;
 
 import org.project.framework.services.liveSession.LiveSessionService;
 import org.springframework.http.ResponseEntity;

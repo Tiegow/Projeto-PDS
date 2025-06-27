@@ -2,9 +2,9 @@ package org.project.framework.services.liveSession;
 
 import java.util.List;
 
-import org.project.easyf1.models.dto.DriverDTO;
 import org.project.framework.exception.DriversNotFoundException;
 import org.project.framework.exception.NoSessionTodayException;
+import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.providers.DriverProvider;
 import org.project.framework.services.TodaySessionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +14,19 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 public class LiveSessionService {
-    private final TodaySessionHelper todaySessionProvider;
+    private final TodaySessionHelper todaySessionHelper;
     private final DriverProvider driverProvider;
     
     // Lista de todos os broadcasters "plugados" no framework.
-    private final List<ISessionDataBroadcaster> broadcasters;
+    private final List<SessionDataBroadcaster> broadcasters;
 
     // Estado da sessão
     private Integer sessionKey = null;
     private List<DriverDTO> sessionDrivers = null;    
 
     @Autowired
-    public LiveSessionService(TodaySessionHelper todaySessionProvider, DriverProvider driverProvider, List<ISessionDataBroadcaster> broadcasters) {
-        this.todaySessionProvider = todaySessionProvider;
+    public LiveSessionService(TodaySessionHelper todaySessionHelper, DriverProvider driverProvider, List<SessionDataBroadcaster> broadcasters) {
+        this.todaySessionHelper = todaySessionHelper;
         this.driverProvider = driverProvider;
         this.broadcasters = broadcasters;
     }    
@@ -47,7 +47,7 @@ public class LiveSessionService {
         }
 
         try {
-            sessionKey = todaySessionProvider.getTodaySession().getSessionKey();
+            sessionKey = todaySessionHelper.getTodaySession().getSessionKey();
         } catch (Exception e) {
             throw new NoSessionTodayException();
         }
@@ -68,7 +68,7 @@ public class LiveSessionService {
             init(); // Tenta reiniciar a sessão se não estiver pronta
         }
         if (isSessionReady()) {
-            broadcasters.forEach(broadcaster -> broadcaster.broadcast(this.sessionKey));
+            broadcasters.forEach(broadcaster -> broadcaster.broadcast());
         }
     }    
 }

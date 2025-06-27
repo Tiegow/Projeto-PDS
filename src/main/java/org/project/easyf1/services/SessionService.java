@@ -1,10 +1,9 @@
 package org.project.easyf1.services;
 
-import org.project.easyf1.client.SessionClient;
 import org.project.easyf1.controllers.rest.SessionController;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.repositories.SessionRepository;
 import org.project.framework.services.TodaySessionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,13 +33,11 @@ import java.util.List;
 @Service
 public class SessionService {
     private final TodaySessionHelper todaySessionProvider;
-    private final SessionClient sessionClient;
     private final SessionRepository sessionRepository;
 
     @Autowired
-    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository, TodaySessionHelper todaySessionProvider) {
+    public SessionService(SessionRepository sessionRepository, TodaySessionHelper todaySessionProvider) {
         this.todaySessionProvider = todaySessionProvider;
-        this.sessionClient = sessionClient;
         this.sessionRepository = sessionRepository;
     }
 

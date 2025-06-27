@@ -3,13 +3,13 @@ package org.project.easyf1.services;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import org.project.easyf1.client.LiveSessionClient;
+import org.project.easyf1.client.EasyF1LiveSessionClient;
 import org.project.easyf1.models.dto.GeminiRequest;
-import org.project.easyf1.models.dto.PositionDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.MeetingRepository;
 import org.project.easyf1.services.Interfaces.LLMService;
+import org.project.framework.models.dto.PositionDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
@@ -23,12 +23,12 @@ public class LLMServiceIMPL implements LLMService {
 
     private MeetingRepository meetingRepository;
 
-    private LiveSessionClient liveSessionClient;
+    private EasyF1LiveSessionClient liveSessionClient;
 
     @Value("${spring.ai.vertex.ai.gemini.credentials-uri}")
     private String apiKey;
 
-    public LLMServiceIMPL(MeetingRepository meetingRepository, LiveSessionClient liveSessionClient) {
+    public LLMServiceIMPL(MeetingRepository meetingRepository, EasyF1LiveSessionClient liveSessionClient) {
         this.meetingRepository = meetingRepository;
         this.liveSessionClient = liveSessionClient;
     }

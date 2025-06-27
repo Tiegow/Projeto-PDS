@@ -2,7 +2,7 @@ package org.project.framework.providers;
 
 import java.util.List;
 
-import org.project.easyf1.models.dto.DriverDTO;
+import org.project.framework.models.dto.DriverDTO;
 
 public interface DriverProvider {
     DriverDTO getDriver(Integer driverNumber, Integer sessionKey);

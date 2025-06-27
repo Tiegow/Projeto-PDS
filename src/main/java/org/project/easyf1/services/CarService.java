@@ -7,7 +7,7 @@ import org.project.easyf1.models.dto.CarDTO;
 import org.project.easyf1.models.entity.Car;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.repositories.CarRepository;
-import org.project.easyf1.repositories.SessionRepository;
+import org.project.framework.repositories.SessionRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
