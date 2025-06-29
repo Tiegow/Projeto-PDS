@@ -1,4 +1,4 @@
-package org.project.easyf1.services.Interfaces;
+package org.project.framework.services;
 
 public interface LLMService {
 

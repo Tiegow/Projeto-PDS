@@ -1,10 +1,10 @@
-package org.project.easyf1.controllers.rest;
+package org.project.framework.controllers;
 
-import org.project.easyf1.services.Interfaces.LLMService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.project.framework.services.LLMService;
 import org.springframework.http.ResponseEntity;
 
 @RestController
