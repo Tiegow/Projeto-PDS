@@ -3,8 +3,6 @@ package org.project.easyf1.models.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "drivers")
 public class Driver implements Comparable<Driver> {

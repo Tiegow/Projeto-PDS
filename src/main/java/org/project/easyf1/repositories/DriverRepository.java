@@ -13,7 +13,7 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
     @Query("SELECT CASE WHEN EXISTS (SELECT 1 FROM Driver d) THEN true ELSE false END")
     boolean existsAnyDriver();
 
-    Driver findByDriverNumber(Integer driverNumber);
+    List<Driver> findByDriverNumber(Integer driverNumber);
 
     Driver findFirstByDriverNumber(Integer driverNumber);
 

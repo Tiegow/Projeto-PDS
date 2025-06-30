@@ -23,6 +23,11 @@ public class PagesController {
         return "pages/history";
     }
 
+    @GetMapping("/now")
+    public String nowSessionPage() {
+        return "pages/nowSession";
+    }
+
     @GetMapping("/profile")
     public String profilePage() {
         return "pages/profile";
@@ -36,5 +41,10 @@ public class PagesController {
     @GetMapping("/driver")
     public String driverPage() {
         return "pages/driver";
+    }
+
+    @GetMapping("/teams")
+    public String teamsPage() {
+        return "pages/teams";
     }
 }

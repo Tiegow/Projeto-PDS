@@ -52,7 +52,7 @@
 }
 
 .gp-container.expanded .gp-details {
-    max-height: 500px; 
+    max-height: 500px;
     padding: 12px;
     border-top: 3px solid var(--cor-branco);
 }

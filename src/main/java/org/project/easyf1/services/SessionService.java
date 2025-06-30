@@ -3,16 +3,12 @@ package org.project.easyf1.services;
 import jakarta.annotation.PostConstruct;
 import org.project.easyf1.client.SessionClient;
 import org.project.easyf1.controllers.rest.SessionController;
-import org.project.easyf1.exception.NoSessionTodayException;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.MeetingRepository;
 import org.project.easyf1.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,16 +34,15 @@ import java.util.Objects;
  */
 @Service
 public class SessionService {
-
+    private final TodaySessionProvider todaySessionProvider;
     private final SessionClient sessionClient;
     private final SessionRepository sessionRepository;
-    private final MeetingRepository meetingRepository;
 
     @Autowired
-    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository, MeetingRepository meetingRepository) {
+    public SessionService(SessionClient sessionClient, SessionRepository sessionRepository, TodaySessionProvider todaySessionProvider) {
+        this.todaySessionProvider = todaySessionProvider;
         this.sessionClient = sessionClient;
         this.sessionRepository = sessionRepository;
-        this.meetingRepository = meetingRepository;
     }
 
     public List<SessionDTO> getSessionsByMeeting(Integer meetingKey) {
@@ -57,18 +52,7 @@ public class SessionService {
                 .toList();
     }
 
-    public SessionDTO getTodaySession() throws NoSessionTodayException{
-        ZoneOffset zoneOffset = ZoneOffset.of("-03:00"); 
-        OffsetDateTime now = OffsetDateTime.now(zoneOffset);
-        OffsetDateTime startOfDay = now.toLocalDate().atStartOfDay().atOffset(zoneOffset);
-        OffsetDateTime startOfNextDay = startOfDay.plusDays(1);
-
-        Session session = sessionRepository.findTodaySession(startOfDay, startOfNextDay, now);
-
-        if (session == null) {
-            throw new NoSessionTodayException();
-        }
-
-        return new SessionDTO(session);
+    public SessionDTO getTodaySession() {
+        return todaySessionProvider.getTodaySession();
     }
 }

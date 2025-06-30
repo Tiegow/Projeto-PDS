@@ -30,14 +30,14 @@
             <h3>HIGHLIGHTS</h3>
             <div class="highlights-wrapper">
                 <!-- Highlights gerados dinamicamente aqui -->
-                <div class="highlight-content mt-4">    
+                <div class="highlight-content mt-4">
                     <div class="video-highlight">
-                        <iframe  
+                        <iframe
                             width="45%"
                             height="auto"
-                            src="https://www.youtube.com/embed/GFd2qsAArk0" 
-                            title="YouTube video player" 
-                            frameborder="0"  
+                            src="https://www.youtube.com/embed/GFd2qsAArk0"
+                            title="YouTube video player"
+                            frameborder="0"
                             allowfullscreen>
                         </iframe>
                         <div class="video-info text-start">
@@ -67,7 +67,8 @@
 
                 <input type="hidden" id="meeting-id" value="0">
 
-                <button id="session-button" class="container">VER MAIS</button>
+
+                <button id="session-button" class="container" onclick="navigate('now')">VER MAIS</button>
 
                 <div class="text-center pt-2">
                     <button id="session-prev-button" class="btn btn-primary">Ver previsão da corrida</button>
@@ -97,6 +98,14 @@
           </section>
           <aside class="col">
             <h3>SEUS FAVORITOS</h3>
+            <div class="pilotos-favoritos ms-4">
+                <p class="text-end px-5">Pilotos</p>
+                <div id="pilotos-favoritos-list"></div>
+            </div>
+            <div class="equipes-favoritas ms-4">
+                <p class="text-end px-5">Equipes</p>
+                <div id="equipes-favoritos-list"></div>
+            </div>
           </aside>
         </div>
     </div>

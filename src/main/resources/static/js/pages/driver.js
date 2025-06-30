@@ -1,7 +1,10 @@
-window.onload = () => {
+window.onload = async () => {
     loadMainComponents();
+    await loadUserFavorites();
     loadAllDrivers();
 }
+
+let userFavoriteDrivers = [];
 
 async function loadAllDrivers(){
 
@@ -38,7 +41,9 @@ function renderDrivers(data) {
 
                 card.style.background = `linear-gradient(to right, #${teamColor}, ${darkerColor})`;
 
-                const img = card.querySelector('img');
+                buildStarIcon(driver, card);
+
+                const img = card.querySelector('.piloto-img');
                 img.src = driver.headshot_url;
                 img.alt = driver.broadcast_name;
 
@@ -66,7 +71,7 @@ function renderDrivers(data) {
 
 function mostrarDetalhes(driver_number) {
     // Referência ao elemento de detalhes
-    const detalhes = document.getElementById('piloto-detalhes');
+    const detalhes = document.getElementById('pilotos-detalhes');
 
     // Mostrar um estado de carregamento
     detalhes.innerHTML = `
@@ -208,4 +213,23 @@ function createDarkerColor(hexColor) {
 
     // Retornar a cor em formato RGB
     return `rgb(${darkerR}, ${darkerG}, ${darkerB})`;
+}
+
+function buildStarIcon(driver, card) {
+    const favoriteStar = card.querySelector('.favorite-star');
+    let isFavoriteDriver;
+
+    if (userFavoriteDrivers.some(fav => fav.driver_number === driver.driver_number)) {
+        favoriteStar.src = '/images/star.png';
+        isFavoriteDriver = true;
+    } else {
+        favoriteStar.src = '/images/star_g.png';
+        isFavoriteDriver = false;
+    }
+    favoriteStar.onclick = async () => {
+        await toggleFavoriteDriver(driver.driver_number, isFavoriteDriver);
+        await loadUserFavorites();
+        
+        buildStarIcon(driver, card);
+    };
 }

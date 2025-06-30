@@ -3,7 +3,6 @@ package org.project.easyf1.models.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PositionDTO {
-
     @JsonProperty("position")
     private int position;
 
@@ -25,5 +24,4 @@ public class PositionDTO {
     public void setDriverNumber(int driverNumber) {
         this.driverNumber = driverNumber;
     }
-
 }

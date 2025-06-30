@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,19 +18,33 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToMany
+    @JoinTable(
+        name = "user_favorite_drivers",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "driver_id")
+    )
+    private Set<Driver> favoriteDrivers;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_favorite_teams",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<Team> favoriteTeams;
+    
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String username;
-
-    public User() {}
-
     private GregorianCalendar birthday;
-
     private GregorianCalendar createdAt;
     private GregorianCalendar updatedAt;
     private GregorianCalendar deletedAt;
+
+    public User() {}
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
@@ -150,6 +165,28 @@ public class User implements UserDetails {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Driver> getFavoriteDrivers() {
+        if (this.favoriteDrivers == null) {
+            this.favoriteDrivers = new HashSet<Driver>();
+        }
+        return this.favoriteDrivers;
+    }
+
+    public void setFavoriteDrivers(Set<Driver> favoriteDrivers) {
+        this.favoriteDrivers = favoriteDrivers;
+    }
+
+    public Set<Team> getFavoriteTeams() {
+        if (this.favoriteTeams == null) {
+            this.favoriteTeams = new HashSet<Team>();
+        }
+        return this.favoriteTeams;
+    }
+
+    public void setFavoriteTeams(Set<Team> favoriteTeams) {
+        this.favoriteTeams = favoriteTeams;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -163,6 +200,7 @@ public class User implements UserDetails {
                 ", createdAt=" + createdAt +
                 ", deletedAt=" + deletedAt +
                 ", roles=" + roles +
+                ", favoriteDrivers=" + favoriteDrivers +
                 '}';
     }
 }

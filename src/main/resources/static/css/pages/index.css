@@ -47,3 +47,23 @@
 .calendar p {
     margin: 0;
 }
+
+.favorito-div {
+    text-align: left;
+}
+
+.team-div {
+    background-color: var(--cor-preto);
+    border-radius: 20px 0px 0px 20px;
+}
+
+.favorito-div p {
+    margin: 0;
+}
+
+.fav-driver-img {
+    background-color: var(--cor-branco);
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
