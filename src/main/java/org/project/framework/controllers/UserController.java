@@ -1,8 +1,8 @@
-package org.project.easyf1.controllers.rest;
+package org.project.framework.controllers;
 
 import org.project.easyf1.models.dto.UserDTO;
 import org.project.easyf1.models.entity.User;
-import org.project.easyf1.services.UserService;
+import org.project.framework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,4 +1,4 @@
-package org.project.easyf1.services;
+package org.project.framework.services;
 
 import java.util.Optional;
 import java.util.Set;

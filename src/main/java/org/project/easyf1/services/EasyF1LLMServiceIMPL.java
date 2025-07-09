@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class LLMServiceIMPL implements LLMService {
+public class EasyF1LLMServiceIMPL implements LLMService {
 
     private MeetingRepository meetingRepository;
 
@@ -28,7 +28,7 @@ public class LLMServiceIMPL implements LLMService {
     @Value("${spring.ai.vertex.ai.gemini.credentials-uri}")
     private String apiKey;
 
-    public LLMServiceIMPL(MeetingRepository meetingRepository, EasyF1LiveSessionClient liveSessionClient) {
+    public EasyF1LLMServiceIMPL(MeetingRepository meetingRepository, EasyF1LiveSessionClient liveSessionClient) {
         this.meetingRepository = meetingRepository;
         this.liveSessionClient = liveSessionClient;
     }

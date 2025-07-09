@@ -1,7 +1,6 @@
-package org.project.easyf1.services;
+package org.project.framework.services;
 
 import org.project.easyf1.models.entity.Team;
-import org.project.framework.repositories.SessionRepository;
 import org.project.framework.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +10,10 @@ import java.util.*;
 @Service
 public class TeamService {
 
-    private final SessionRepository sessionRepository;
-
     private final TeamRepository teamRepository;
 
     @Autowired
-    public TeamService(SessionRepository sessionRepository, TeamRepository teamRepository) {
-        this.sessionRepository = sessionRepository;
+    public TeamService(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
     }
 

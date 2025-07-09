@@ -1,4 +1,4 @@
-package org.project.easyf1.services;
+package org.project.framework.services;
 
 import org.project.easyf1.client.EasyF1DriverProvider;
 import org.project.framework.exception.SessionNotFoundException;

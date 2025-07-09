@@ -1,16 +1,15 @@
-package org.project.easyf1.services;
+package org.project.framework.services;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.project.easyf1.client.MeetingClient;
-import org.project.easyf1.controllers.rest.MeetingController;
+import org.project.framework.controllers.MeetingController;
 import org.project.easyf1.models.dto.MeetingDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 import org.project.framework.repositories.MeetingRepository;
-import org.project.framework.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,15 +35,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MeetingService {
 
-    private final MeetingClient meetingClient;
     private final MeetingRepository meetingRepository;
-    private final SessionRepository sessionRepository;
 
     @Autowired
-    public MeetingService(MeetingClient meetingClient, MeetingRepository meetingRepository, SessionRepository sessionRepository) {
-        this.meetingClient = meetingClient;
+    public MeetingService(MeetingRepository meetingRepository) {
         this.meetingRepository = meetingRepository;
-        this.sessionRepository = sessionRepository;
     }
 
     public List<MeetingDTO> getMeetingsByYear(Integer year) {

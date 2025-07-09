@@ -1,9 +1,9 @@
-package org.project.easyf1.controllers.rest;
+package org.project.framework.controllers;
 
 import java.util.List;
 
 import org.project.easyf1.models.dto.MeetingDTO;
-import org.project.easyf1.services.MeetingService;
+import org.project.framework.services.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

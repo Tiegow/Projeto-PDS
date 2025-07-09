@@ -1,7 +1,7 @@
-package org.project.easyf1.controllers.rest;
+package org.project.framework.controllers;
 
-import org.project.easyf1.models.entity.Team; // Supondo que você tenha uma entidade Team
-import org.project.easyf1.services.TeamService; // Supondo que você tenha um TeamService
+import org.project.easyf1.models.entity.Team; 
+import org.project.framework.services.TeamService; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
