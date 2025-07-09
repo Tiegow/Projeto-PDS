@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import org.project.easyf1.client.EasyF1LiveSessionClient;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.MeetingRepository;
+import org.project.framework.repositories.MeetingRepository;
 import org.project.framework.models.dto.GeminiRequest;
 import org.project.framework.models.dto.PositionDTO;
 import org.project.framework.services.LLMService;

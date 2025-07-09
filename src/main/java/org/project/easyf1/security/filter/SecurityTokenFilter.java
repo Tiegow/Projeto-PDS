@@ -5,7 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.project.easyf1.repositories.UserRepository;
+import org.project.framework.repositories.UserRepository;
 import org.project.easyf1.security.service.TokenService;
 import org.project.easyf1.security.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;

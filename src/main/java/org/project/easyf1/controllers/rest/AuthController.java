@@ -7,7 +7,7 @@ import org.project.easyf1.models.dto.LoginDTO;
 import org.project.easyf1.models.dto.RegisterDTO;
 import org.project.easyf1.models.dto.TokenDTO;
 import org.project.easyf1.models.entity.User;
-import org.project.easyf1.repositories.UserRepository;
+import org.project.framework.repositories.UserRepository;
 import org.project.easyf1.security.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

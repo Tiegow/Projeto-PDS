@@ -2,16 +2,15 @@ package org.project.easyf1.configuration;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.project.easyf1.client.DriverClient;
-import org.project.easyf1.models.dto.DriverDTO;
-import org.project.easyf1.models.dto.SessionDTO;
+import org.project.easyf1.client.EasyF1DriverProvider;
 import org.project.easyf1.models.dto.TeamDTO;
 import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.models.entity.Team;
-import org.project.easyf1.repositories.DriverRepository;
+import org.project.framework.repositories.DriverRepository;
+import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.repositories.SessionRepository;
-import org.project.easyf1.repositories.TeamRepository;
+import org.project.framework.repositories.TeamRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -33,7 +32,7 @@ public class TeamsInitializer {
 
     private final DriverRepository driverRepository;
 
-    private final DriverClient driverClient;
+    private final EasyF1DriverProvider driverClient;
 
     private static final Map<String, String> TEAM_COLORS = new HashMap<>();
 
@@ -51,7 +50,7 @@ public class TeamsInitializer {
     }
 
 
-    public TeamsInitializer(SessionRepository sessionRepository, TeamRepository teamRepository, DriverRepository driverRepository, DriverClient driverClient) {
+    public TeamsInitializer(SessionRepository sessionRepository, TeamRepository teamRepository, DriverRepository driverRepository, EasyF1DriverProvider driverClient) {
         this.sessionRepository = sessionRepository;
         this.teamRepository = teamRepository;
         this.driverRepository = driverRepository;

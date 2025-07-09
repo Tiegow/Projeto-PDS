@@ -1,18 +1,13 @@
 package org.project.easyf1.controllers.rest;
 
-
-import org.project.easyf1.client.DriverClient;
-import org.project.easyf1.models.dto.DriverDTO;
-import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.DriverRepository;
+import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.repositories.SessionRepository;
 import org.project.easyf1.services.DriverService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/driver")

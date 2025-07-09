@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.project.easyf1.client.EasyF1DriverProvider;
 import org.project.easyf1.client.EasyF1LiveSessionClient;
-import org.project.easyf1.exception.PositionsUpdateException;
+import org.project.framework.exception.PositionsUpdateException;
 import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.models.dto.PositionDTO;
 import org.project.framework.services.TodaySessionHelper;

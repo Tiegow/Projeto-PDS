@@ -1,6 +1,5 @@
 package org.project.easyf1.services;
 
-import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,12 +9,10 @@ import org.project.easyf1.controllers.rest.MeetingController;
 import org.project.easyf1.models.dto.MeetingDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.MeetingRepository;
+import org.project.framework.repositories.MeetingRepository;
 import org.project.framework.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.PostConstruct;
 
 /**
  * Serviço responsável por gerenciar as operações relacionadas a Meetings (corridas ou eventos).

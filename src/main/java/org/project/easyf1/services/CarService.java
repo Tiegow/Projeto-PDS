@@ -1,8 +1,8 @@
 package org.project.easyf1.services;
 
 import org.project.easyf1.client.CarClient;
-import org.project.easyf1.exception.CarNotFoundException;
-import org.project.easyf1.exception.SessionNotFoundException;
+import org.project.framework.exception.CarNotFoundException;
+import org.project.framework.exception.SessionNotFoundException;
 import org.project.easyf1.models.dto.CarDTO;
 import org.project.easyf1.models.entity.Car;
 import org.project.easyf1.models.entity.Session;

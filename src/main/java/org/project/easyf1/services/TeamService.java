@@ -1,21 +1,12 @@
 package org.project.easyf1.services;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.PostConstruct;
-import org.project.easyf1.models.dto.TeamDTO;
-import org.project.easyf1.models.entity.Session;
 import org.project.easyf1.models.entity.Team;
 import org.project.framework.repositories.SessionRepository;
-import org.project.easyf1.repositories.TeamRepository;
+import org.project.framework.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamService {

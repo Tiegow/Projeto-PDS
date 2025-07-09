@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.project.easyf1.client.EasyF1LiveSessionClient;
-import org.project.easyf1.exception.EventsNotFountException;
+import org.project.framework.exception.EventsNotFountException;
 import org.project.framework.models.dto.RaceControlDTO;
 import org.project.framework.services.TodaySessionHelper;
 import org.project.framework.services.liveSession.SessionDataBroadcaster;

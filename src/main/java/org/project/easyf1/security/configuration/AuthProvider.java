@@ -1,6 +1,6 @@
 package org.project.easyf1.security.configuration;
 
-import org.project.easyf1.repositories.UserRepository;
+import org.project.framework.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

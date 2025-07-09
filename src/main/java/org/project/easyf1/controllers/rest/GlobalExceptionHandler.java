@@ -3,11 +3,11 @@ package org.project.easyf1.controllers.rest;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.project.easyf1.exception.DriversNotFoundException;
-import org.project.easyf1.exception.EventsNotFountException;
-import org.project.easyf1.exception.NoSessionTodayException;
-import org.project.easyf1.exception.PositionsUpdateException;
-import org.project.easyf1.exception.WeatherNotFoundException;
+import org.project.framework.exception.DriversNotFoundException;
+import org.project.framework.exception.EventsNotFountException;
+import org.project.framework.exception.NoSessionTodayException;
+import org.project.framework.exception.PositionsUpdateException;
+import org.project.framework.exception.WeatherNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

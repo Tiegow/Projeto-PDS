@@ -1,6 +1,5 @@
 package org.project.easyf1.services;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -8,9 +7,9 @@ import org.project.easyf1.models.dto.UserDTO;
 import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Team;
 import org.project.easyf1.models.entity.User;
-import org.project.easyf1.repositories.DriverRepository;
-import org.project.easyf1.repositories.TeamRepository;
-import org.project.easyf1.repositories.UserRepository;
+import org.project.framework.repositories.DriverRepository;
+import org.project.framework.repositories.TeamRepository;
+import org.project.framework.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

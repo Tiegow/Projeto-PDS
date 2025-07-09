@@ -6,14 +6,13 @@ import org.project.easyf1.models.dto.MeetingDTO;
 import org.project.easyf1.models.dto.SessionDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.MeetingRepository;
+import org.project.framework.repositories.MeetingRepository;
 import org.project.framework.repositories.SessionRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

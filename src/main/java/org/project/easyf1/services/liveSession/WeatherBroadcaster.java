@@ -3,7 +3,7 @@ package org.project.easyf1.services.liveSession;
 import java.util.List;
 
 import org.project.easyf1.client.EasyF1LiveSessionClient;
-import org.project.easyf1.exception.WeatherNotFoundException;
+import org.project.framework.exception.WeatherNotFoundException;
 import org.project.framework.models.dto.WeatherDTO;
 import org.project.framework.services.TodaySessionHelper;
 import org.project.framework.services.liveSession.SessionDataBroadcaster;

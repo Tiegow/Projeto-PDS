@@ -1,21 +1,15 @@
 package org.project.easyf1.services;
 
-
-import jakarta.annotation.PostConstruct;
-import org.project.easyf1.client.DriverClient;
-import org.project.easyf1.exception.SessionNotFoundException;
-import org.project.easyf1.models.dto.DriverDTO;
+import org.project.easyf1.client.EasyF1DriverProvider;
+import org.project.framework.exception.SessionNotFoundException;
 import org.project.easyf1.models.entity.Driver;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.DriverRepository;
+import org.project.framework.repositories.DriverRepository;
+import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.repositories.SessionRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +17,11 @@ public class DriverService {
 
     private final DriverRepository driverRepository;
 
-    private final DriverClient driverClient;
+    private final EasyF1DriverProvider driverClient;
 
     private final SessionRepository sessionRepository;
 
-    public DriverService(DriverRepository driverRepository, DriverClient driverClient, SessionRepository sessionRepository) {
+    public DriverService(DriverRepository driverRepository, EasyF1DriverProvider driverClient, SessionRepository sessionRepository) {
         this.driverRepository = driverRepository;
         this.driverClient = driverClient;
         this.sessionRepository = sessionRepository;
