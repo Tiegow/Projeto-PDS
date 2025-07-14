@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.project.easyf1.client.EasyF1LiveSessionClient;
+import org.project.easyf1.models.dto.liveSession.RaceControlDTOImpl;
 import org.project.framework.exception.EventsNotFountException;
-import org.project.framework.models.dto.RaceControlDTO;
 import org.project.framework.services.TodaySessionHelper;
 import org.project.framework.services.liveSession.SessionDataBroadcaster;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class RaceEventsBroadcaster extends SessionDataBroadcaster {
         }
                 
         try {
-            List<RaceControlDTO> raceEvents = liveSessionClient.getRaceEvents(sessionKey);
+            List<RaceControlDTOImpl> raceEvents = liveSessionClient.getRaceEvents(sessionKey);
 
             if (!raceEvents.isEmpty()) {
                 Collections.reverse(raceEvents);

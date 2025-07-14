@@ -2,8 +2,8 @@ package org.project.easyf1.client;
 
 import java.util.List;
 
+import org.project.easyf1.models.dto.liveSession.RaceControlDTOImpl;
 import org.project.framework.models.dto.PositionDTO;
-import org.project.framework.models.dto.RaceControlDTO;
 import org.project.framework.models.dto.WeatherDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,5 +19,5 @@ public interface EasyF1LiveSessionClient {
     List<PositionDTO> getPositions(@RequestParam("session_key") Integer sessionKey);
 
     @GetMapping("/v1/race_control")
-    List<RaceControlDTO> getRaceEvents(@RequestParam("session_key") Integer sessionKey);
+    List<RaceControlDTOImpl> getRaceEvents(@RequestParam("session_key") Integer sessionKey);
 }
