@@ -2,13 +2,13 @@ package org.project.easyf1.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.project.easyf1.models.entity.Car;
+import org.project.easyf1.models.entity.Vehicle;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 
 import java.util.GregorianCalendar;
 
-public class CarDTO {
+public class VehicleDTO {
 
     @JsonProperty(value = "brake")
     private Integer brake;
@@ -45,38 +45,38 @@ public class CarDTO {
     @JsonProperty(value = "position")
     private Integer position;
 
-    public CarDTO() {
+    public VehicleDTO() {
     }
 
-    public CarDTO(Car car) {
-        this.brake = car.getBrake();
-        this.date = car.getDate();
-        this.drs = car.getDrs();
-        this.gear = car.getGear();
-        this.rpm = car.getRpm();
-        this.speed = car.getSpeed();
-        this.throttle = car.getThrottle();
+    public VehicleDTO(Vehicle vehicle) {
+        this.brake = vehicle.getBrake();
+        this.date = vehicle.getDate();
+        this.drs = vehicle.getDrs();
+        this.gear = vehicle.getGear();
+        this.rpm = vehicle.getRpm();
+        this.speed = vehicle.getSpeed();
+        this.throttle = vehicle.getThrottle();
 
-        this.meetingKey = car.getMeeting().getMeetingKey();
-        this.sessionKey = car.getSession().getSessionKey();
+        this.meetingKey = vehicle.getMeeting().getMeetingKey();
+        this.sessionKey = vehicle.getSession().getSessionKey();
     }
 
-    public Car getCar(){
-        Car car = new Car();
-        car.setBrake(this.brake);
-        car.setDate(this.date);
-        car.setDrs(this.drs);
-        car.setGear(this.gear);
-        car.setRpm(this.rpm);
-        car.setSpeed(this.speed);
-        car.setThrottle(this.throttle);
+    public Vehicle getCar(){
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrake(this.brake);
+        vehicle.setDate(this.date);
+        vehicle.setDrs(this.drs);
+        vehicle.setGear(this.gear);
+        vehicle.setRpm(this.rpm);
+        vehicle.setSpeed(this.speed);
+        vehicle.setThrottle(this.throttle);
 
-        car.setMeeting(new Meeting());
-        car.setSession(new Session());
-        car.getSession().setSessionKey(this.sessionKey);
-        car.getMeeting().setMeetingKey(this.meetingKey);
+        vehicle.setMeeting(new Meeting());
+        vehicle.setSession(new Session());
+        vehicle.getSession().setSessionKey(this.sessionKey);
+        vehicle.getMeeting().setMeetingKey(this.meetingKey);
 
-        return car;
+        return vehicle;
     }
 
     public Integer getBrake() {

@@ -1,7 +1,7 @@
 package org.project.easyf1.client;
 
 
-import org.project.easyf1.models.dto.CarDTO;
+import org.project.easyf1.models.dto.VehicleDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CarClient {
 
     @GetMapping
-    CarDTO getCar(@RequestParam("driver_number") Integer driverNumber, @RequestParam("session_key") Integer sessionKey);
+    VehicleDTO getCar(@RequestParam("driver_number") Integer driverNumber, @RequestParam("session_key") Integer sessionKey);
 }

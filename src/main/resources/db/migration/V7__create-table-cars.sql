@@ -1,4 +1,4 @@
-CREATE TABLE cars (
+CREATE TABLE vehicles (
                       id SERIAL PRIMARY KEY,
                       brake INTEGER,
                       date TIMESTAMP,

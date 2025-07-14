@@ -33,7 +33,7 @@ public class Meeting {
     private Integer year;
 
     @OneToMany(mappedBy = "meeting")
-    private List<Car> cars;
+    private List<Vehicle> vehicles;
 
     @OneToMany(mappedBy = "meeting")
     private List<Session> sessions;
@@ -128,12 +128,12 @@ public class Meeting {
         this.year = year;
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public List<Vehicle> getCars() {
+        return vehicles;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setCars(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     public List<Session> getSessions() {

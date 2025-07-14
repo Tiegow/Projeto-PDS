@@ -1,49 +1,46 @@
 package org.project.easyf1.services;
 
 import org.project.easyf1.client.CarClient;
+import org.project.easyf1.repositories.VehicleRepository;
 import org.project.framework.exception.CarNotFoundException;
 import org.project.framework.exception.SessionNotFoundException;
-import org.project.easyf1.models.dto.CarDTO;
-import org.project.easyf1.models.entity.Car;
+import org.project.easyf1.models.dto.VehicleDTO;
+import org.project.easyf1.models.entity.Vehicle;
 import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.repositories.CarRepository;
 import org.project.framework.repositories.SessionRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class CarService {
+public class VehicleService {
 
     private final CarClient carClient;
 
-    private final CarRepository carRepository;
+    private final VehicleRepository vehicleRepository;
 
     private final SessionRepository sessionRepository;
 
-    public CarService(CarClient carClient, CarRepository carRepository, SessionRepository sessionRepository) {
+    public VehicleService(CarClient carClient, VehicleRepository vehicleRepository, SessionRepository sessionRepository) {
         this.carClient = carClient;
-        this.carRepository = carRepository;
+        this.vehicleRepository = vehicleRepository;
         this.sessionRepository = sessionRepository;
     }
 
-    public CarDTO getCar(Integer sessionKey, Integer driverNumber) {
-        Car car = carRepository.findCarBySessionKeyAndDriveNumber(sessionKey, driverNumber);
+    public VehicleDTO getCar(Integer sessionKey, Integer driverNumber) {
+        Vehicle vehicle = vehicleRepository.findCarBySessionKeyAndDriveNumber(sessionKey, driverNumber);
 
-        if(car == null) {
+        if(vehicle == null) {
             throw new CarNotFoundException("Carro não encontrado!");
         }
 
-        return new CarDTO(car);
+        return new VehicleDTO(vehicle);
     }
 
-    public List<CarDTO> getAllCars(Integer sessionKey) {
-        List<CarDTO> cars = carRepository.findCarsBySessionKey(sessionKey).
-                stream().filter(Objects::nonNull).map(CarDTO::new).toList();
+    public List<VehicleDTO> getAllCars(Integer sessionKey) {
+        List<VehicleDTO> cars = vehicleRepository.findCarsBySessionKey(sessionKey).
+                stream().filter(Objects::nonNull).map(VehicleDTO::new).toList();
 
         if(cars.isEmpty()) {
             throw new CarNotFoundException("Nenhum carro foi encontrado!");
@@ -52,7 +49,7 @@ public class CarService {
         return cars;
     }
 
-    public CarDTO getLastCarByDriver(Integer driverNumber){
+    public VehicleDTO getLastCarByDriver(Integer driverNumber){
         Session session = sessionRepository.findFirstByOrderByEndDateDesc();
 
         if(session == null) {

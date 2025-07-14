@@ -32,7 +32,7 @@ public class Session {
     private OffsetDateTime endDate;
 
     @OneToMany(mappedBy = "session")
-    private List<Car> cars;
+    private List<Vehicle> vehicles;
 
     @OneToMany(mappedBy = "session")
     private List<Driver> drivers;
@@ -131,12 +131,12 @@ public class Session {
         this.sessionKey = sessionKey;
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public List<Vehicle> getCars() {
+        return vehicles;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setCars(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     public Meeting getMeeting() {

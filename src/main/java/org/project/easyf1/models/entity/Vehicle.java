@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 @Entity
 @Table(name = "cars")
-public class Car {
+public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class Car {
     private Double speed;
     private Double throttle;
 
-    public Car() {
+    public Vehicle() {
     }
 
     public void setId(Long id) {

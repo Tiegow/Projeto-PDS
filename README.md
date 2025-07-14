@@ -14,7 +14,7 @@ Essa aplicação web permitirá que fãs da Formula 1 acompanhem as corridas em 
 
 - **Highlights de corridas passadas:** mostra os melhores momentos das corridas anteriores;
 
-- **Eventos na Pista e Clima:** informa o usuário do que está acontecendo pela pista, como bandeiras, condições climáticas e safety car;
+- **Eventos na Pista e Clima:** informa o usuário do que está acontecendo pela pista, como bandeiras, condições climáticas e safety vehicle;
 
 - **Histórico de corridas:** permite que o usuário acesse dados de corridas passadas;
 
