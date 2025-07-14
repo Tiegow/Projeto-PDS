@@ -1,4 +1,4 @@
-package org.project.easyf1.repositories;
+package org.project.framework.repositories;
 
 import org.project.easyf1.models.entity.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;

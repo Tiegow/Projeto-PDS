@@ -1,13 +1,12 @@
-package org.project.easyf1.services;
+package org.project.framework.services;
 
-import org.project.easyf1.client.CarClient;
-import org.project.easyf1.repositories.VehicleRepository;
 import org.project.framework.exception.CarNotFoundException;
 import org.project.framework.exception.SessionNotFoundException;
 import org.project.easyf1.models.dto.VehicleDTO;
 import org.project.easyf1.models.entity.Vehicle;
 import org.project.easyf1.models.entity.Session;
 import org.project.framework.repositories.SessionRepository;
+import org.project.framework.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +15,11 @@ import java.util.Objects;
 @Service
 public class VehicleService {
 
-    private final CarClient carClient;
-
     private final VehicleRepository vehicleRepository;
 
     private final SessionRepository sessionRepository;
 
-    public VehicleService(CarClient carClient, VehicleRepository vehicleRepository, SessionRepository sessionRepository) {
-        this.carClient = carClient;
+    public VehicleService(VehicleRepository vehicleRepository, SessionRepository sessionRepository) {
         this.vehicleRepository = vehicleRepository;
         this.sessionRepository = sessionRepository;
     }

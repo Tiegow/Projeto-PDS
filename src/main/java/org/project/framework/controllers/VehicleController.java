@@ -2,7 +2,7 @@ package org.project.framework.controllers;
 
 
 import org.project.easyf1.models.dto.VehicleDTO;
-import org.project.easyf1.services.VehicleService;
+import org.project.framework.services.VehicleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
