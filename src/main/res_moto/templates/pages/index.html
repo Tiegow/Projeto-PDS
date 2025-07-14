@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyMGP</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/logo.png}">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/index.css}">
+    <link rel="stylesheet" th:href="@{/css/components/gpContent.css}">
+    <link rel="stylesheet" th:href="@{/css/components/highlight.css}">
+</head>
+<body>
+    <div id="header"></div> <!-- O header da página será caregado aqui via JS -->
+
+    <div class="container-fluid text-center">
+        <div class="trapezio mx-auto">
+            <span id="today_year" class="fs-5">ANO</span>
+        </div>
+        <div class="row">
+          <aside class="col">
+            <h3>HIGHLIGHTS</h3>
+            <div class="highlights-wrapper">
+                <!-- Highlights gerados dinamicamente aqui -->
+                <div class="highlight-content mt-4">    
+                    <div class="video-highlight">
+                        <iframe  
+                            width="45%"
+                            height="auto"
+                            src="https://www.youtube.com/embed/GFd2qsAArk0" 
+                            title="YouTube video player" 
+                            frameborder="0"  
+                            allowfullscreen>
+                        </iframe>
+                        <div class="video-info text-start">
+                            <h5>Título</h5>
+                            <p>Descrição breve do vídeo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </aside>
+          <section class="col-4">
+            <div class="today-card mx-auto py-2">
+                <h3 class="py-2">HOJE</h3>
+                <div id="flag-container" class="mx-auto">
+                    <!-- Imagem da bandeira -->
+                </div>
+
+                <p id="circuit-name">
+                    <!-- circuit_short_name -->
+                </p>
+                <p id="circuit-type">
+                    <!-- session_name -->
+                </p>
+                <p id="session-time">
+                    <!-- hora do inicio e do fim -->
+                </p>
+
+                <input type="hidden" id="meeting-id" value="0">
+
+                <button id="session-button" class="container" onclick="navigate('now')">VER MAIS</button>
+
+                <div class="text-center pt-2">
+                    <button id="session-prev-button" class="btn btn-primary">Ver previsão da corrida</button>
+                </div>
+
+                <!-- Espaço para exibir a mensagem caso não haja sessão -->
+                <p id="no-session-message" style="display: none; color: red;">Não há sessão programada para hoje.</p>
+            </div>
+
+              <div id="previsao" hidden style="
+                    background-color: #161A1D;;
+                    margin-top: 20px;
+                    padding: 15px;
+                    border-left: 4px solid #0d6efd;
+                    border-radius: 6px;
+                    font-family: Arial, sans-serif;
+                    white-space: pre-line;
+                ">
+                  <!-- conteúdo da API será inserido aqui -->
+              </div>
+
+            <div class="calendar container mt-5">
+                <div id="gp-wraper">
+                    <!-- sessoes carregadas aqui -->
+                </div>
+            </div>
+          </section>
+          <aside class="col">
+            <h3>SEUS FAVORITOS</h3>
+            <div class="pilotos-favoritos ms-4">
+                <p class="text-end px-5">Pilotos</p>
+                <div id="pilotos-favoritos-list"></div>
+            </div>
+            <div class="equipes-favoritas ms-4">
+                <p class="text-end px-5">Equipes</p>
+                <div id="equipes-favoritos-list"></div>
+            </div>
+          </aside>
+        </div>
+    </div>
+
+    <script th:src="@{/js/util/countries.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/pages/index.js}"></script>
+</body>
+</html>

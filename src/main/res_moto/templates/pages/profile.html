@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyMGP - Perfil</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" th:href="@{/images/logo.png}">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/components/pilotoCard.css}">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="profile-summary mx-5 my-3">
+        <div class="profile-pic">
+            <img th:src="@{/images/person.png}" alt="Foto de Perfil">
+        </div>
+        <div class="profile-info">
+            <h4 id="userName">@usuario123</h4>
+            <p id="fullName">João da Silva</p>
+            <p id="email"></p>
+        </div>
+    </div>
+
+    <div class="pilotos container-fluid my-5 px-5">
+        <h4>Pilotos Favoritos</h4>
+
+        <div class="pilotos-slider-container">
+            <div class="pilotos-slider" id="pilotos-slider">
+                <!-- Cards aqui -->
+                <!-- <div class="piloto-card mx-3">
+                    <img class="favorite-star" alt="Favoritar" src="">
+                    <img class="piloto-img" src="" alt="Piloto">
+                    <div class="piloto-info p-2">
+                        <h5 class="mb-3">Max VERSTAPPEN</h5>
+                        <p>VER - Red Bull Racing</p>
+                        <p>n°: 1</p>
+                        <p>País: NED</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="pilotos container-fluid my-5 px-5">
+        <h4>Equipes Favoritas</h4>
+
+        <div class="pilotos-slider-container">
+            <div class="pilotos-slider" id="times-slider">
+                <!-- Cards aqui -->
+                <!-- <div class="piloto-card mx-3">
+                    <img class="favorite-star" alt="Favoritar" src="">
+                    <img class="piloto-img" src="" alt="Piloto">
+                    <div class="piloto-info p-2">
+                        <h5 class="mb-3">Max VERSTAPPEN</h5>
+                        <p>VER - Red Bull Racing</p>
+                        <p>n°: 1</p>
+                        <p>País: NED</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/pages/profile.js}"></script>
+</body>
+</html>

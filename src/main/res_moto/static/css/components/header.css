@@ -1,0 +1,10 @@
+header {
+    background-color: var(--cor-primaria);
+    border-bottom: solid 10px var(--cor-secundaria);
+}
+
+header img {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+}

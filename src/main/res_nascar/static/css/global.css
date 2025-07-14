@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
+
+:root {
+    --cor-preto: #161A1D;
+    --cor-branco: #F5F3F4;
+    --cor-primaria: #d1571e;
+    --cor-secundaria: #b64b21;
+    --cor-terciaria: #004aad;
+    --cor-background: #0F1519;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: "Racing Sans One", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    font-style: normal;
+    color: var(--cor-branco);
+    background-color: var(--cor-background);
+    scrollbar-color: var(--cor-primaria) var(--cor-preto); /* thumb cor, track cor */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    margin-bottom: 0.5rem;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+input, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+.err {
+    color: var(--cor-primaria);
+}
+
+.flag-container {
+    max-width: 65px;
+}
+
+.flag-container img {
+    width: 80px;
+    height: 50px;
+    object-fit: fill;
+}
