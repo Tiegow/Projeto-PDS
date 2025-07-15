@@ -1,7 +1,8 @@
 package org.project.framework.controllers;
 
-import org.project.easyf1.models.entity.Team; 
-import org.project.framework.services.TeamService; 
+import org.project.easyf1.models.entity.Team;
+import org.project.framework.models.dto.TeamDTO;
+import org.project.framework.services.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +38,9 @@ public class TeamController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<Team> getTeamDetails(@RequestParam("team_name") String teamName) {
-        System.err.println("Endpoint /api/teams/details chamado para: " + teamName + " - Implementação pendente no TeamService/Repository");
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    public ResponseEntity<TeamDTO> getTeamDetails(@RequestParam("team_name") String teamName) {
+        TeamDTO teamDTO = teamService.detailTeam(teamName);
+
+        return ResponseEntity.ok(teamDTO);
     }
 }

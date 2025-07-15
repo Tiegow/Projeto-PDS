@@ -114,13 +114,13 @@ function mostrarDetalhes(teamName, detalhesContainer, teamColorForGradient) {
             return response.json();
         })
         .then(data => {
-            const detailTeamColor = data.teamColor;
-            const baseColor = detailTeamColor.startsWith('#') ? detailTeamColor : `#${detailTeamColor}`;
-            const lighterGradientColor = createDarkerColor(baseColor, 20);
-
+            // const detailTeamColor = data.teamColor;
+            // const baseColor = detailTeamColor.startsWith('#') ? detailTeamColor : `#${detailTeamColor}`;
+            const lighterGradientColor = createDarkerColor("#808080", 20);
+            console.log(data);
             detalhesContainer.innerHTML = `
                 <div class="card shadow rounded-4 border-0 overflow-hidden">
-                    <div class="card-header p-4" style="background: linear-gradient(to right, ${baseColor}, ${lighterGradientColor});">
+                    <div class="card-header p-4" style="background: linear-gradient(to right, #0000, ${lighterGradientColor});">
                         <div class="d-flex align-items-center gap-4">
                             <h1 class="text-white mb-0">${data.teamName || 'Detalhes Indisponíveis'}</h1>
                         </div>

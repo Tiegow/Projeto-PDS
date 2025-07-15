@@ -18,4 +18,7 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
     Driver findFirstByDriverNumber(Integer driverNumber);
 
     List<Driver> findAllBySession_SessionKey(Integer session_sessionKey);
+
+    @Query("select d.driverNumber from Driver d where d.teamName = :teamName")
+    List<Integer> findByTeamName(String teamName);
 }

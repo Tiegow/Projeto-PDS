@@ -3,10 +3,11 @@ package org.project.framework.services;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.project.easyf1.client.MeetingClient;
 import org.project.framework.controllers.MeetingController;
-import org.project.easyf1.models.dto.MeetingDTO;
+import org.project.framework.models.dto.MeetingDTO;
 import org.project.easyf1.models.entity.Meeting;
 import org.project.easyf1.models.entity.Session;
 import org.project.framework.repositories.MeetingRepository;
@@ -43,25 +44,27 @@ public class MeetingService {
     }
 
     public List<MeetingDTO> getMeetingsByYear(Integer year) {
-        List<Meeting> meetings = meetingRepository.findAllByYear(year);
+        List<Meeting> meetings = meetingRepository.findAllByYear(year).stream().filter(meeting -> meeting.getSessions() != null).toList();
         
         // Mapeia para DTO
-        List<MeetingDTO> dtos = meetings.stream()
+        Stream<MeetingDTO> dtos = meetings.stream()
             .map(meeting -> {
                 MeetingDTO dto = new MeetingDTO(meeting);
-                Session lastSession = meeting.getSessions().getLast();
+                List<Session> sessions = meeting.getSessions();
 
-                if (lastSession != null) {
+                if (sessions != null && !sessions.isEmpty()) {
+                    Session lastSession = sessions.getLast(); // ou sessions.get(sessions.size() - 1)
                     dto.setEndDate(lastSession.getEndDate());
                 }
 
                 return dto;
-            })
-            .collect(Collectors.toList());
+            });
+
+        List<MeetingDTO> listDTOS = new java.util.ArrayList<>(dtos.toList());
 
         // Mais recentes para o início
-        Collections.reverse(dtos);
+        Collections.reverse(listDTOS);
 
-        return dtos;
+        return listDTOS;
     }
 }

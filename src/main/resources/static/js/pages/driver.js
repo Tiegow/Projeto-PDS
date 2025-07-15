@@ -43,10 +43,6 @@ function renderDrivers(data) {
 
                 buildStarIcon(driver, card);
 
-                const img = card.querySelector('.piloto-img');
-                img.src = driver.headshot_url;
-                img.alt = driver.broadcast_name;
-
                 const nomePiloto = card.querySelector('.piloto-info h5');
                 nomePiloto.textContent = driver.first_name + ' ' + driver.last_name;
 

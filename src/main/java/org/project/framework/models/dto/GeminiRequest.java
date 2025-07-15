@@ -10,6 +10,9 @@ public class GeminiRequest {
         this.contents = contents;
     }
 
+    public GeminiRequest() {
+    }
+
     public List<Content> getContents() {
         return contents;
     }
@@ -21,9 +24,12 @@ public class GeminiRequest {
             this.parts = parts;
         }
 
+        public Content(){}
+
         public List<Part> getParts() {
             return parts;
         }
+
     }
 
     public static class Part {
@@ -33,8 +39,16 @@ public class GeminiRequest {
             this.text = text;
         }
 
+        public Part() {
+        }
+
         public String getText() {
             return text;
         }
     }
+
+    public void setContents(List<Content> contents) {
+        this.contents = contents;
+    }
+
 }

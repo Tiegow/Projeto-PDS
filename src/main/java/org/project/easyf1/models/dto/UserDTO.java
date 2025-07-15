@@ -3,6 +3,7 @@ package org.project.easyf1.models.dto;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.project.easyf1.models.entity.User;
+import org.project.framework.models.dto.TeamDTO;
 
 public class UserDTO {
 
