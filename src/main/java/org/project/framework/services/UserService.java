@@ -3,10 +3,10 @@ package org.project.framework.services;
 import java.util.Optional;
 import java.util.Set;
 
-import org.project.easyf1.models.dto.UserDTO;
-import org.project.easyf1.models.entity.Driver;
-import org.project.easyf1.models.entity.Team;
-import org.project.easyf1.models.entity.User;
+import org.project.framework.models.dto.UserDTO;
+import org.project.framework.models.entity.Driver;
+import org.project.framework.models.entity.Team;
+import org.project.framework.models.entity.User;
 import org.project.framework.repositories.DriverRepository;
 import org.project.framework.repositories.TeamRepository;
 import org.project.framework.repositories.UserRepository;

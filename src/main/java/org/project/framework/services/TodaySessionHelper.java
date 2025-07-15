@@ -4,7 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 import org.project.framework.models.dto.SessionDTO;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Session;
 import org.project.framework.exception.NoSessionTodayException;
 import org.project.framework.repositories.SessionRepository;
 import org.springframework.stereotype.Component;

@@ -1,10 +1,10 @@
-package org.project.easyf1.models.dto;
+package org.project.framework.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.project.easyf1.models.entity.Vehicle;
-import org.project.easyf1.models.entity.Meeting;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Vehicle;
+import org.project.framework.models.entity.Meeting;
+import org.project.framework.models.entity.Session;
 
 import java.util.GregorianCalendar;
 

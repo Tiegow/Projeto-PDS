@@ -1,6 +1,4 @@
-package org.project.easyf1.models.dto;
-
-import org.project.framework.models.dto.TeamDTO;
+package org.project.framework.models.dto;
 
 public class DriverDetailDTO {
 

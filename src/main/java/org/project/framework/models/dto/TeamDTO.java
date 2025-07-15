@@ -3,7 +3,7 @@ package org.project.framework.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.project.easyf1.models.entity.Team;
+import org.project.framework.models.entity.Team;
 
 public class TeamDTO {
 

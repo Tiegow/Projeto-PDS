@@ -1,7 +1,7 @@
 package org.project.framework.repositories;
 
 
-import org.project.easyf1.models.entity.User;
+import org.project.framework.models.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

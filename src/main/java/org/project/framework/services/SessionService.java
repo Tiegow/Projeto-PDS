@@ -1,7 +1,7 @@
 package org.project.framework.services;
 
 import org.project.framework.models.dto.SessionDTO;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Session;
 import org.project.framework.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

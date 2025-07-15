@@ -1,7 +1,7 @@
 package org.project.easyf1.client;
 
 
-import org.project.easyf1.models.dto.VehicleDTO;
+import org.project.framework.models.dto.VehicleDTO;
 import org.project.framework.providers.VehicleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;

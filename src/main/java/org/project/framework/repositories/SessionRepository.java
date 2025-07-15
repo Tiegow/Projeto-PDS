@@ -3,7 +3,7 @@ package org.project.framework.repositories;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

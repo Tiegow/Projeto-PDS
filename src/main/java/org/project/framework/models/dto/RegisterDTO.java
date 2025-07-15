@@ -1,9 +1,9 @@
-package org.project.easyf1.models.dto;
+package org.project.framework.models.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.project.easyf1.models.entity.Role;
-import org.project.easyf1.models.entity.User;
+import org.project.framework.models.entity.Role;
+import org.project.framework.models.entity.User;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;

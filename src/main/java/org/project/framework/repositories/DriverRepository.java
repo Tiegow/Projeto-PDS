@@ -1,6 +1,6 @@
 package org.project.framework.repositories;
 
-import org.project.easyf1.models.entity.Driver;
+import org.project.framework.models.entity.Driver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

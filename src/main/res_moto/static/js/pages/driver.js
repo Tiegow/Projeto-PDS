@@ -141,7 +141,7 @@ function mostrarDetalhes(driver_number) {
                             <div class="col-md-6">
                                 <div class="card mb-3 bg-light">
                                     <div class="card-body">
-                                        <h4 class="mb-3">Dados do Carro</h4>
+                                        <h4 class="mb-3">Dados da Moto</h4>
                                         <div class="d-flex justify-content-between mb-2">
                                             <span>Modelo:</span>
                                             <strong>${data.car_model}</strong>

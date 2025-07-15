@@ -2,7 +2,7 @@ package org.project.framework.repositories;
 
 import java.util.List;
 
-import org.project.easyf1.models.entity.Meeting;
+import org.project.framework.models.entity.Meeting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

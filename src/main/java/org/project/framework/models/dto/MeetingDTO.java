@@ -2,7 +2,7 @@ package org.project.framework.models.dto;
 
 import java.time.OffsetDateTime;
 
-import org.project.easyf1.models.entity.Meeting;
+import org.project.framework.models.entity.Meeting;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

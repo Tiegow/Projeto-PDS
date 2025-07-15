@@ -2,9 +2,9 @@ package org.project.framework.services;
 
 import org.project.framework.exception.CarNotFoundException;
 import org.project.framework.exception.SessionNotFoundException;
-import org.project.easyf1.models.dto.VehicleDTO;
-import org.project.easyf1.models.entity.Vehicle;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.dto.VehicleDTO;
+import org.project.framework.models.entity.Vehicle;
+import org.project.framework.models.entity.Session;
 import org.project.framework.repositories.SessionRepository;
 import org.project.framework.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;

@@ -4,13 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.project.easyf1.client.EasyF1DriverProvider;
-import org.project.easyf1.models.entity.Meeting;
-import org.project.framework.models.dto.MeetingDTO;
+import org.project.framework.providers.DriverProvider;
+import org.project.framework.models.entity.Meeting;
 import org.project.framework.models.dto.TeamDTO;
-import org.project.easyf1.models.entity.Driver;
-import org.project.easyf1.models.entity.Session;
-import org.project.easyf1.models.entity.Team;
+import org.project.framework.models.entity.Driver;
+import org.project.framework.models.entity.Session;
+import org.project.framework.models.entity.Team;
 import org.project.framework.models.dto.GeminiResponse;
 import org.project.framework.repositories.DriverRepository;
 import org.project.framework.models.dto.DriverDTO;
@@ -36,7 +35,7 @@ public class TeamsInitializer {
 
     private final DriverRepository driverRepository;
 
-    private final EasyF1DriverProvider driverClient;
+    private final DriverProvider driverClient;
 
     private final MeetingRepository meetingRepository;
 
@@ -58,7 +57,7 @@ public class TeamsInitializer {
     }
 
 
-    public TeamsInitializer(SessionRepository sessionRepository, TeamRepository teamRepository, DriverRepository driverRepository, EasyF1DriverProvider driverClient, LLMService llmService, MeetingRepository meetingRepository) {
+    public TeamsInitializer(SessionRepository sessionRepository, TeamRepository teamRepository, DriverRepository driverRepository, DriverProvider driverClient, LLMService llmService, MeetingRepository meetingRepository) {
         this.sessionRepository = sessionRepository;
         this.teamRepository = teamRepository;
         this.driverRepository = driverRepository;
@@ -136,7 +135,7 @@ public class TeamsInitializer {
 
     private String criarTimesFalsos() {
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando times da NASCAR. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando times do MotoGP. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("team_name (nome do time), ");
         s.append("first_driver_number (número do primeiro piloto do time, entre 0 e 99), ");
@@ -244,7 +243,7 @@ public class TeamsInitializer {
 
     private List<DriverDTO> listarPilotos(List<String> idsMeeting, List<String> idsSessions, List<String> nomesEquipes){
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando pilotos da NASCAR. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando pilotos da MotoGP. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("broadcast_name (nome usado para transmissão, como 'J. Doe' ou 'M. Johnson'), ");
         s.append("country_code (código do país no padrão alpha-3, como 'USA' ou 'BRA'), ");

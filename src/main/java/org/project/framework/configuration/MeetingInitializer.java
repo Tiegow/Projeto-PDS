@@ -1,18 +1,16 @@
 package org.project.framework.configuration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.project.easyf1.client.MeetingClient;
 import org.project.easyf1.client.SessionClient;
-import org.project.framework.models.dto.GeminiRequest;
 import org.project.framework.models.dto.GeminiResponse;
 import org.project.framework.models.dto.MeetingDTO;
 import org.project.framework.models.dto.SessionDTO;
-import org.project.easyf1.models.entity.Meeting;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Meeting;
+import org.project.framework.models.entity.Session;
 import org.project.framework.repositories.MeetingRepository;
 import org.project.framework.repositories.SessionRepository;
 import org.project.framework.services.LLMService;
@@ -111,7 +109,7 @@ public class MeetingInitializer {
 
     private List<MeetingDTO> getAllMeetingDTOS() {
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando Grandes Prêmios aleatórios de corrida da NASCAR. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando Grandes Prêmios aleatórios de corrida da MotoGP. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("meeting_key (número inteiro), ");
         s.append("meeting_name (nome do evento), ");
@@ -160,7 +158,7 @@ public class MeetingInitializer {
 
     private List<SessionDTO> getAllSessionsDTOS(List<String> idsMeetings) {
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando sessões de corrida da NASCAR. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando sessões de corrida da MotoGP. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("id (número inteiro único), ");
         s.append("location (cidade e estado onde ocorre a sessão), ");

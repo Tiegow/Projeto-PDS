@@ -1,6 +1,6 @@
 package org.project.framework.repositories;
 
-import org.project.easyf1.models.entity.Vehicle;
+import org.project.framework.models.entity.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

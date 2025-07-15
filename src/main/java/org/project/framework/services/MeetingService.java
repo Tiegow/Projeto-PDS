@@ -2,14 +2,13 @@ package org.project.framework.services;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.project.easyf1.client.MeetingClient;
+import org.project.framework.providers.MeetingProvider;
 import org.project.framework.controllers.MeetingController;
 import org.project.framework.models.dto.MeetingDTO;
-import org.project.easyf1.models.entity.Meeting;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Meeting;
+import org.project.framework.models.entity.Session;
 import org.project.framework.repositories.MeetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
  * 
  * <p><strong>Responsabilidades principais:</strong></p>
  * <ul>
- *     <li>Buscar e armazenar novos meetings obtidos da API externa OpenF1 através do {@link MeetingClient}.</li>
+ *     <li>Buscar e armazenar novos meetings obtidos da API externa OpenF1 através do {@link MeetingProvider}.</li>
  *     <li>Persistir os dados obtidos no banco de dados usando {@link MeetingRepository}.</li>
  *     <li>Fornecer listas de meetings filtradas por ano, convertendo entidades para DTOs com informações complementares.</li>
  * </ul>

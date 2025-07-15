@@ -2,7 +2,7 @@ package org.project.easyf1.security.service;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.project.easyf1.models.entity.User;
+import org.project.framework.models.entity.User;
 import org.project.easyf1.security.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

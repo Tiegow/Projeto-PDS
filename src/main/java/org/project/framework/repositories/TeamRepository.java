@@ -1,6 +1,6 @@
 package org.project.framework.repositories;
 
-import org.project.easyf1.models.entity.Team;
+import org.project.framework.models.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

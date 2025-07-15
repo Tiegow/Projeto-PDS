@@ -1,7 +1,7 @@
 package org.project.framework.controllers;
 
-import org.project.easyf1.models.dto.UserDTO;
-import org.project.easyf1.models.entity.User;
+import org.project.framework.models.dto.UserDTO;
+import org.project.framework.models.entity.User;
 import org.project.framework.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

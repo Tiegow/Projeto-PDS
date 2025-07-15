@@ -1,4 +1,4 @@
-package org.project.easyf1.models.dto;
+package org.project.framework.models.dto;
 
 
 public class TokenDTO {

@@ -1,6 +1,6 @@
 package org.project.framework.controllers;
 
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Session;
 import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.repositories.SessionRepository;
 import org.project.framework.services.DriverService;

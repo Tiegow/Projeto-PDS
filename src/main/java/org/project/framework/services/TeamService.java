@@ -1,6 +1,6 @@
 package org.project.framework.services;
 
-import org.project.easyf1.models.entity.Team;
+import org.project.framework.models.entity.Team;
 import org.project.framework.models.dto.TeamDTO;
 import org.project.framework.repositories.DriverRepository;
 import org.project.framework.repositories.TeamRepository;

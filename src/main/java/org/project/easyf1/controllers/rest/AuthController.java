@@ -3,10 +3,10 @@ package org.project.easyf1.controllers.rest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.project.easyf1.models.dto.LoginDTO;
-import org.project.easyf1.models.dto.RegisterDTO;
-import org.project.easyf1.models.dto.TokenDTO;
-import org.project.easyf1.models.entity.User;
+import org.project.framework.models.dto.LoginDTO;
+import org.project.framework.models.dto.RegisterDTO;
+import org.project.framework.models.dto.TokenDTO;
+import org.project.framework.models.entity.User;
 import org.project.framework.repositories.UserRepository;
 import org.project.easyf1.security.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;

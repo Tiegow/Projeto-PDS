@@ -1,4 +1,4 @@
-package org.project.easyf1.models.entity;
+package org.project.framework.models.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

@@ -1,9 +1,9 @@
 package org.project.framework.services;
 
-import org.project.easyf1.client.EasyF1DriverProvider;
+import org.project.framework.providers.DriverProvider;
 import org.project.framework.exception.SessionNotFoundException;
-import org.project.easyf1.models.entity.Driver;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Driver;
+import org.project.framework.models.entity.Session;
 import org.project.framework.repositories.DriverRepository;
 import org.project.framework.models.dto.DriverDTO;
 import org.project.framework.repositories.SessionRepository;
@@ -17,11 +17,11 @@ public class DriverService {
 
     private final DriverRepository driverRepository;
 
-    private final EasyF1DriverProvider driverClient;
+    private final DriverProvider driverClient;
 
     private final SessionRepository sessionRepository;
 
-    public DriverService(DriverRepository driverRepository, EasyF1DriverProvider driverClient, SessionRepository sessionRepository) {
+    public DriverService(DriverRepository driverRepository, DriverProvider driverClient, SessionRepository sessionRepository) {
         this.driverRepository = driverRepository;
         this.driverClient = driverClient;
         this.sessionRepository = sessionRepository;

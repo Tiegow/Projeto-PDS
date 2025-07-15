@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.OffsetDateTime;
 
-import org.project.easyf1.models.entity.Meeting;
-import org.project.easyf1.models.entity.Session;
+import org.project.framework.models.entity.Meeting;
+import org.project.framework.models.entity.Session;
 
 /**
  * Data Transfer Object (DTO) que representa os dados de uma sessão de corrida (Session).
