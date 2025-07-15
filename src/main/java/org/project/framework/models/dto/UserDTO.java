@@ -3,7 +3,6 @@ package org.project.framework.models.dto;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.project.framework.models.entity.User;
-import org.project.framework.models.dto.TeamDTO;
 
 public class UserDTO {
 

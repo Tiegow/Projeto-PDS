@@ -1,6 +1,5 @@
-package org.project.easyf1.client;
+package org.project.easyNascar.client;
 
-import java.sql.Driver;
 import java.util.List;
 
 import org.project.framework.models.dto.DriverDTO;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
-public class EasyF1DriverProvider implements DriverProvider {
-    
-    private final EasyF1DriverClient easyf1Client;
+public class EasyNascarDriverProvider implements DriverProvider {
+
+    private final EasyNascarDriverClient easyf1Client;
 
     @Autowired
-    public EasyF1DriverProvider(EasyF1DriverClient easyf1Client) {
+    public EasyNascarDriverProvider(EasyNascarDriverClient easyf1Client) {
         this.easyf1Client = easyf1Client;
     }
 
@@ -35,8 +34,8 @@ public class EasyF1DriverProvider implements DriverProvider {
         return easyf1Client.getDrivers(sessionKey);
     }
 
-    @FeignClient(name = "openf1-driver", url = "https://api.openf1.org/v1/drivers")
-    interface EasyF1DriverClient {
+    @FeignClient(name = "openf1-driver", url = "")
+    interface EasyNascarDriverClient {
         @GetMapping()
         List<DriverDTO> getDrivers(@RequestParam("session_key") Integer sessionKey);
 

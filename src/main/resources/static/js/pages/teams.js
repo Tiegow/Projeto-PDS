@@ -115,7 +115,7 @@ function mostrarDetalhes(teamName, detalhesContainer, teamColorForGradient) {
         })
         .then(data => {
             const detailTeamColor = data.teamColor;
-            const baseColor = detailTeamColor.startsWith('#') ? detailTeamColor : `#${detailTeamColor}`;
+            const baseColor = `#${detailTeamColor}`;
             const lighterGradientColor = createDarkerColor(baseColor, 20);
 
             detalhesContainer.innerHTML = `

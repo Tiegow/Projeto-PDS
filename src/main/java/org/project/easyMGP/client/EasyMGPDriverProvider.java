@@ -1,6 +1,5 @@
-package org.project.easyf1.client;
+package org.project.easyMGP.client;
 
-import java.sql.Driver;
 import java.util.List;
 
 import org.project.framework.models.dto.DriverDTO;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Component
-public class EasyF1DriverProvider implements DriverProvider {
+public class EasyMGPDriverProvider implements DriverProvider {
     
     private final EasyF1DriverClient easyf1Client;
 
     @Autowired
-    public EasyF1DriverProvider(EasyF1DriverClient easyf1Client) {
+    public EasyMGPDriverProvider(EasyF1DriverClient easyf1Client) {
         this.easyf1Client = easyf1Client;
     }
 
@@ -35,7 +34,7 @@ public class EasyF1DriverProvider implements DriverProvider {
         return easyf1Client.getDrivers(sessionKey);
     }
 
-    @FeignClient(name = "openf1-driver", url = "https://api.openf1.org/v1/drivers")
+    @FeignClient(name = "openf1-driver", url = "")
     interface EasyF1DriverClient {
         @GetMapping()
         List<DriverDTO> getDrivers(@RequestParam("session_key") Integer sessionKey);
