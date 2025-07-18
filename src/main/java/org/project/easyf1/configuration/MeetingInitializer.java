@@ -97,7 +97,7 @@ public class MeetingInitializer {
 
     private List<MeetingDTO> getAllMeetingDTOS() {
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando Grandes Prêmios aleatórios de corrida da MotoGP. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando Grandes Prêmios aleatórios de corrida da Formula 1. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("meeting_key (número inteiro), ");
         s.append("meeting_name (nome do evento), ");
@@ -146,7 +146,7 @@ public class MeetingInitializer {
 
     private List<SessionDTO> getAllSessionsDTOS(List<String> idsMeetings) {
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando sessões de corrida da MotoGP. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando sessões de corrida da Formula 1. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("id (número inteiro único), ");
         s.append("location (cidade e estado onde ocorre a sessão), ");

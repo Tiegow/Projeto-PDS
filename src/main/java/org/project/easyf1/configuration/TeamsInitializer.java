@@ -135,7 +135,7 @@ public class TeamsInitializer {
 
     private String criarTimesFalsos() {
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando times do MotoGP. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando times do Formula 1. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("team_name (nome do time), ");
         s.append("first_driver_number (número do primeiro piloto do time, entre 0 e 99), ");
@@ -243,7 +243,7 @@ public class TeamsInitializer {
 
     private List<DriverDTO> listarPilotos(List<String> idsMeeting, List<String> idsSessions, List<String> nomesEquipes){
 
-        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando pilotos da MotoGP. ");
+        StringBuilder s = new StringBuilder("Quero que você me retorne um array JSON contendo 20 objetos representando pilotos da Formula 1. ");
         s.append("Cada objeto deve conter os seguintes campos: ");
         s.append("broadcast_name (nome usado para transmissão, como 'J. Doe' ou 'M. Johnson'), ");
         s.append("country_code (código do país no padrão alpha-3, como 'USA' ou 'BRA'), ");
